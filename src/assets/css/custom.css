@@ -1,0 +1,1373 @@
+@font-face {
+    font-family: "vazir Thin";
+    src: url("../webfonts/vazir/Vazir-Thin-FD-WOL.eot"); /* IE9 Compat Modes */
+    src: url("../webfonts/vazir/Vazir-Thin-FD-WOL.eot?#iefix") format("embedded-opentype"), /* Legacy iOS */ url("../webfonts/vazir/Vazir-Thin-FD-WOL.woff") format("woff"), /* Modern Browsers */ url("../webfonts/vazir/Vazir-Thin-FD-WOL.woff2") format("woff2"); /* Modern Browsers */
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "vazir Light";
+    src: url("../webfonts/vazir/Vazir-Light-FD-WOL.eot"); /* IE9 Compat Modes */
+    src: url("../webfonts/vazir/Vazir-Light-FD-WOL.eot?#iefix") format("embedded-opentype"), /* Legacy iOS */ url("../webfonts/vazir/Vazir-Light-FD-WOL.woff") format("woff"), /* Modern Browsers */ url("../webfonts/vazir/Vazir-Light-FD-WOL.woff2") format("woff2"); /* Modern Browsers */
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "vazir";
+    src: url("../webfonts/vazir/Vazir-FD-WOL.eot"); /* IE9 Compat Modes */
+    src: url("../webfonts/vazir/Vazir-FD-WOL.eot?#iefix") format("embedded-opentype"), /* Legacy iOS */ url("../webfonts/vazir/Vazir-FD-WOL.woff") format("woff"), /* Modern Browsers */ url("../webfonts/vazir/Vazir-FD-WOL.woff2") format("woff2"); /* Modern Browsers */
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "vazir medium";
+    src: url("../webfonts/vazir/Vazir-Medium-FD-WOL.eot"); /* IE9 Compat Modes */
+    src: url("../webfonts/vazir/Vazir-Medium-FD-WOL.eot?#iefix") format("embedded-opentype"),  /* Legacy iOS */ url("../webfonts/vazir/Vazir-Medium-FD-WOL.woff") format("woff"), /* Modern Browsers */ url("../webfonts/vazir/Vazir-Medium-FD-WOL.woff2") format("woff2"); /* Modern Browsers */
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "vazir bold";
+    src: url("../webfonts/vazir/Vazir-Bold-FD-WOL.eot"); /* IE9 Compat Modes */
+    src: url("../webfonts/vazir/Vazir-Bold-FD-WOL.eot?#iefix") format("embedded-opentype"), /* Legacy iOS */ url("../webfonts/vazir/Vazir-Bold-FD-WOL.woff") format("woff"), /* Modern Browsers */ url("../webfonts/vazir/Vazir-Bold-FD-WOL.woff2") format("woff2"); /* Modern Browsers */
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --bgcolor: #f6f6f6;
+    --lightgray: #b1b1b1;
+    --darkgray: #1b1b1b;
+    --gray95: #f1f1f1;
+    --gray90: #e2e2e2;
+    --gray80: #c6c6c6;
+    --gray70: #ababab;
+    --gray60: #919191;
+    --gray50: #777;
+    --gray15: #262626;
+    --blue: #00305b;
+    --light-blue: #e5eaee;
+    --medium-blue: #ccd6de;
+    --pink: #e6007e;
+    --lightpink: #fce5f2;
+    --lightgreenbg: #e5f6e5;
+    --lightgreen: #00a900;
+    --green: #028b09;
+    --light-red: #ff4444;
+    --dangerred: #ff0000;
+    --red: #c84c47;
+    --bs-gutter-x: 30px !important;
+    --border-input: #f1f1f1;
+    --passed: #ffdada;
+    --light-orange: #fef4e8;
+    --orange: #f7941d;
+}
+
+body, html {
+    font-family: vazir, Arial, sans-serif;
+    font-size: 12px;
+    color: var(--gray50);
+}
+
+@media (min-width: 992px) {
+    body, html {
+        font-size: 14px;
+    }
+
+    .main-content#artworks .fw-block .flex-end {
+        margin-top: 1.5rem;
+    }
+}
+
+
+a,
+a:hover {
+    text-decoration: none;
+    color: var(--gray50);
+}
+
+ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+button {
+    border: 0;
+    background-color: transparent;
+}
+
+.top-header {
+    padding: 10px;
+}
+
+.flex-between {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-around {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.flex-start {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.flex-end {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.container {
+    max-width: 1280px;
+    width: 100%;
+    background: var(--bgcolor);
+    min-height: 100vh;
+    padding-bottom: 15px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.notification {
+    position: relative;
+}
+
+.notification i {
+    font-size: 24px;
+    color: #707070;
+}
+
+.share i {
+    font-size: 1.2rem;
+}
+
+.notification.new-notice:after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 10px;
+    background: var(--pink);
+    border: 3px solid var(--gray95);
+    box-sizing: content-box;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+}
+
+.input-group {
+    position: relative;
+}
+
+.default-input {
+    background-color: var(--bgcolor);
+    border: 1px solid var(--gray95);
+    padding: 10px 15px;
+    border-radius: 32px;
+    width: 100%;
+}
+
+.default-input::placeholder {
+    font-size: 0.85rem;
+}
+
+.default-input:focus {
+    outline: 0;
+}
+
+
+.input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback),
+.input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu) {
+    border-radius: 32px;
+}
+
+
+.input-group.search button {
+    position: absolute;
+    left: 10px;
+    top: 9px;
+    color: var(--gray50);
+}
+
+.btn-advancesearch i {
+    font-size: 1.5rem;
+    color: var(--darkgray);
+    font-weight: normal;
+}
+
+.input-group.search {
+    margin-bottom: 10px;
+}
+
+
+/***********Full width block****/
+.fw-block {
+    width: 100%;
+    background: var(--bs-white);
+    border-radius: 1.5rem;
+    padding: 15px;
+    box-shadow: 0 0 5px 2px var(--gray90);
+}
+
+.tags-block {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.auction-category {
+    background-color: var(--bs-white);
+    border-radius: 5px;
+    color: var(--pink);
+    padding: 2px 15px 2px 2px;
+    background-repeat: no-repeat;
+    background-position: right 3px center;
+    background-size: 10px;
+    font-size: .7rem;
+}
+
+.auction-category.won {
+    background-color: var(--green);
+    color: var(--bs-white);
+    padding: 2px 10px;
+}
+
+.auction-category.lose {
+    background-color: var(--red);
+    color: var(--bs-white);
+    padding: 2px 10px;
+}
+
+.auction-category.live {
+    background-image: url("../img/live-icon.svg");
+}
+
+.auction-category.online {
+    background-image: url("../img/online-icon.svg");
+}
+
+.auction-category.timed {
+    background-image: url("../img/timed-icon.svg");
+}
+
+.auction-category.firstoffer {
+    background-image: url("../img/firstoffer-icon.svg");
+}
+
+.auction-category.secondoffer {
+    background-image: url("../img/secondoffer-icon.svg");
+}
+
+
+.img-block {
+    position: relative;
+}
+
+.artist-name {
+    font-size: 1rem;
+    color: var(--darkgray);
+    font-family: "vazir bold", sans-serif;
+    margin-top: 5px;
+}
+
+.artwork-name {
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--darkgray);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.btn-favorite {
+    position: relative;
+}
+
+.btn-favorite:before {
+    content: "\f004";
+    font-family: "Font Awesome\ 5 Pro", sans-serif;
+    font-size: 1.5rem;
+    color: var(--gray70);
+    font-weight: 100;
+}
+
+.btn-favorite.active:before {
+    font-weight: 700;
+    color: var(--pink);
+}
+
+.price-title {
+    font-size: 0.7rem;
+    color: var(--gray70);
+}
+
+.price {
+    display: inline-block;
+}
+
+.price span {
+    font-size: 1rem;
+    font-family: "vazir bold", sans-serif;
+    color: var(--darkgray);
+}
+
+.unit {
+    font-family: vazir, sans-serif !important;
+    font-size: .8rem !important;
+    color: var(--gray50) !important;
+}
+
+.num-bids {
+    font-size: .8rem
+}
+
+.right-align {
+    text-align: right;
+}
+
+.gallery-name {
+    display: block;
+    font-size: .8rem;
+}
+
+.countdown {
+    font-size: .8rem;
+}
+
+.countdown.start {
+    color: var(--lightgreen);
+}
+
+.countdown.end {
+    color: var(--red);
+}
+
+.fw-block {
+    margin-top: 10px;
+}
+
+.fw-block:first-child {
+    margin-top: 0;
+}
+
+
+footer {
+    background: var(--bs-white);
+    padding: 0 15px;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top: 1px solid var(--gray90);
+    text-align: center;
+    z-index: 500;
+}
+
+.btn-footer {
+    color: var(--gray70);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.btn-footer i {
+    font-size: 20px;
+}
+
+.btn-footer i.fa-gavel {
+    transform: rotate(270deg);
+}
+
+.bottomnav {
+    display: block;
+    font-size: .8rem;
+}
+
+.btn-footer.active {
+    color: var(--darkgray);
+}
+
+.btn-footer.active i {
+    font-weight: bold;
+}
+
+footer .col {
+    padding: 0;
+}
+
+.fw-block .col-4 {
+    padding-left: 0;
+}
+
+.main-content#artworks .fw-block .flex-end {
+    margin-top: .5rem;
+}
+
+.auction-house-name {
+    font-size: .9rem;
+    color: var(--gray60);
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+
+.btn-main {
+    padding: 5px 15px;
+    border-radius: 30px;
+    background: var(--pink);
+    color: var(--bs-white);
+    font-size: .8rem;
+}
+
+.show-text {
+    display: none;
+}
+
+.main-title {
+    font-size: 1.4rem;
+    color: var(--darkgray);
+    font-family: "vazir bold", sans-serif;
+    margin: 0;
+}
+
+.btn-erase {
+    font-size: .8rem;
+    color: var(--red);
+    padding: 0;
+}
+
+
+.sidebar-header .btn-close {
+    width: .9rem;
+    height: .9rem;
+    padding: 0;
+}
+
+.sidebar,
+.filterlist-group {
+    background: var(--bs-white);
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1000;
+    padding: 10px 15px;
+    display: none;
+    overflow: scroll;
+}
+
+.sidebar-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-top: 15px;
+    position: sticky;
+    top: 0;
+    background: var(--bs-white);
+}
+
+.sidebar-header button {
+    min-width: 42px;
+}
+
+
+.default-label {
+    color: var(--gray50);
+    font-size: .9rem;
+    margin-bottom: 5px;
+    margin-right: 15px;
+}
+
+.default-label i {
+    margin-left: 5px;
+}
+
+.mrgt30 {
+    margin-top: 30px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-select {
+    background-position: left 1rem center;
+}
+
+.input-group.search .default-input {
+    padding: 10px 15px 10px 55px;
+    background-color: var(--bs-white);
+}
+
+.sidebar-filter {
+    margin-top: 3rem;
+}
+
+.sidebar-filterlist li a {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: .8rem .7rem;
+    background: var(--bgcolor);
+    margin-bottom: 10px;
+    border-radius: 3rem;
+    color: var(--darkgray);
+    border: 1px solid var(--gray95);
+    position: relative;
+}
+
+.sidebar-filterlist li a:before {
+    content: "\f054";
+    font-family: "Font Awesome\ 5 Pro";
+    position: absolute;
+    left: 15px;
+    width: 12px;
+    transform: rotate(180deg);
+}
+
+.sidebar-filterlist li a i {
+    margin-right: 10px;
+    margin-left: 10px;
+    text-align: center;
+    width: 16px;
+    font-size: 1rem;
+}
+
+.sidebar-filterlist li a span {
+    font-size: .8rem;
+    color: var(--gray50);
+    position: absolute;
+    left: 35px;
+}
+
+button:focus,
+button:hover,
+button {
+    outline: 0 !important;
+    box-shadow: 0 0 0 0 transparent !important;
+}
+
+.main-filterlist {
+    display: inline-flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.main-filterlist li {
+    padding: .3rem .8rem;
+    border: 1px solid var(--gray90);
+    border-radius: 1rem;
+    margin-left: 2px;
+    background: var(--bgcolor);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-filterlist li a {
+    display: inline-block;
+    font-size: .8rem;
+}
+
+.main-filterlist li span {
+    margin-right: 10px;
+}
+
+.main-filterlist li.active {
+    border: 1px solid var(--pink);
+    background: var(--bgcolor);
+}
+
+.main-filterlist li.active a,
+.main-filterlist li.active span {
+    color: var(--pink);
+}
+
+.sidebar-header .input-group.search {
+    margin: 0;
+}
+
+.btn-back {
+    padding: 10px 5px;
+}
+
+.btn-back i {
+    font-weight: bold;
+    color: var(--gray50);
+    font-size: 1rem;
+    transform: rotate(180deg);
+}
+
+.filterlist-group .sidebar-header {
+    padding-bottom: 10px;
+    margin-bottom: 0;
+}
+
+.input-group.search .btn-searchlocation {
+    font-size: 1.2rem;
+    top: 7px;
+}
+
+.main-list .form-check {
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray95);
+}
+
+.form-check {
+    padding-left: 0;
+    padding-right: 1.5em;
+}
+
+.form-check-input:checked {
+    background-color: var(--darkgray);
+    border-color: var(--darkgray);
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem var(--gray90);
+}
+
+.form-check-input:checked ~ label {
+    color: var(--darkgray);
+}
+
+.sidebar-filter .btn-main {
+    float: right;
+    padding: .5rem 2rem;
+    font-size: .9rem;
+}
+
+.form-check-label {
+    width: 100%;
+}
+
+.main-nav {
+    border-bottom: 1px solid var(--gray90);
+}
+
+.main-nav.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background: none;
+    border-bottom: 3px solid var(--pink);
+    margin-bottom: -2px;
+    color: var(--pink);
+}
+
+.main-nav.nav-pills .nav-link {
+    border-radius: 0;
+    color: var(--gray60);
+    font-size: 1rem;
+}
+
+#auctions .fw-block .img-block {
+    padding: 0 15px;
+}
+
+.tab-content {
+    margin-top: 15px;
+}
+
+#auctions .tab-content .artist-name {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.auction-date {
+    font-size: .9rem;
+}
+
+.date-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+    width: 100%;
+    overflow: scroll;
+}
+
+.date-list li {
+    text-align: center;
+    padding: 0 10px;
+    color: var(--darkgray);
+    font-size: .8rem;
+}
+
+.date-list li.disabled {
+    color: var(--gray80);
+}
+
+.date-list li.current {
+    color: var(--darkgray);
+}
+
+.date-list li:first-child {
+    padding-left: 0;
+}
+
+.date-list li span {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    box-sizing: content-box;
+}
+
+.date-list li.current span {
+    background: var(--pink);
+    color: var(--bs-white);
+}
+
+.owl-carousel.auction-details-img .owl-item img {
+    height: auto;
+}
+
+h6.default {
+    font-family: "vazir bold", sans-serif;
+    color: var(--darkgray);
+    font-size: 1rem;
+}
+
+.mrgt10 {
+    margin-top: 10px;
+}
+
+.lot-number {
+    min-width: 20px;
+    height: 20px;
+    border: 1px solid var(--gray90);
+    padding: 3px;
+    border-radius: 20px;
+    box-sizing: content-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.mrgt15 {
+    margin-top: 15px;
+}
+
+
+#auction-detail .artist-name {
+    margin-top: 0;
+}
+
+#auction-detail .main-nav {
+    position: sticky;
+    top: 0;
+    background: var(--bgcolor);
+    padding-top: 15px;
+    z-index: 100;
+}
+
+.img-artists {
+    width: 100%;
+    max-width: 40px;
+    border-radius: 100%;
+    height: 40px;
+}
+
+.img-block .artist-name {
+    margin-bottom: 0;
+    margin-right: 5px;
+}
+
+.lot-arrow {
+    font-size: .8rem;
+}
+
+.lot-arrow span {
+    margin: 0 5px;
+}
+
+
+#auction-detail-artwork .default {
+    margin-bottom: 0
+}
+
+.artwork-bigimg {
+    height: 350px;
+}
+
+.artwork-bigimg img {
+    height: 100%;
+    width: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+.flex-col {
+
+}
+
+p a {
+    color: var(--blue);
+    font-style: italic;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+p a i {
+    font-size: .8rem;
+    margin-left: 5px;
+}
+
+#auction-detail-artwork .countdown {
+    font-size: 1rem;
+    font-family: "vazir bold", sans-serif;
+}
+
+.current-bid .default {
+    color: var(--pink);
+}
+
+#auction-detail-artwork .countdown .gutter-5 {
+    font-size: .8rem;
+    font-family: vazir, sans-serif;
+    margin-left: 2px;
+}
+
+#auction-detail-artwork .countdown span {
+    color: var(--darkgray);
+}
+
+.current-bid span {
+    color: var(--gray50);
+}
+
+.input-group.with-step {
+    position: relative;
+}
+
+.input-group.with-step span {
+    position: absolute;
+    top: 6px;
+}
+
+.input-group.with-step span i {
+    font-size: 2rem;
+}
+
+.input-group.with-step span:first-child {
+    left: 15px;
+}
+
+.input-group.with-step span:last-child {
+    right: 15px;
+}
+
+.input-group.with-step .default-input {
+    padding-right: 40px;
+    padding-left: 40px;
+    text-align: center;
+}
+
+.input-group.with-step .default-input::placeholder {
+    text-align: center;
+}
+
+.flex-column .btn-main {
+    width: 100%;
+    padding: 10px 15px;
+    margin-top: 5px;
+}
+
+.bg-white {
+    background-color: var(--bs-white);
+}
+
+.sidebar-filterlist li.complete a {
+    background-color: var(--lightgreenbg);
+    border-color: var(--lightgreen);
+}
+
+.sidebar-filterlist li.complete a:before {
+    content: "\f00c";
+    color: var(--green);
+    transform: rotate(0deg);
+}
+
+
+.sidebar-filterlist li.complete a span {
+    color: var(--lightgreen);
+}
+
+.sidebar-filterlist li.inprogress a {
+    background-color: var(--light-orange);
+    border-color: var(--orange);
+}
+
+.sidebar-filterlist li.inprogress a span {
+    color: var(--orange);
+}
+
+
+#auction-register .sidebar-filterlist li a,
+#account-page .sidebar-filterlist li a {
+    padding-right: 10px;
+    padding-left: 20px;
+}
+
+
+.sidebar-body .btn-main {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+}
+
+option#iran {
+    background: url("../img/iran.png") no-repeat center;
+    width: 40px;
+    height: auto;
+    display: block;
+}
+
+.form-group img {
+    max-width: 30px;
+    width: 100%;
+    height: auto;
+}
+
+.select-country {
+    display: block;
+}
+
+.select-country .dropdown-toggle {
+    background: var(--bgcolor);
+    border: 1px solid var(--gray95);
+    padding: 10px 15px 10px 15px;
+    border-top-right-radius: 32px;
+    border-bottom-right-radius: 32px;
+    border-right: 0;
+}
+
+.flex-start .default-input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-left: 0;
+}
+
+.select-country .dropdown-menu {
+    min-width: 62px;
+}
+
+.form-group .flex-start {
+    position: relative;
+}
+
+.pre-num {
+    position: absolute;
+    left: 20px;
+    font-size: 1rem;
+    top: 11px;
+    color: var(--darkgray);
+}
+
+
+.form-group .flex-start .default-input {
+    padding-left: 45px;
+    text-align: left;
+}
+
+.btns .btn-main {
+    width: 100%;
+    padding: 10px 15px;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group input[type=file] {
+    opacity: 0;
+    width: 50%;
+    padding: 0;
+    margin: 0 15px;
+    max-width: 250px;
+}
+
+.form-group .btn-upload {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    width: 50%;
+    max-width: 250px;
+    font-size: .9rem;
+    padding: 10px 30px;
+}
+
+.btn-upload {
+    background: var(--lightpink);
+    display: inline-block;
+    padding: 5px 30px;
+    border-radius: 30px;
+    font-size: 1rem;
+    color: var(--pink);
+}
+
+.btn-upload i {
+    transform: rotate(270deg);
+    margin-left: 2px;
+}
+
+.file-group p {
+    padding: 0 15px;
+}
+
+.file-group {
+    margin-bottom: 30px;
+}
+
+.form-check.img-checkbox {
+    position: relative;
+    padding-right: 0;
+    z-index: 10;
+    margin-bottom: 15px;
+}
+
+.form-check.img-checkbox .artwork-img {
+    border: 3px solid transparent;
+    transition: all .5s ease 0s;
+}
+
+.form-check.img-checkbox:hover .artwork-img {
+    border: 3px solid var(--darkgray);
+}
+
+.form-check.img-checkbox .form-check-input {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    margin: 0;
+    z-index: 12;
+    width: 30px;
+    height: 30px;
+}
+
+.form-check.img-checkbox .form-check-input:checked ~ .form-check-label .artwork-img {
+    border: 3px solid var(--darkgray);
+}
+
+.form-check .lot-number {
+    margin-top: 0;
+}
+
+.btns {
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    padding: 10px 0;
+    background: var(--bs-white);
+}
+
+.form-check-input:focus {
+    border-color: transparent;
+}
+
+.value-list {
+    margin: 15px 0;
+    display: inline-block;
+    width: 100%;
+}
+
+.value-list .flex-around {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gray95);
+}
+
+.value-list .flex-around:nth-child(even) {
+    background-color: var(--bgcolor);
+}
+
+.value-list .flex-around:last-child {
+    border-bottom: 0;
+}
+
+.value-list .flex-around .default {
+    margin-bottom: 0;
+}
+
+#mybids .price-title {
+    display: block;
+}
+
+#account-page .default {
+    margin-right: 15px;
+}
+
+
+.verify-state {
+    width: 37px;
+    height: 37px;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+}
+
+.verify-state.warning i {
+    color: var(--orange);
+    font-size: 1.5rem;
+}
+
+
+.verify-state-msg {
+    color: var(--orange);
+    font-size: .8rem;
+    margin-right: 15px;
+}
+
+.verify-state-msg i {
+    margin-left: 5px;
+    margin-top: 2px;
+}
+
+.mrgtb30 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.mrgl15 {
+    margin-left: 15px;
+}
+
+.auction-state {
+    display: flex;
+    align-items: center;
+    font-size: .8rem;
+    margin-bottom: 5px;
+}
+
+
+.auction-state i {
+    font-weight: bold;
+    font-size: .6rem;
+    background: var(--bs-white);
+    border-radius: 100%;
+    padding: 4px;
+    margin-left: 5px;
+}
+
+.auction-state.confirm {
+    color: var(--lightgreen);
+}
+
+.auction-state.confirm i {
+    background-color: var(--lightgreenbg);
+    color: var(--lightgreen);
+}
+
+.auction-state.pending {
+    color: var(--orange);
+}
+
+.auction-state.pending i {
+    background-color: var(--light-orange);
+    color: var(--orange);
+}
+
+.auction-state.failed {
+    color: var(--light-red);
+}
+
+.auction-state.failed i {
+    background-color: var(--passed);
+    color: var(--light-red);
+}
+
+
+.failed-txt {
+    border-top: 1px solid var(--gray95);
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.fw-block .new-notices {
+    position: relative;
+}
+
+.new-notices i {
+    font-weight: bold;
+    font-size: .7rem;
+    color: var(--lightgreen);
+}
+
+#pills-notification .new-notices .default {
+    color: var(--darkgray) !important;
+}
+
+#pills-notification .default {
+    color: var(--gray50);
+}
+
+.notification-body .btn-main {
+    width: 100%;
+}
+
+.notification-body .btn-main i {
+    margin-left: 5px;
+}
+
+.notification-body p {
+    margin-bottom: 0;
+}
+
+#Ticket-detail .img-artists {
+    max-width: 20px;
+    height: auto;
+}
+
+#Ticket-detail .artist-name {
+    margin-top: 0;
+    font-size: .8rem;
+}
+
+#Ticket-detail p {
+    margin-bottom: 0;
+}
+
+.ticket-block {
+    display: flex;
+    flex-direction: column;
+    max-width: 95%;
+}
+
+.ticket-block.support {
+    float: left;
+}
+
+.ticket-block.support .fw-block {
+    background-color: var(--bgcolor);
+}
+
+.ticket-block {
+    margin-top: 15px;
+}
+
+.ticket-block .fw-block {
+    margin-top: 5px;
+}
+
+
+.send-txt {
+    padding: 10px 0;
+}
+
+.send-txt {
+    position: relative;
+}
+
+.send-txt i {
+    position: absolute;
+    left: 6px;
+    top: 14px;
+    color: var(--gray70);
+    font-size: 31px;
+    transform: rotate(180deg);
+}
+
+.ticket-date {
+    font-size: .8rem;
+    color: var(--gray70);
+}
+
+.wallet-container {
+    background-color: var(--bgcolor);
+    border: 1px solid var(--gray95);
+    min-height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.wallet-container h3.default {
+    color: var(--darkgray);
+    font-size: 3rem;
+    margin-top: 10px;
+    font-family: "vazir bold",sans-serif;
+}
+
+#wallet-page .btn-main {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.mrgtb15 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.table-main {
+    width: 100%;
+}
+
+.table-main tr:nth-child(odd) td {
+    background: var(--gray95);
+}
+
+.table-main td {
+    padding: 15px;
+    border-right: 1px solid var(--bs-white);
+    color: var(--darkgray);
+}
+
+.table-main#about-artwork tr td:first-child {
+    font-size: 13px;
+}
+
+.btn-simple {
+    font-size: .9rem;
+    color: var(--gray50);
+}
+
+
+.mrgt20 {
+    margin-top: 20px;
+}
+
+.mrgb5 {
+    margin-bottom: 5px;
+}
+
+.form-check .form-check-input {
+    float: right;
+    margin-right: -1.5em;
+
+}
+
+.wallet-container .unit {
+    margin-right: 3px;
+}
+
+.dirltr {
+    direction: ltr;
+}
