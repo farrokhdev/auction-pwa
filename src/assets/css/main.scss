@@ -1,0 +1,69 @@
+.active-style-menu{
+    color: #fff !important;
+    }
+    .default-box-choose{
+      border: 1px solid #e6007e;
+      border-radius:100px;
+      display: inline-block;
+      padding: 10px;
+      cursor: pointer;
+      color: #e6007e;
+      background-color: #fff;
+    }
+    .chooseartwork-custome{
+      //height: 75vh;
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+    .costume-select-input{
+       .ant-select-selector{
+    border-radius: 100px !important;
+         min-width: 300px;
+      }
+      .ant-select-selection-item{
+    
+      }
+    }
+    .search-input {
+      .ant-select-selector {
+        border-radius: 100px !important;
+      }
+    }
+    .btn-warn-custom {
+      background: #e78d43 !important;
+      padding: 7px 15px !important;
+      min-width: 100px !important;
+      color: #fff !important;
+      border-radius: 25px !important;
+      font-size: 13px !important;
+    }
+    .btn-warn-custom {
+      background: #e78d43 !important;
+      padding: 7px 15px !important;
+      min-width: 100px !important;
+      color: #fff !important;
+      border: .5px solid #e7872f;
+      border-radius: 25px !important;
+      font-size: 13px !important;
+      &:hover{
+        border: 1px solid #e7872f;
+      }
+    
+    }
+    .add-row {
+      color: var(--blue) !important;
+      font-size: 12px;
+      margin-bottom: 20px;
+      background-color: transparent;
+      border: 0;
+    }
+    .add-row-danger {
+      color: #e78d43 !important;
+      font-size: 12px;
+      margin-bottom: 20px;
+      background-color: transparent;
+      border: 0;
+    }
+    .ant-card-body{
+      padding: 10px !important;
+    }

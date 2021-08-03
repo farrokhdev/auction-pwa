@@ -68,9 +68,9 @@
 }
 
 body, html {
-    font-family: vazir, Arial, sans-serif;
+    font-family: vazir, Arial, sans-serif !important;
     font-size: 12px;
-    color: var(--gray50);
+    color: var(--gray50) !important;
 }
 
 @media (min-width: 992px) {
@@ -86,15 +86,16 @@ body, html {
 
 a,
 a:hover {
-    text-decoration: none;
+    text-decoration: none !important;
     color: var(--gray50);
 }
 
 ul, li {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
 }
+
 
 button {
     border: 0;
@@ -134,13 +135,13 @@ button {
 }
 
 .container {
-    max-width: 1280px;
-    width: 100%;
-    background: var(--bgcolor);
-    min-height: 100vh;
-    padding-bottom: 15px;
-    padding-right: 15px;
-    padding-left: 15px;
+    max-width: 1280px !important;
+    width: 100% !important;
+    background: var(--bgcolor) !important;
+    min-height: 100vh !important;
+    padding-bottom: 15px !important;
+    padding-right: 15px !important;
+    padding-left: 15px !important;
 }
 
 .notification {
@@ -174,15 +175,15 @@ button {
 }
 
 .default-input {
-    background-color: var(--bgcolor);
-    border: 1px solid var(--gray95);
-    padding: 10px 15px;
-    border-radius: 32px;
-    width: 100%;
+    background-color: var(--bgcolor) !important;
+    border: 1px solid var(--gray95) !important;
+    padding: 10px 15px !important;
+    border-radius: 32px !important;
+    width: 100% !important;
 }
 
 .default-input::placeholder {
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
 }
 
 .default-input:focus {
@@ -238,6 +239,7 @@ button {
     background-position: right 3px center;
     background-size: 10px;
     font-size: .7rem;
+    margin-right: 6px;
 }
 
 .auction-category.won {
@@ -424,6 +426,7 @@ footer .col {
 }
 
 .btn-main {
+    width: 100%;
     padding: 5px 15px;
     border-radius: 30px;
     background: var(--pink);
@@ -521,41 +524,41 @@ footer .col {
 }
 
 .sidebar-filterlist li a {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    padding: .8rem .7rem;
-    background: var(--bgcolor);
-    margin-bottom: 10px;
-    border-radius: 3rem;
-    color: var(--darkgray);
-    border: 1px solid var(--gray95);
-    position: relative;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    padding: .8rem .7rem !important;
+    background: var(--bgcolor) !important;
+    margin-bottom: 10px !important;
+    border-radius: 3rem !important;
+    color: var(--darkgray) !important;
+    border: 1px solid var(--gray95) !important;
+    position: relative !important;
 }
 
 .sidebar-filterlist li a:before {
-    content: "\f054";
-    font-family: "Font Awesome\ 5 Pro";
-    position: absolute;
-    left: 15px;
-    width: 12px;
-    transform: rotate(180deg);
+    content: "\f054" !important;
+    font-family: "Font Awesome\ 5 Pro" !important;
+    position: absolute !important;
+    left: 15px !important;
+    width: 12px !important;
+    transform: rotate(180deg) !important;
 }
 
 .sidebar-filterlist li a i {
-    margin-right: 10px;
-    margin-left: 10px;
-    text-align: center;
-    width: 16px;
-    font-size: 1rem;
+    margin-right: 10px !important;
+    margin-left: 10px !important;
+    text-align: center !important;
+    width: 16px !important;
+    font-size: 1rem !important;
 }
 
 .sidebar-filterlist li a span {
-    font-size: .8rem;
-    color: var(--gray50);
-    position: absolute;
-    left: 35px;
+    font-size: .8rem !important; 
+    color: var(--gray50) !important;
+    position: absolute !important;
+    left: 35px !important;
 }
 
 button:focus,
@@ -693,6 +696,7 @@ button {
 
 .auction-date {
     font-size: .9rem;
+    color: var(--gray50) !important;
 }
 
 .date-list {
@@ -767,7 +771,7 @@ h6.default {
 }
 
 .mrgt15 {
-    margin-top: 15px;
+    margin-top: 15px !important;
 }
 
 
@@ -819,9 +823,6 @@ h6.default {
     display: block;
 }
 
-.flex-col {
-
-}
 
 p a {
     color: var(--blue);
@@ -895,8 +896,8 @@ p a i {
     margin-top: 5px;
 }
 
-.bg-white {
-    background-color: var(--bs-white);
+.bag-white {
+    background-color: var(--bs-white) !important;
 }
 
 .sidebar-filterlist li.complete a {

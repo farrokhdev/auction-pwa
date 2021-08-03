@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import './assets/css/custom.css';
+import 'antd/dist/antd.css'
+// import './assets/css/custom.scss';
+import './assets/css/style.scss';
+import './assets/css/fontawesome-all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.rtl.min.css';
 
