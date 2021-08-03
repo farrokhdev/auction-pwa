@@ -15,10 +15,8 @@ const LoginPage=(props)=> {
     }
 
     return (
-        <div>
-            Login Page
-        </div>
+        <div>sdf</div>
     )
 }
 
-export default LoginPage();
+export default LoginPage;

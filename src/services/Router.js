@@ -3,42 +3,33 @@ import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 import NotFound from '../components/not-found'
 import LoginPage from '../Views/Auth/Login'
 import Footer from '../components/footer'
+import Account from '../Views/Account/Account'
+import AccountChangepassword from '../Views/Account/AccountChangePassword/AccountChangepassword'
+import AccountMessages from '../Views/Account/AccountMessage/AccountMessages'
+import AccountMessagesTicketDetail from '../Views/Account/AccountMessage/AccountMessagesTicketDetail'
+import AccountMyAuctions from '../Views/Account/MyAuctions/AccountMyAuctions'
 
 const RouterConfig = () => {
     return (
-        <div>
-            <Router>
-                <Switch>
+        <Router>
+            <Switch>
+                <Route path="/auth"
+                    render={({ match: { url } }) => (
+                        <Route path={`${url}/login`} component={() => <LoginPage />} />
+                    )} />
 
-                    <Route path='/:path?' exact>
+                <Route path="/account"
+                    render={({ match: { url } }) => (
                         <>
-                            <Switch>
-                                <Route path={''}>
-                                    <div className="container">
-                                        Main Page
-                                    </div>
-                                    <Footer/>
-                                </Route>
-                            </Switch>
+                            <Route exact path={`${url}/`} component={() => <Account />} />
+                            <Route exact path={`${url}/change-password`} component={() => <AccountChangepassword />} />
+                            <Route exact path={`${url}/messages`} component={() => <AccountMessages />} />
+                            <Route exact path={`${url}/ticket-detail`} component={() => <AccountMessagesTicketDetail />} />
+                            <Route exact path={`${url}/my-auctions`} component={() => <AccountMyAuctions />} />
                         </>
-                    </Route>
-
-                    <Route path='/auth/:path?' exact>
-                        <>
-                            <Switch>
-                                <Route path={'login'}>
-                                    <LoginPage />
-                                </Route>
-                            </Switch>
-                        </>
-                    </Route>
-
-                    <Route path="*">
-                        <NotFound />
-                    </Route>
-                </Switch>
-            </Router>
-        </div>
+                    )} />
+            </Switch>
+        </Router>
     )
 }
 
