@@ -1,61 +1,168 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import AccountHeader from '../../../components/AccountHeader';
+import Footer from '../../../components/footer';
+import { Form, Input, message } from 'antd';
+import TextArea from "antd/es/input/TextArea";
+import { Link } from "react-router-dom";
 
 function MyAccountProfile() {
+    const [form] = Form.useForm();
+
+    const [Profile, setProfile] = useState({
+        name: "",
+        lastName: "",
+        mobile: "",
+        email: "ehsanmashali@gmail.com",
+        nationalCode: "",
+        postalCode: "",
+        addres: "",
+    })
+
+    useEffect(() => {
+
+        if (Object.keys(Profile).length) {
+            form.setFieldsValue(Profile)
+        }
+    }, [Profile])
+
     return (
         <>
             <div className="container bg-white">
-
                 <AccountHeader titlePage={"پروفایل من"} />
-                <div className="form-group">
-                    <label className="default-label">نام</label>
-                    <input type="text" className="default-input" placeholder="نام خود را وارد نمایید." />
-                </div>
-                <div className="form-group">
-                    <label className="default-label">نام خانوادگی</label>
-                    <input type="text" className="default-input" placeholder="نام خانوادگی خود را وارد نمایید." />
-                </div>
-                <div className="form-group">
-                    <label className="default-label">شماره همراه</label>
-                    <div className="flex-start">
-                        <div className="select-country">
-                            <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="img/iran.png" />
-                            </button>
-                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a className="dropdown-item" href="#"><img src="img/iran.png" /> </a></li>
-                                <li><a className="dropdown-item" href="#"><img src="img/iran.png" /> </a></li>
-                                <li><a className="dropdown-item" href="#"><img src="img/iran.png" /> </a></li>
-                            </ul>
-                        </div>
-                        <input type="tel" className="default-input notverify " placeholder="9121234567" />
-                        <span className="pre-num">+98</span>
-                    </div>
-                    <div href="#" className="verify-state-msg "><i className="fal fa-exclamation-circle"></i>شماره همراه شما هنوز تایید نشده است.</div>
-                </div>
-                <div className="form-group">
-                    <label className="default-label">ایمیل</label>
-                    <input type="email" className="default-input is-valid" placeholder="ایمیل خود را وارد نمایید." aria-describedby="feedback2" />
-                    <div href="#" className="verify-state-msg "><i className="fal fa-exclamation-circle"></i>ایمیل شما تایید نشده است.</div>
+                <div className="main-content" id="auctions">
+                    <Form
+                        initialValues={Profile}
+                        form={form}>
+                        <label className="default-label">نام</label>
+                        <Form.Item
+                            className="form-group"
+                            name="name"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "تکمیل این فیلد ضروری است",
+                                }
+                            ]}>
+                            <Input
+                                // onChange={(e) => {
+                                //     setProfile({ ...Profile, name: e.target.value })
+                                // }
+                                // }
+                                type="text"
+                                className="default-input"
+                                placeholder="نام خود را وارد نمایید."
+                            />
+                        </Form.Item>
 
-                </div>
-                <div className="form-group">
-                    <label className="default-label">کد ملی</label>
-                    <input type="text" className="default-input" placeholder="کد ملی خود را وارد نمایید." />
-                </div>
-                <div className="form-group">
-                    <label className="default-label">کد پستی</label>
-                    <input type="text" className="default-input" placeholder="کد پستی خود را وارد نمایید." />
-                </div>
-                <div className="form-group">
-                    <label className="default-label">آدرس</label>
-                    <textarea className="default-input" placeholder="آدرس خود را وارد نمایید." rows="4"></textarea>
-                </div>
-                <div className="btns">
-                    <button type="button" className="btn-main">ادامه</button>
+                        <label className="default-label">نام خانوادگی</label>
+                        <Form.Item className="form-group"
+                            name="lastname"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "تکمیل این فیلد ضروری است",
+                                }
+                            ]}>
+                            <Input
+                                // onChange={(e) => {
+                                //     setProfile({ ...Profile, lsastName: e.target.value })
+                                // }
+                                // }
+                                type="text"
+                                className="default-input"
+                                placeholder="نام خانوادگی خود را وارد نمایید." />
+                        </Form.Item>
+
+                        <div className="">
+                            <div className="input-group notapproved">
+                                <label className="default-lable ps-3 pb-2">شماره همراه</label>
+                                {Profile.mobile && Profile.mobile.length ?
+                                    <>
+                                        <Form.Item
+                                            className="w-100"
+
+                                            name="mobile">
+                                            <Input
+                                                className="default-input"
+                                                placeholder="شماره موبایل مورد نظر را وارد نمایید."
+                                                disabled />
+                                        </Form.Item>
+                                        <span className="approved input-state">تایید شده</span>
+                                    </>
+                                    :
+                                    <Link to="/account/verify-phone" className="pb-3" >
+                                        <button className="input-note text-muted ">
+                                            برای تغییر و تایید شماره موبایل خود اینجا کلیک کنید.
+                                        </button>
+                                    </Link>
+                                }
+                            </div>
+                        </div>
+                        <div className="">
+                            <div className="input-group notapproved">
+                                <label className="default-lable ps-3 pb-2">ایمیل</label>
+                                {Profile?.email && Profile?.email.length ?
+                                    <>
+                                        <Form.Item
+                                            className="w-100"
+
+                                            name="email">
+                                            <Input className="default-input"
+                                                placeholder="ایمیل خود را وارد نمایید."
+                                                disabled />
+
+                                        </Form.Item>
+                                        <span className="approved input-state">تایید شده</span>
+                                    </>
+                                    :
+                                    <Link to="/account/verify-email" className="pb-3">
+                                        <button className="input-note text-muted ">
+                                            برای تغییر و تایید شماره موبایل خود اینجا کلیک کنید.
+                                        </button>
+                                    </Link>
+                                }
+                            </div>
+                        </div>
+                        <label className="default-label">کد ملی</label>
+                        <Form.Item className="form-group"
+                            name="national-code"
+                            rules={[
+                                {
+                                    min: 10,
+                                    message: "حداقل 10 رقم وارد کنید ",
+                                },
+                                {
+                                    max: 11,
+                                    message: "حداکثر 11 رقم وارد کنید ",
+                                },
+                            ]}>
+                            <Input type="text" className="default-input" placeholder="کد ملی خود را وارد نمایید." />
+                        </Form.Item>
+
+                        <label className="default-label">کد پستی</label>
+                        <Form.Item className="form-group"
+                            name="postal-code"
+                            rules={[
+                                {
+                                    pattern: /\b(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}\b/,
+                                    message: " کدپستی صحیح وارد کنید",
+                                },
+                            ]}>
+                            <Input type="text" className="default-input" placeholder="کد پستی خود را وارد نمایید." />
+                        </Form.Item>
+
+                        <label className="default-label">آدرس</label>
+                        <Form.Item className="form-group">
+                            <TextArea className="default-input" placeholder="آدرس خود را وارد نمایید." rows="4"></TextArea>
+                        </Form.Item>
+
+                        <div className="btns">
+                            <button htmlType="submit" className="btn-main">ادامه</button>
+                        </div>
+                    </Form>
                 </div>
             </div>
+            <Footer />
         </>
     )
 }

@@ -8,6 +8,10 @@ import AccountMessages from '../Views/Account/AccountMessage/AccountMessages'
 import AccountMessagesTicketDetail from '../Views/Account/AccountMessage/AccountMessagesTicketDetail'
 import AccountMyAuctions from '../Views/Account/MyAuctions/AccountMyAuctions'
 import MyAccountProfile from '../Views/Account/MyProfile/MyAccountProfile'
+import MyProfileEmailverify from '../Views/Account/MyProfile/MyProfileEmailverify'
+import MyProfilePhoneverifyCode from '../Views/Account/MyProfile/MyProfilePhoneverifyCode'
+import AccountWallet from '../Views/Account/AccountWallet/AccountWallet'
+import AccountWonItem from '../Views/Account/AccountWonItem/AccountWonItem'
 
 const RouterConfig = () => {
     return (
@@ -27,6 +31,11 @@ const RouterConfig = () => {
                             <Route exact path={`${url}/ticket-detail`} component={() => <AccountMessagesTicketDetail />} />
                             <Route exact path={`${url}/my-auctions`} component={() => <AccountMyAuctions />} />
                             <Route exact path={`${url}/my-profile`} component={() => <MyAccountProfile />} />
+                            <Route exact path={`${url}/verify-email`} component={() => <MyProfileEmailverify />} />
+                            <Route exact path={`${url}/verify-phone`} component={() => <MyProfilePhoneverifyCode />} />
+                            <Route exact path={`${url}/wallet`} component={() => <AccountWallet />} />
+                            <Route exact path={`${url}/won-item`} component={() => <AccountWonItem />} />
+
                         </>
                     )} />
                 <Route path={`*`} component={() => <NotFound />} />

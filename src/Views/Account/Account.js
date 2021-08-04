@@ -20,11 +20,11 @@ function Account() {
                         </div>
                     </div>
                     <ul className="sidebar-filterlist mrgt15">
-                        <li><Link to="/"><i className="fal fa-user"></i>پروفایل من<span></span></Link></li>
+                        <li><Link to="/account/my-profile"><i className="fal fa-user"></i>پروفایل من<span></span></Link></li>
                         <li><Link to="/account/my-auctions"><i className="fal fa-gavel"></i>حراج‌های من<span></span></Link></li>
-                        <li><Link to="/"><i className="fal fa-hand-paper"></i>موارد برنده شده<span></span></Link></li>
+                        <li><Link to="/account/won-item"><i className="fal fa-hand-paper"></i>موارد برنده شده<span></span></Link></li>
                         <li><Link to="/account/messages"><i className="fal fa-envelope"></i>پیام‌ها<span></span></Link></li>
-                        <li><Link to="/"><i className="fal fa-wallet"></i>کیف پول<span></span></Link></li>
+                        <li><Link to="/account/wallet"><i className="fal fa-wallet"></i>کیف پول<span></span></Link></li>
                     </ul>
                     <h6 className="default mrgt30">تنظیمات</h6>
                     <ul className="sidebar-filterlist mrgt15">
