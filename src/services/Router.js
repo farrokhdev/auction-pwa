@@ -2,7 +2,6 @@ import React from 'react'
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 import NotFound from '../components/not-found'
 import LoginPage from '../Views/Auth/Login'
-import Footer from '../components/footer'
 import Account from '../Views/Account/Account'
 import AccountChangepassword from '../Views/Account/AccountChangePassword/AccountChangepassword'
 import AccountMessages from '../Views/Account/AccountMessage/AccountMessages'
@@ -30,7 +29,9 @@ const RouterConfig = () => {
                             <Route exact path={`${url}/my-profile`} component={() => <MyAccountProfile />} />
                         </>
                     )} />
+                <Route path={`*`} component={() => <NotFound />} />
             </Switch>
+
         </Router>
     )
 }
