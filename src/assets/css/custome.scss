@@ -332,7 +332,20 @@ button {
     font-size: .8rem !important;
     color: var(--gray50) !important;
 }
+.search-input {
+    .ant-select-selector {
+      border-radius: 100px !important;
+    }
+  }
 
+  .search-input .unit {
+    position: absolute;
+    left: 35px;
+    top: 150px;
+    font-weight: bold;
+    font-size: 13px ;
+    color: var(--darkgray) !important;
+}
 .num-bids {
     font-size: .8rem
 }
@@ -1371,4 +1384,45 @@ option#iran {
 
 .dirltr {
     direction: ltr;
+}
+
+.input-state.approved {
+    background: var(--lightgreenbg);
+    color: var(--green);
+  }
+
+  .input-state {
+    height: 40px;
+    margin-right: 2px;
+    border-radius: 20px !important;
+    padding: 8px 13px !important;
+    position: absolute;
+    top: 25px;
+    left: 2px;
+    font-size: 13px;
+    // font-family: "IRANSans_light", sans-serif;
+    text-align: center;
+  }
+
+  .input-state {
+    padding: 7px 5px;
+  }
+
+  .input-state.notapproved {
+    background: var(--light-orange);
+    color: var(--orange);
+  }
+
+  .display{
+      display: contents;
+  }
+
+  .btn-default,
+.btn-default:hover {
+  background: var(--pink) !important;
+  padding: 7px 15px !important;
+  min-width: 100px !important;
+  color: var(--bs-white) !important;
+  border-radius: 20px !important;
+  font-size: 13px !important;
 }
