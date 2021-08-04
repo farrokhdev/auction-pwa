@@ -1,4 +1,3 @@
-import { Footer } from 'antd/lib/layout/layout';
 import React from 'react'
 import pic1thumb from "../../../assets/img/pic1-thumb.jpg"
 import pic2thumb from "../../../assets/img/pic2-thumb.jpg";
@@ -6,6 +5,27 @@ import pic3thumb from "../../../assets/img/pic3-thumb.jpg";
 
 
 function MyAuctionAccepted() {
+
+    const convertToEn = (value) => {
+
+        switch (value) {
+
+            case "ONLINE":
+                return <span className="category-icon online-icon">آنلاین</span>
+            case "LIVE":
+                return <span className="category-icon live-icon">زنده</span>
+
+            case "PERIODIC":
+                return <span className="category-icon timed-icon">مدت دار</span>
+
+            case "HIDDEN":
+                return <span className="category-icon firstoffer-icon">اولین پیشنهاد</span>
+
+            case "SECOND_HIDDEN":
+                return <span className="category-icon secondoffer-icon">دومین پیشنهاد</span>
+
+        }
+    }
     return (
         <>
 
@@ -32,7 +52,10 @@ function MyAuctionAccepted() {
 
                                 </div>
                                 <div className="tags-block">
-                                    <div className="auction-category online">آنلاین</div>
+                                    <div className="auction-category online">
+                                        آنلاین
+                                        {/* {convertToEn(item)} */}
+                                    </div>
                                 </div>
                             </div>
                             <div className="flex-between">
