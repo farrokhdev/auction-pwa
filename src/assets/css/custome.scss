@@ -65,6 +65,7 @@
     --passed: #ffdada;
     --light-orange: #fef4e8;
     --orange: #f7941d;
+    --bs-white: #fff;
 }
 
 body, html {
@@ -313,7 +314,7 @@ button {
 }
 
 .price-title {
-    font-size: 0.7rem;
+    font-size: 0.7rem ;
     color: var(--gray70);
 }
 
@@ -364,11 +365,11 @@ button {
 }
 
 .countdown.start {
-    color: var(--lightgreen);
+    color: var(--lightgreen) !important;
 }
 
 .countdown.end {
-    color: var(--red);
+    color: var(--red) !important;
 }
 
 .fw-block {
@@ -528,8 +529,8 @@ footer .col {
 }
 
 .input-group.search .default-input {
-    padding: 10px 15px 10px 55px;
-    background-color: var(--bs-white);
+    padding: 10px 15px 10px 55px !important;
+    background-color: var(--bs-white) !important;
 }
 
 .sidebar-filter {
@@ -582,39 +583,39 @@ button {
 }
 
 .main-filterlist {
-    display: inline-flex;
-    flex-direction: row;
-    margin-bottom: 10px;
+    display: inline-flex !important;
+    flex-direction: row !important;
+    margin-bottom: 10px !important;
 }
 
 .main-filterlist li {
-    padding: .3rem .8rem;
-    border: 1px solid var(--gray90);
-    border-radius: 1rem;
-    margin-left: 2px;
-    background: var(--bgcolor);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: .3rem .8rem !important;
+    border: 1px solid var(--gray90) !important;
+    border-radius: 1rem !important;
+    margin-left: 2px !important;
+    background: var(--bgcolor) !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
 }
 
 .main-filterlist li a {
-    display: inline-block;
-    font-size: .8rem;
+    display: inline-block !important;
+    font-size: .8rem !important;
 }
 
 .main-filterlist li span {
-    margin-right: 10px;
+    margin-right: 10px !important;
 }
 
 .main-filterlist li.active {
-    border: 1px solid var(--pink);
-    background: var(--bgcolor);
+    border: 1px solid var(--pink) !important;
+    background: var(--bgcolor) !important;
 }
 
 .main-filterlist li.active a,
 .main-filterlist li.active span {
-    color: var(--pink);
+    color: var(--pink) !important;
 }
 
 .sidebar-header .input-group.search {

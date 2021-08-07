@@ -12,6 +12,10 @@ import MyProfileEmailverify from '../Views/Account/MyProfile/MyProfileEmailverif
 import MyProfilePhoneverifyCode from '../Views/Account/MyProfile/MyProfilePhoneverifyCode'
 import AccountWallet from '../Views/Account/AccountWallet/AccountWallet'
 import AccountWonItem from '../Views/Account/AccountWonItem/AccountWonItem'
+import AuctionRegistration from '../Views/AuctionRegistration/AuctionRegistration'
+import Discover from '../Views/Discover/Discover'
+import MyBids from '../Views/MyBids/MyBids'
+import Favorite from '../Views/Favorite/Favorite'
 
 const RouterConfig = () => {
     return (
@@ -35,6 +39,37 @@ const RouterConfig = () => {
                             <Route exact path={`${url}/verify-phone`} component={() => <MyProfilePhoneverifyCode />} />
                             <Route exact path={`${url}/wallet`} component={() => <AccountWallet />} />
                             <Route exact path={`${url}/won-item`} component={() => <AccountWonItem />} />
+
+                        </>
+                    )} />
+
+                <Route path="/auction-registration"
+                    render={({ match: { url } }) => (
+                        <>
+                            <Route exact path={`${url}/`} component={() => <AuctionRegistration />} />
+
+                        </>
+                    )} />
+
+                <Route path="/discover"
+                    render={({ match: { url } }) => (
+                        <>
+                            <Route exact path={`${url}/`} component={() => <Discover />} />
+
+                        </>
+                    )} />
+
+                <Route path="/bids"
+                    render={({ match: { url } }) => (
+                        <>
+                            <Route exact path={`${url}/`} component={() => <MyBids />} />
+
+                        </>
+                    )} />
+                <Route path="/favorite"
+                    render={({ match: { url } }) => (
+                        <>
+                            <Route exact path={`${url}/`} component={() => <Favorite />} />
 
                         </>
                     )} />

@@ -6,7 +6,7 @@ import Pic1 from "../../../assets/img/pic1.jpg"
 function AccountWonItem() {
     const [Active, setActive] = useState(false)
 
-    const addBookmark = ()=>{
+    const Like = ()=>{
         setActive(!Active)
     }
     
@@ -40,7 +40,7 @@ function AccountWonItem() {
                                                 {/* btn-favorite active */}
                                                     <button 
                                                      onClick={() =>
-                                                        addBookmark()}
+                                                        Like()}
                                                     type="button" 
                                                     className={"btn-favorite " + (Active ? "active" : "")}
                                                     ></button>
