@@ -399,6 +399,10 @@ footer {
     padding-bottom: 10px;
 }
 
+.btn-footer:hover{
+    color: var(--gray15);
+}
+
 .btn-footer i {
     font-size: 20px;
 }
@@ -1104,7 +1108,7 @@ option#iran {
 }
 
 .value-list {
-    margin: 15px 0;
+    margin: 12px 0;
     display: inline-block;
     width: 100%;
 }
@@ -1114,7 +1118,7 @@ option#iran {
     border-bottom: 1px solid var(--gray95);
 }
 
-.value-list .flex-around:nth-child(even) {
+.value-list .flex-around:last-child {
     background-color: var(--bgcolor);
 }
 

@@ -6,7 +6,7 @@ function AccountHeader(props) {
     return (
         <>
             <div className="top-header flex-between">
-                <Link to={props?.linkBack || "/account"}>
+                <Link to={props?.linkBack || props?.backAuction || "/account"}>
                     <button type="button" className="btn-back"><i className="fal fa-chevron-left"></i></button>
                 </Link>
                 <div className="inner-title text-center">
