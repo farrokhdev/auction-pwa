@@ -16,6 +16,11 @@ import AuctionRegistration from '../Views/AuctionRegistration/AuctionRegistratio
 import Discover from '../Views/Discover/Discover'
 import MyBids from '../Views/MyBids/MyBids'
 import Favorite from '../Views/Favorite/Favorite'
+import AuctionRegistrationPersonalinfo from '../Views/AuctionRegistration/AuctionRegistrationPersonalinfo/AuctionRegistrationPersonalinfo'
+import AuctionRegistrationFinancialinfo from '../Views/AuctionRegistration/AuctionRegistrationFinancialinfo/AuctionRegistrationFinancialinfo'
+import AuctionRegistrationFavorite from '../Views/AuctionRegistration/AuctionRegistrationFavorite/AuctionRegistrationFavorite'
+import AuctionRegistrationValue from '../Views/AuctionRegistration/AuctionRegistrationValue/AuctionRegistrationValue'
+import AuctionRegistrationIntroduce from '../Views/AuctionRegistration/AuctionRegistrationIntroduce/AuctionRegistrationIntroduce'
 
 const RouterConfig = () => {
     return (
@@ -47,6 +52,11 @@ const RouterConfig = () => {
                     render={({ match: { url } }) => (
                         <>
                             <Route exact path={`${url}/`} component={() => <AuctionRegistration />} />
+                            <Route exact path={`${url}/Personalinfo`} component={() => <AuctionRegistrationPersonalinfo />} />
+                            <Route exact path={`${url}/financialinfo`} component={() => <AuctionRegistrationFinancialinfo />} />
+                            <Route exact path={`${url}/favorite`} component={() => <AuctionRegistrationFavorite />} />
+                            <Route exact path={`${url}/values`} component={() => <AuctionRegistrationValue />} />
+                            <Route exact path={`${url}/introduce`} component={() => <AuctionRegistrationIntroduce />} />
 
                         </>
                     )} />
