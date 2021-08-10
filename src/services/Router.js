@@ -21,6 +21,11 @@ import AuctionRegistrationFinancialinfo from '../Views/AuctionRegistration/Aucti
 import AuctionRegistrationFavorite from '../Views/AuctionRegistration/AuctionRegistrationFavorite/AuctionRegistrationFavorite'
 import AuctionRegistrationValue from '../Views/AuctionRegistration/AuctionRegistrationValue/AuctionRegistrationValue'
 import AuctionRegistrationIntroduce from '../Views/AuctionRegistration/AuctionRegistrationIntroduce/AuctionRegistrationIntroduce'
+import AuctionRegistrationOtherdDocuments from '../Views/AuctionRegistration/AuctionRegistrationOtherdDocuments/AuctionRegistrationOtherdDocuments'
+import AuctionRegistrationContract from '../Views/AuctionRegistration/AuctionRegistrationContract/AuctionRegistrationContract'
+import Auctions from '../Views/Auctions/Auctions'
+import OneArtworkAuctions from '../Views/Auctions/OneArtworkAuctions/OneArtworkAuctions'
+import AuctionsDetails from '../Views/Auctions/AuctionsDetails/AuctionsDetails'
 
 const RouterConfig = () => {
     return (
@@ -57,7 +62,18 @@ const RouterConfig = () => {
                             <Route exact path={`${url}/favorite`} component={() => <AuctionRegistrationFavorite />} />
                             <Route exact path={`${url}/values`} component={() => <AuctionRegistrationValue />} />
                             <Route exact path={`${url}/introduce`} component={() => <AuctionRegistrationIntroduce />} />
+                            <Route exact path={`${url}/document`} component={() => <AuctionRegistrationOtherdDocuments />} />
+                            <Route exact path={`${url}/contract`} component={() => <AuctionRegistrationContract />} />
 
+                        </>
+                    )} />
+
+                <Route path="/auctions"
+                    render={({ match: { url } }) => (
+                        <>
+                            <Route exact path={`${url}/`} component={() => <Auctions />} />
+                            <Route exact path={`${url}/one-artwork`} component={() => <OneArtworkAuctions />} />
+                            <Route exact path={`${url}/details`} component={() => <AuctionsDetails />} />
                         </>
                     )} />
 

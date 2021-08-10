@@ -184,3 +184,8 @@
   background-color : var(--bgcolor);
   font-size: 1rem;
 }
+
+.ant-picker-panel-container .ant-picker-panels{
+  // display: block !important;
+  flex-direction: column-reverse !important;
+}

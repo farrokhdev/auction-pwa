@@ -14,7 +14,10 @@ function Footer() {
                 </div>
                 <div className="col">
                     <button type="button" className="btn-footer ">
-                        <NavLinkRouter activeClassName="active" to="/auction-registration" className="btn-footer ">
+                        <NavLinkRouter activeClassName="active" 
+                        // to="/auction-registration" 
+                        to="/auctions"
+                        className="btn-footer ">
                             <i className="fal fa-gavel"></i>
                             <span className="bottomnav">حراج‌ها</span>
                         </NavLinkRouter>
