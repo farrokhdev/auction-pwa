@@ -19,7 +19,7 @@ function AuctionRegistrationIntroduce() {
     return (
         <>
             <div className="container bg-white">
-                <AccountHeader titlePage={" معرف"} />
+                <AccountHeader backAuction={"/auction-registration"} titlePage={" معرف"} />
                 <div className="main-content" id="auctions">
                     <Form
                         initialValues={Profile}
