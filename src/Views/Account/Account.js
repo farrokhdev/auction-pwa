@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Footer from "../../components/footer";
-// import {faSearch, faGavel, faHandPaper, faHeart, faUser} from '@fortawesome/free-solid-svg-icons'
 import avatar from "../../assets/img/avatar.jpg"
 import AccountHeader from "../../components/AccountHeader";
 
@@ -33,7 +32,7 @@ function Account() {
                         <li><Link to="/"><i className="fal fa-info"></i>درباره ما<span></span></Link></li>
                         <li><Link to="/"><i className="fal fa-align-left"></i>شرایط و قوانین<span></span></Link></li>
                         <li><Link to="/"><i className="fal fa-question"></i>راهنما<span></span></Link></li>
-                        <li><Link to="/"><i className="fal fa-sign-out"></i>خروج<span></span></Link></li>
+                        <li><Link to="/auth/login"><i className="fal fa-sign-out"></i>خروج<span></span></Link></li>
                     </ul>
                 </div>
             </div>
