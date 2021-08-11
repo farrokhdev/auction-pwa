@@ -28,12 +28,6 @@ function AuctionsDetails() {
     }
 
     const settings = {
-        // dots: false,
-        // breakpoint: 1024,
-        // infinite: false,
-        // speed: 500,
-        // slidesToShow: 4,
-        // slidesToScroll: 4,
         dots: true,
         infinite: false,
         speed: 500,
@@ -140,7 +134,6 @@ function AuctionsDetails() {
                 </div>
                 <Tabs activeKey={activeKey} onChange={callback} className="nav nav-pills nav-justified main-tab " unmountInactiveTabs={true}>
                     <TabPane tab="لت ها" key="1" className="nav-link nav-item " >
-                        {/* <Details data={data} getProfile={setData} /> */}
                         <Products data={data} getProfile={setData}/>
                     </TabPane>
                     <TabPane tab="جزئیات" key="2" className="nav-link nav-item " >

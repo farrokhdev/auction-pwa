@@ -1,7 +1,6 @@
 import React from 'react'
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 import NotFound from '../components/not-found'
-import LoginPage from '../Views/Auth/Login'
 import Account from '../Views/Account/Account'
 import AccountChangepassword from '../Views/Account/AccountChangePassword/AccountChangepassword'
 import AccountMessages from '../Views/Account/AccountMessage/AccountMessages'
@@ -26,6 +25,12 @@ import AuctionRegistrationContract from '../Views/AuctionRegistration/AuctionReg
 import Auctions from '../Views/Auctions/Auctions'
 import OneArtworkAuctions from '../Views/Auctions/OneArtworkAuctions/OneArtworkAuctions'
 import AuctionsDetails from '../Views/Auctions/AuctionsDetails/AuctionsDetails'
+import Login from '../Views/Auth/Login'
+import SignUp from '../Views/Auth/SignUp'
+import PasswordRecovery from '../Views/Auth/PasswordRecovery'
+import VerificationCode from '../Views/Auth/VerificationCode'
+import ConfirmMobileNumber from '../Views/Auth/ConfirmMobileNumber'
+import RegistersetPassword from '../Views/Auth/RegistersetPassword'
 
 const RouterConfig = () => {
     return (
@@ -33,7 +38,14 @@ const RouterConfig = () => {
             <Switch>
                 <Route path="/auth"
                     render={({ match: { url } }) => (
-                        <Route path={`${url}/login`} component={() => <LoginPage />} />
+                        <>
+                            <Route path={`${url}/login`} component={() => <Login />} />
+                            <Route path={`${url}/sign-up`} component={() => <SignUp />} />
+                            <Route path={`${url}/password-recovery`} component={() => <PasswordRecovery />} />
+                            <Route path={`${url}/verification-code`} component={() => <VerificationCode />} />
+                            <Route path={`${url}/confirm-mobile-number`} component={() => <ConfirmMobileNumber />} />
+                            <Route path={`${url}/register-set-password`} component={() => <RegistersetPassword />} />
+                        </>
                     )} />
 
                 <Route path="/account"
