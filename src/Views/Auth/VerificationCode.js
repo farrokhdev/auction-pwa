@@ -6,6 +6,7 @@ import { BASE_URL } from "../../utils/index";
 import { setToken } from "../../utils/utils";
 import { connect } from 'react-redux';
 import { Form, Input, message } from "antd";
+import authService from "../../services/auth.service";
 
 function VerificationCode(props) {
 
@@ -14,29 +15,23 @@ function VerificationCode(props) {
 
 
   const handleRequestVerifyCode = (value) => {
-
-    let payload = {
-      "user_name": props.auth.username,
-      "verify_code": verify_code,
-    }
-    axios.post(`${BASE_URL}/account/approve/`, payload)
-      .then(res => {
-        console.log("Verification", res);
-
-        if (res.data.data.statusCode === 200) {
-          message.success("لطفا وارد شوید")
-          window.location.href = "/auth/login"
-          // setTimeout(() => {
-            //   window.location.href = "#/register-set-password";
-            // }, 1000);
-            // history.push("/register-set-password")
-          } else {
+    authService.ConfirmMobileNumber(props.auth.username, verify_code)
+      .then(resp => {
+        console.log("token =>", resp.data.data.result);
+        if (resp.data.data.statusCode === 200) {
+          setToken(resp.data.data.result);
+          setTimeout(() => {
+            window.location.href = "/auth/login"
+            message.success("به اسمارت آکشن خوش آمدید")
+          }, 500);
+        } else {
           message.error("مجددا درخواست کد اعتبارسنجی دهید")
         }
-      })
+      }
+      )
       .catch(err => {
-        message.error("کد نامعتبر است")
-        console.log("Can not Login", err);
+        message.error("کاربری با این مشخصات یافت نشد")
+        console.log("error message", err);
       })
   }
   return (
@@ -47,8 +42,8 @@ function VerificationCode(props) {
         id="login-page"
       >
         <Form className="login-container" form={form}>
-            <img className="logo" src={Logo} width="156" height="34" alt="اسمارت آکشن" />
-        
+          <img className="logo" src={Logo} width="156" height="34" alt="اسمارت آکشن" />
+
           <h5 className="default titr text-center">
             لطفا کد تایید ارسال شده به ایمیل یا شماره همراه خود را در کادر زیر
             وارد کنید.
@@ -70,10 +65,10 @@ function VerificationCode(props) {
                 }
 
               ]}>
-               <Input className="default-input text-center"
-                    type="number"
-                    onChange={(e)=>{setverify_code(e.target.value)}}
-                  placeholder="کد تایید را وارد کنید"/>
+              <Input className="default-input text-center"
+                type="number"
+                onChange={(e) => { setverify_code(e.target.value) }}
+                placeholder="کد تایید را وارد کنید" />
             </Form.Item>
             <div className="text-center pt-5">
               <button
