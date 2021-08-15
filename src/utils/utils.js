@@ -11,7 +11,6 @@ export function Arraify(data){
         return [data]
     }
 }
-
 export function Header(options = {}) {
     let token = Token(), headers = new Headers();
     headers.set('Accept', 'application/json');
@@ -49,9 +48,18 @@ export function Token() {
 
     return token;
 }
+export function getRefreshToken() {
+    let refresh = cookie.load('refresh');
+    if (refresh === 'undefined') {
+        return undefined;
+    }
+
+    return refresh;
+}
 
 export function removeToken() {
     cookie.remove('token', {path: '/'});
+    cookie.remove('refresh', {path: '/'});
 }
 
 export function getTokenObject() {
@@ -65,4 +73,7 @@ export function formatNumber(value) {
     let f = value.match(/\d+/);
     if (f) return f[0];
     return '';
+}
+export function UrlQuery(url = "", data = {}){
+    return url + `?${qs.stringify(data, {arrayFormat: 'comma'})}`
 }

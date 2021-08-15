@@ -1,4 +1,7 @@
-import React from 'react';
+import React,{Suspense} from 'react';
+import { Provider } from 'react-redux';
+import store, {persistor} from '../src/redux/store';
+import {PersistGate} from 'redux-persist/integration/react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -10,9 +13,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.rtl.min.css';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Suspense fallback={null}>
+      <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
     <App />
-  </React.StrictMode>,
+    </PersistGate>
+  </Provider>
+  </Suspense>,
   document.getElementById('root')
 );
 

@@ -1,13 +1,11 @@
 import axios from "axios";
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-
-// import Header from "../../components/header";
-// import { BASE_URL } from "../../utils";
-// import {withRouter} from "react-router-dom";
-// import {setToken} from "../../utils/utils";
-// import {setProfile} from "../../redux/reducers/auth/auth.actions";
-// import {connect} from "react-redux";
+import { BASE_URL } from "../../utils";
+import { withRouter } from "react-router-dom";
+import { setToken } from "../../utils/utils";
+import { setProfile } from "../../redux/reducers/auth/auth.actions";
+import { connect } from "react-redux";
 import Logo from "../../assets/img/logo.svg";
 import GoogleLogin from "react-google-login";
 import { Form, Input, message } from "antd";
@@ -25,33 +23,30 @@ function SignUp(props) {
 
     const handleRequestSignUp = (value) => {
 
-        // let payload = {
+        let payload = {
 
-        //   "username" : userName,
-        //   "password" : Password,
-        //   "confirmed_password": confirmedPassword
-        // }
-        // console.log(payload)
-        // axios.post(`${BASE_URL}/account/register/`, payload)
-        //   .then(resp=>{
-        //     console.log("Sign Up" , resp);
-        //     if(resp.data.code === 201){
-        //       setToken(resp.data.data.result);
-        //       props.setProfile({username : payload.username})
+            "username": userName,
+            "password": Password,
+            "confirmed_password": confirmedPassword
+        }
+        console.log(payload)
+        axios.post(`${BASE_URL}/account/register/`, payload)
+            .then(resp => {
+                console.log("Sign Up", resp);
+                if (resp.data.code === 201) {
+                    setToken(resp.data.data.result);
+                    props.setProfile({ username: payload.username })
 
-        //       setTimeout(() => {
-        //         window.location.href = "#/verification-code"
-        //         message.success("کد تایید ارسال شد")
-        //       }, 700);
-        //   }
-        //   })
-        //   .catch(err=>{
-        //     message.error("دوباره تلاش کنید")
-        //     // message.error("تمام فیلدها تکمیل نشده است")
-        //     // message.error("رمز عبور همخوانی ندارد")
-        //     // message.error("کاربری با این شماره موبایل ثبت شده است")
-        //     console.log("Error Message" , err);
-        //   })
+                    setTimeout(() => {
+                        window.location.href = "/auth/verification-code"
+                        message.success("کد تایید ارسال شد")
+                    }, 700);
+                }
+            })
+            .catch(err => {
+                message.error("دوباره تلاش کنید")
+                console.log("Error Message", err);
+            })
     }
 
     const responseGoogle = (response) => {
@@ -77,10 +72,7 @@ function SignUp(props) {
                 id="login-page">
 
                 <Form className="login-container" form={form}>
-                    <Link to="/" className="logo mx-auto my-3">
-                        <img src={Logo} width="156" height="34" alt="اسمارت آکشن" />
-                    </Link>
-
+                    <img className="logo mx-auto my-3" src={Logo} width="156" height="34" alt="اسمارت آکشن" />
                     <div class="login-block">
                         <div class="main-title">
                             <h2 class="default titr">ثبت نام</h2>
@@ -150,9 +142,6 @@ function SignUp(props) {
                         </Form.Item>
 
                         <div class="btn-container mt-3 mb-3">
-
-
-                            <Link to="/auth/verification-code">
                             <button
                                 onClick={handleRequestSignUp}
                                 type="submit"
@@ -160,10 +149,6 @@ function SignUp(props) {
                             >
                                 ثبت نام
                             </button>
-
-                            </Link>
-
-
                         </div>
                         <div class="s-footer-block">
                             <div class="or-divider">
@@ -189,19 +174,19 @@ function SignUp(props) {
     );
 }
 
-export default SignUp;
+// export default SignUp;
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//       setProfile : (data) => dispatch(setProfile(data)),
-//   }
-// }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setProfile: (data) => dispatch(setProfile(data)),
+    }
+}
 
-// const mapStateToProps = (store) => {
-//   return {
-//       auth : store.authReducer,
-//   }
-// }
+const mapStateToProps = (store) => {
+    return {
+        auth: store.authReducer,
+    }
+}
 
 
-// export default connect(mapStateToProps , mapDispatchToProps)(SignUp)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
