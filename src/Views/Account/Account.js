@@ -3,12 +3,16 @@ import { Link } from "react-router-dom";
 import Footer from "../../components/footer";
 import avatar from "../../assets/img/avatar.jpg"
 import AccountHeader from "../../components/AccountHeader";
+import { useDispatch, useSelector } from "react-redux";
+import {clearStorageAll} from "../../redux/reducers/all/all.actions";
 
 function Account() {
+    const dispatch = useDispatch();
+
     return (
         <>
             <div className="container bg-white">
-               <AccountHeader titlePage={"پروفایل"} />
+                <AccountHeader titlePage={"پروفایل"} />
                 <div className="sidebar-body" id="account-page">
                     <div className="img-block flex-start">
                         <div className="img-artists">
@@ -32,7 +36,9 @@ function Account() {
                         <li><Link to="/"><i className="fal fa-info"></i>درباره ما<span></span></Link></li>
                         <li><Link to="/"><i className="fal fa-align-left"></i>شرایط و قوانین<span></span></Link></li>
                         <li><Link to="/"><i className="fal fa-question"></i>راهنما<span></span></Link></li>
-                        <li><Link to="/auth/login"><i className="fal fa-sign-out"></i>خروج<span></span></Link></li>
+                        <li><Link to="/auth/login" onClick={() => {
+                            dispatch(clearStorageAll())
+                        }}><i className="fal fa-sign-out"></i>خروج<span></span></Link></li>
                     </ul>
                 </div>
             </div>

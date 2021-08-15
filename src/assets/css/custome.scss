@@ -191,6 +191,18 @@ input.default-input {
     width: 100% !important;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .default-input::placeholder {
     font-size: 0.85rem !important;
 }
@@ -1522,7 +1534,7 @@ option#iran {
     box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.1);
     width: 100%;
     overflow: hidden;
-    padding: 50px 30px 30px !important;
+    padding: 21px 30px 30px !important;
   }
 
   .login-block p {

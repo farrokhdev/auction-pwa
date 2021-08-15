@@ -2,9 +2,9 @@ import {BASE_URL} from '../utils';
 import axios from '../utils/request';
 
 class AuthService {
-    login(id, password) {
+    login(userName, password) {
         let payload = {
-            "id": id,
+            "id": userName,
             "password": password
         }
         return axios.post(`${BASE_URL}/account/login/`, payload)
@@ -15,6 +15,7 @@ class AuthService {
                 return err
             })
     }
+
 
 }
 

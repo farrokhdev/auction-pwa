@@ -1,46 +1,44 @@
-import React , {useState} from "react";
+import React, { useState } from "react";
 import Logo from "../../assets/img/logo.svg";
 import { Link } from "react-router-dom";
 
-// import axios from "axios";
-// // import {withRouter} from "react-router-dom"
-// import { BASE_URL } from "../../utils/index";
-// import {setToken} from "../../utils/utils";
-// import {setPhoneNumber} from '../../redux/reducers/auth/auth.actions';
-// // import AuthContext from "../../context/AuthContext";
-// import {connect} from 'react-redux';
-// import { getOtp } from "../../redux/reducers/auth/auth.actions";
-import {Form, Input, message} from "antd";
+import axios from "axios";
+import { BASE_URL } from "../../utils/index";
+import { setToken } from "../../utils/utils";
+import { setPhoneNumber } from '../../redux/reducers/auth/auth.actions';
+import { connect } from 'react-redux';
+import { getOtp } from "../../redux/reducers/auth/auth.actions";
+import { Form, Input, message } from "antd";
 
 
 function ConfirmMobileNumber(props) {
   const [verify_code, setverify_code] = useState("");
   const [form] = Form.useForm();
 
-  const handleRequestConfrimMobile = (value)=>{
-    // let payload={
-    //   "user_name": props.auth.username,
-    //   "verify_code": verify_code,
-    // }
+  const handleRequestConfrimMobile = (value) => {
+    let payload = {
+      "user_name": props.auth.username,
+      "verify_code": verify_code,
+    }
 
-    // axios.post(`${BASE_URL}/account/approve/` , payload)
-    //   .then(res=>{
-    //     console.log("Confrim-Mobile" , res);
+    axios.post(`${BASE_URL}/account/approve/`, payload)
+      .then(res => {
+        console.log("Confrim-Mobile", res);
 
-    //     if(res.data.code === 200){
-    //       setToken(res.data.data.result);
-    //       props.getOtp({otp : verify_code})
-    //       setTimeout(() => {
-    //         window.location.href = "#/register-set-password"
-    //         message.success("گذر واژه جدید را وارد کنید")
-    //       }, 1000);
-         
-    //     }
-    //   })
-    //   .catch(err=>{
-    //     message.error("کد نامعتبر است")
-    //     console.log("Error Message as Confrim-Mobile" , err);
-    //   })
+        if (res.data.code === 200) {
+          setToken(res.data.data.result);
+          props.getOtp({ otp: verify_code })
+          setTimeout(() => {
+            window.location.href = "/auth/register-set-password"
+            message.success("گذر واژه جدید را وارد کنید")
+          }, 1000);
+
+        }
+      })
+      .catch(err => {
+        message.error("کد نامعتبر است")
+        console.log("Error Message as Confrim-Mobile", err);
+      })
   }
 
   return (
@@ -70,25 +68,21 @@ function ConfirmMobileNumber(props) {
                     required: true,
                     message: "تکمیل این فیلد ضروری است",
                   }
-            ]}>
+                ]}>
                 <Input className="default-input"
-                    onChange={(e)=>setverify_code(e.target.value)
+                  onChange={(e) => setverify_code(e.target.value)
                   }
-                  placeholder="کد تایید خود را وارد کنید"/>
+                  placeholder="کد تایید خود را وارد کنید" />
               </Form.Item>
             </div>
             <div className="btn-container pt-5">
-                
-              <Link to="/auth/register-set-password">
-                <button
-                  onClick={handleRequestConfrimMobile}
-                  type="submit"
-                  className="btn btn-outline-secondary rounded-pill px-3 "
-                >
-                  ارسال کد تایید
-                </button>
-              </Link>
-              
+              <button
+                onClick={handleRequestConfrimMobile}
+                type="submit"
+                className="btn btn-outline-secondary rounded-pill px-3 "
+              >
+                ارسال کد تایید
+              </button>
             </div>
             <div className="text-center pt-3">
               <Link to="/auth/password-recovery" className=" text-dark ">
@@ -102,19 +96,17 @@ function ConfirmMobileNumber(props) {
   );
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getOtp: (data) => dispatch(getOtp(data)),
+  }
+}
 
-export default ConfirmMobileNumber;
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//       getOtp : (data) => dispatch(getOtp(data)),
-//   }
-// }
-
-// const mapStateToProps = (store) => {
-//   return {
-//       auth : store.authReducer,
-//   }
-// }
+const mapStateToProps = (store) => {
+  return {
+    auth: store.authReducer,
+  }
+}
 
 
-// export default connect(mapStateToProps , mapDispatchToProps)(ConfirmMobileNumber)
+export default connect(mapStateToProps, mapDispatchToProps)(ConfirmMobileNumber)
