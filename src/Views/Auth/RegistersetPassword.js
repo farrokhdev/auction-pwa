@@ -7,24 +7,25 @@ import { BASE_URL } from "../../utils/index";
 import { setToken, Token } from "../../utils/utils";
 import { connect } from 'react-redux';
 import { Form, Input, message } from "antd";
+import authService from "../../services/auth.service";
 
 
 function RegistersetPassword(props) {
-  const [Password, setPassword] = useState("");
-  const [PasswordCheck, setPasswordCheck] = useState("");
+  // const [Password, setPassword] = useState("");
+  // const [PasswordCheck, setPasswordCheck] = useState("");
+
+  const [formData, setFormData] = useState({
+    password: "",
+    passwordCheck: "",
+    userName: props.auth.username,
+    verifyCode: props.auth.otp
+  })
+
   const [form] = Form.useForm();
 
   const handleRequestSetPassword = (value) => {
 
-    let payload = {
-      "user_name": props.auth.username,
-      "verify_code": props.auth.otp,
-      "password": Password,
-      "password_check": PasswordCheck,
-    }
-
-    console.log("payload", payload);
-    axios.post(`${BASE_URL}/account/recover-password/`, payload)
+    authService.RegistersetPassword(formData)
       .then(res => {
         console.log("Confrim-Mobile", res);
 
@@ -41,7 +42,6 @@ function RegistersetPassword(props) {
         message.error("مقادیر ورودی یکسان نیستند")
         console.log("Error Message as Confrim-Mobile", err);
       })
-
   }
 
   return (
@@ -52,7 +52,7 @@ function RegistersetPassword(props) {
         className="container innercontainer align-items-center"
         id="login-page"
       >
-        <Form className="login-container">
+        <Form className="login-container" form={form}>
           <Link to="/" className="logo">
             <img src={Logo} width="156" height="34" alt="اسمارت آکشن" />
           </Link>
@@ -81,7 +81,7 @@ function RegistersetPassword(props) {
                 <Input className="default-input"
                   type="password"
                   onChange={(e) => {
-                    setPassword(e.target.value)
+                    setFormData({ ...formData, password: e.target.value })
                   }}
                   placeholder="گذرواژه خود را وارد کنید" />
               </Form.Item>
@@ -104,7 +104,7 @@ function RegistersetPassword(props) {
                 <Input className="default-input"
                   type="password"
                   onChange={(e) => {
-                    setPasswordCheck(e.target.value)
+                    setFormData({ ...formData, passwordCheck: e.target.value })
                   }}
                   placeholder="گذرواژه خود را تکرار کنید" />
               </Form.Item>

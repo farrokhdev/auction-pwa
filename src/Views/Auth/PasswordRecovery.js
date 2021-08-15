@@ -7,6 +7,7 @@ import { setToken } from "../../utils/utils";
 import { setPhoneNumber } from '../../redux/reducers/auth/auth.actions';
 import { connect } from 'react-redux';
 import { Form, Input, message } from "antd";
+import authService from "../../services/auth.service";
 
 function PasswordRecovery(props) {
   const [username, setUsername] = useState("");
@@ -15,27 +16,47 @@ function PasswordRecovery(props) {
 
   const handleRequestPasswordRecovery = (value) => {
 
-    let payload = {
-      "user_name": username,
-    }
-    axios.post(`${BASE_URL}/account/sendotp/`, payload)
+    // let payload = {
+    //   "user_name": username,
+    // }
+    authService.PasswordRecovery(username)
       .then(res => {
-        console.log("Password Recovey", res);
+        console.log("password Recovery", res);
 
         if (res.data.code === 200) {
           setToken(res.data.data.result);
-          props.setPhoneNumber({ username: payload.user_name })
+          props.setPhoneNumber({ username })
+          message.success("کد تایید ارسال شد")
           setTimeout(() => {
             window.location.href = "/auth/confirm-mobile-number"
-            message.success("کد تایید ارسال شد")
           }, 1000);
-          // history.push("/confirm-mobile-number")
         }
       })
       .catch(err => {
         message.error("دوباره تلاش کنید")
         console.log("Can not Login", err);
       })
+
+
+      
+    // axios.post(`${BASE_URL}/account/sendotp/`, payload)
+    //   .then(res => {
+    //     console.log("Password Recovey", res);
+
+    //     if (res.data.code === 200) {
+    //       setToken(res.data.data.result);
+    //       props.setPhoneNumber({ username: payload.user_name })
+    //       setTimeout(() => {
+    //         window.location.href = "/auth/confirm-mobile-number"
+    //         message.success("کد تایید ارسال شد")
+    //       }, 1000);
+    //       // history.push("/confirm-mobile-number")
+    //     }
+    //   })
+    //   .catch(err => {
+    //     message.error("دوباره تلاش کنید")
+    //     console.log("Can not Login", err);
+    //   })
   }
 
   return (

@@ -10,6 +10,7 @@ import { setToken } from "../../utils/utils";
 import { connect } from 'react-redux';
 import { Form, Input, message } from "antd";
 import authService from "../../services/auth.service";
+import GoogleLogin from "react-google-login";
 
 function Login(props) {
 
@@ -43,6 +44,29 @@ function Login(props) {
 
   }
 
+
+  const responseGoogle = (response) => {
+
+    console.log("Sign Up", response);
+
+    let payload = {
+      "access_token": response.tokenObj.access_token
+    }
+
+    console.log("Ehsan", payload)
+    axios.post(`${BASE_URL}/rest-auth/google/`, payload).then(res => {
+      setToken(res.data.data.result)
+      message.success("به اسمارت آکشن خوش آمدید")
+      setTimeout(() => {
+        window.location.href = "/account"
+      }, 500);
+    })
+      .catch(err => {
+        message.error("کاربری با این مشخصات یافت نشد")
+        console.log(err)
+      })
+
+  }
 
   return (
     <>
@@ -98,7 +122,7 @@ function Login(props) {
                 }}
                 placeholder="رمز عبور" />
             </Form.Item>
-            <div className="btn-container">
+            <div className="btn-container mb-3">
               <button
                 type="submit"
                 onClick={handleRequestLogin}
@@ -106,6 +130,21 @@ function Login(props) {
               >
                 ورود
               </button>
+            </div>
+
+            <div class="s-footer-block ">
+              <div class="or-divider">
+                <span> یا </span>
+              </div>
+              <GoogleLogin
+                className="btn-google-login btn-google mt-5"
+                clientId="204714783619-coki1sldsv5iev552dcmtcpfj1sn77sg.apps.googleusercontent.com"
+                buttonText=" ورود با گوگل"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={'single_host_origin'}
+
+              />
             </div>
             <div className="l-footer-block">
               <div className="form-check">
