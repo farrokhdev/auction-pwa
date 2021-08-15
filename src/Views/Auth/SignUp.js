@@ -9,33 +9,27 @@ import { connect } from "react-redux";
 import Logo from "../../assets/img/logo.svg";
 import GoogleLogin from "react-google-login";
 import { Form, Input, message } from "antd";
+import authService from "../../services/auth.service";
 
 function SignUp(props) {
 
 
     const inputRef = useRef(null);
-    const [userName, setuserName] = useState("");
-    const [Password, setPassword] = useState("");
-    const [confirmedPassword, setconfirmedPassword] = useState("");
     const [form] = Form.useForm();
 
-
+    const [formData, setformData] = useState({
+        userName: "",
+        Password: "",
+        confirmedPassword: "",
+    })
 
     const handleRequestSignUp = (value) => {
-
-        let payload = {
-
-            "username": userName,
-            "password": Password,
-            "confirmed_password": confirmedPassword
-        }
-        console.log(payload)
-        axios.post(`${BASE_URL}/account/register/`, payload)
-            .then(resp => {
-                console.log("Sign Up", resp);
-                if (resp.data.code === 201) {
-                    setToken(resp.data.data.result);
-                    props.setProfile({ username: payload.username })
+        authService.SignUp(formData)
+            .then(res => {
+                console.log("Sign Up", res);
+                if (res.data.code === 201) {
+                    setToken(res.data.data.result);
+                    props.setProfile({ username: formData.userName })
 
                     setTimeout(() => {
                         window.location.href = "/auth/verification-code"
@@ -51,18 +45,23 @@ function SignUp(props) {
 
     const responseGoogle = (response) => {
 
-        console.log(response);
+        console.log("Sign Up", response);
 
+        let payload = {
+            "access_token": response.tokenObj.access_token
+        }
 
-
-
-        // axios.post(`${BASE_URL}/rest-auth/google/`).then(res => {
-        //     console.log(res.data);
-
-        // })
-        // .catch(err => {
-        //     console.log(err)
-        // })
+        console.log("Ehsan", payload)
+        axios.post(`${BASE_URL}/rest-auth/google/`, payload).then(res => {
+            setToken(res.data.data.result)
+            message.success("به اسمارت آکشن خوش آمدید")
+            setTimeout(() => {
+                window.location.href = "/account"
+            }, 500);
+        })
+            .catch(err => {
+                console.log(err)
+            })
 
     }
 
@@ -94,7 +93,7 @@ function SignUp(props) {
                             ]}>
                             <Input className="default-input"
                                 onChange={(e) => {
-                                    setuserName(e.target.value);
+                                    setformData({ ...formData, userName: e.target.value });
                                 }}
                                 placeholder="شماره همراه یا ایمیل" />
                         </Form.Item>
@@ -115,7 +114,7 @@ function SignUp(props) {
                             <Input className="default-input"
                                 type="password"
                                 onChange={(e) => {
-                                    setPassword(e.target.value);
+                                    setformData({ ...formData, Password: e.target.value });
                                 }}
                                 placeholder="رمز عبور" />
                         </Form.Item>
@@ -136,7 +135,7 @@ function SignUp(props) {
                             <Input className="default-input"
                                 type="password"
                                 onChange={(e) => {
-                                    setconfirmedPassword(e.target.value);
+                                    setformData({ ...formData, confirmedPassword: e.target.value });
                                 }}
                                 placeholder="تکرار رمز عبور" />
                         </Form.Item>
@@ -156,7 +155,7 @@ function SignUp(props) {
                             </div>
                             <GoogleLogin
                                 className="btn-google-login btn-google mt-5"
-                                clientId="12365462243-gua1d2f4uldno7v4t2n61hq8pju041qi.apps.googleusercontent.com"
+                                clientId="204714783619-coki1sldsv5iev552dcmtcpfj1sn77sg.apps.googleusercontent.com"
                                 buttonText=" ثبت نام با گوگل"
                                 onSuccess={responseGoogle}
                                 onFailure={responseGoogle}

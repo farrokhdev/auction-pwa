@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import Logo from "../../assets/img/logo.svg";
 import { Link } from "react-router-dom";
-
-import axios from "axios";
-import { BASE_URL } from "../../utils/index";
 import { setToken } from "../../utils/utils";
-import { setPhoneNumber } from '../../redux/reducers/auth/auth.actions';
 import { connect } from 'react-redux';
 import { getOtp } from "../../redux/reducers/auth/auth.actions";
 import { Form, Input, message } from "antd";
+import authService from "../../services/auth.service";
 
 
 function ConfirmMobileNumber(props) {
@@ -16,28 +13,26 @@ function ConfirmMobileNumber(props) {
   const [form] = Form.useForm();
 
   const handleRequestConfrimMobile = (value) => {
-    let payload = {
-      "user_name": props.auth.username,
-      "verify_code": verify_code,
-    }
 
-    axios.post(`${BASE_URL}/account/approve/`, payload)
-      .then(res => {
-        console.log("Confrim-Mobile", res);
 
-        if (res.data.code === 200) {
-          setToken(res.data.data.result);
+    authService.ConfirmMobileNumber(props.auth.username, verify_code)
+      .then(resp => {
+        console.log("token =>", resp.data.data.result);
+        if (resp.data.data.statusCode === 200) {
+          setToken(resp.data.data.result);
           props.getOtp({ otp: verify_code })
           setTimeout(() => {
             window.location.href = "/auth/register-set-password"
-            message.success("گذر واژه جدید را وارد کنید")
-          }, 1000);
-
+            message.success("به اسمارت آکشن خوش آمدید")
+          }, 500);
+        } else {
+          message.error("مجددا درخواست کد اعتبارسنجی دهید")
         }
-      })
+      }
+      )
       .catch(err => {
-        message.error("کد نامعتبر است")
-        console.log("Error Message as Confrim-Mobile", err);
+        message.error("کاربری با این مشخصات یافت نشد")
+        console.log("error message", err);
       })
   }
 
