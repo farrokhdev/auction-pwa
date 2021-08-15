@@ -1,26 +1,56 @@
-import React from 'react'
+import React , {useState} from 'react';
+import ModalDetailMessage from './ModalDetailMessage';
+import authService from '../../../services/auth.service';
 
-function Announcements() {
+function Announcements({messagesBox}) {
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [detailMessage, setDetailMessage] = useState()
+
+
+
+    const handleShowModal = (id) =>{
+
+        authService.messageDetail(id).then(res => {
+            console.log(res);
+            setDetailMessage(res.data.data.result)
+
+            setTimeout(() => {
+                setIsModalVisible(true)
+            }, 300);
+        })
+
+    }
+
     return (
         <>
-
             {
-                [1, 2, 3].map((item) => {
+                messagesBox?.map(message => {
                     return (
-                        <div className="fw-block new-notices">
-                            <div className="flex-between align-items-baseline">
-                                <div className="flex-col">
-                                    <h6 className="default">درخواست شما برای عضویت در کالکشن 5 پذیرفته شد.</h6>
+                        <React.Fragment>
+                            <div onClick={()=>handleShowModal(message?.message?.id)} className="fw-block new-notices">
+                                <div className="flex-between align-items-baseline">
+                                    <div className="flex-col">
+                                        <h6 className="default">{message?.message?.title}</h6>
+                                    </div>
+                                    <div className="flex-col">
+                                        {!message?.is_read ? <i className="fal fa-circle"></i> : null}
+                                    </div>
                                 </div>
-                                <div className="flex-col">
-                                    <i className="fal fa-circle"></i>
-                                </div>
+                                <p>{message?.message?.body}</p>
+                            
                             </div>
-                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </p>
-                        </div>
+                        </React.Fragment>
                     )
                 })
             }
+            <ModalDetailMessage 
+                detailMessage={detailMessage} 
+                setIsModalVisible={setIsModalVisible}
+                isModalVisible={isModalVisible}
+        />
+
+            
 
         </>
     )
