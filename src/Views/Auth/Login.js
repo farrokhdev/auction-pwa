@@ -115,7 +115,7 @@ function Login(props) {
                   message: "حداقل 8 کارکتر مورد نیاز است",
                 }
               ]}>
-              <Input className="default-input"
+              <Input.Password className="default-input"
                 type="password"
                 onChange={(e) => {
                   setPassword(e.target.value);

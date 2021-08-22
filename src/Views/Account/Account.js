@@ -4,7 +4,7 @@ import Footer from "../../components/footer";
 import avatar from "../../assets/img/avatar.jpg"
 import AccountHeader from "../../components/AccountHeader";
 import { useDispatch, useSelector } from "react-redux";
-import {clearStorageAll} from "../../redux/reducers/all/all.actions";
+import { clearStorageAll } from "../../redux/reducers/all/all.actions";
 
 function Account() {
     const dispatch = useDispatch();
@@ -32,10 +32,10 @@ function Account() {
                     <h6 className="default mrgt30">تنظیمات</h6>
                     <ul className="sidebar-filterlist mrgt15">
                         <li><Link to="/account/change-password"><i className="fal fa-lock"></i>تغییر رمز عبور<span></span></Link></li>
-                        <li><Link to="/"><i className="fal fa-bell"></i>اعلان‌ها<span></span></Link></li>
+                        {/* <li><Link to="/"><i className="fal fa-bell"></i>اعلان‌ها<span></span></Link></li>
                         <li><Link to="/"><i className="fal fa-info"></i>درباره ما<span></span></Link></li>
                         <li><Link to="/"><i className="fal fa-align-left"></i>شرایط و قوانین<span></span></Link></li>
-                        <li><Link to="/"><i className="fal fa-question"></i>راهنما<span></span></Link></li>
+                        <li><Link to="/"><i className="fal fa-question"></i>راهنما<span></span></Link></li> */}
                         <li><Link to="/auth/login" onClick={() => {
                             dispatch(clearStorageAll())
                         }}><i className="fal fa-sign-out"></i>خروج<span></span></Link></li>

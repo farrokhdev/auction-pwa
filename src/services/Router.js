@@ -1,5 +1,6 @@
-import React from 'react'
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Redirect, Switch, Route, BrowserRouter as Router } from 'react-router-dom'
+import { createHashHistory } from "history";
 import NotFound from '../components/not-found'
 import Account from '../Views/Account/Account'
 import AccountChangepassword from '../Views/Account/AccountChangePassword/AccountChangepassword'
@@ -31,11 +32,22 @@ import PasswordRecovery from '../Views/Auth/PasswordRecovery'
 import VerificationCode from '../Views/Auth/VerificationCode'
 import ConfirmMobileNumber from '../Views/Auth/ConfirmMobileNumber'
 import RegistersetPassword from '../Views/Auth/RegistersetPassword'
+import { connect, useSelector, useDispatch } from 'react-redux';
+import { getProfile } from '../redux/reducers/profile/profile.actions'
 
-const RouterConfig = () => {
+const RouterConfig = (props) => {
+    console.log(console.log("Login ->> ", props.auth.is_logged_in))
+
+    const { role } = useSelector((state) => state.profileReducer)
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if (!role)
+            dispatch(getProfile())
+    }, [])
     return (
-        <Router>
+        <Router >
             <Switch>
+                {/* {!props.auth.is_logged_in && <Route path="/" component={() => <Login />} />} */}
                 <Route path="/auth"
                     render={({ match: { url } }) => (
                         <>
@@ -48,74 +60,93 @@ const RouterConfig = () => {
                         </>
                     )} />
 
-                <Route path="/account"
-                    render={({ match: { url } }) => (
-                        <>
-                            <Route exact path={`${url}/`} component={() => <Account />} />
-                            <Route exact path={`${url}/change-password`} component={() => <AccountChangepassword />} />
-                            <Route exact path={`${url}/messages`} component={() => <AccountMessages />} />
-                            <Route exact path={`${url}/ticket-detail`} component={() => <AccountMessagesTicketDetail />} />
-                            <Route exact path={`${url}/my-auctions`} component={() => <AccountMyAuctions />} />
-                            <Route exact path={`${url}/my-profile`} component={() => <MyAccountProfile />} />
-                            <Route exact path={`${url}/verify-email`} component={() => <MyProfileEmailverify />} />
-                            <Route exact path={`${url}/verify-phone`} component={() => <MyProfilePhoneverifyCode />} />
-                            <Route exact path={`${url}/wallet`} component={() => <AccountWallet />} />
-                            <Route exact path={`${url}/won-item`} component={() => <AccountWonItem />} />
+                {props.auth.is_logged_in ?
 
-                        </>
-                    )} />
+                    <>
 
-                <Route path="/auction-registration"
-                    render={({ match: { url } }) => (
-                        <>
-                            <Route exact path={`${url}/`} component={() => <AuctionRegistration />} />
-                            <Route exact path={`${url}/Personalinfo`} component={() => <AuctionRegistrationPersonalinfo />} />
-                            <Route exact path={`${url}/financialinfo`} component={() => <AuctionRegistrationFinancialinfo />} />
-                            <Route exact path={`${url}/favorite`} component={() => <AuctionRegistrationFavorite />} />
-                            <Route exact path={`${url}/values`} component={() => <AuctionRegistrationValue />} />
-                            <Route exact path={`${url}/introduce`} component={() => <AuctionRegistrationIntroduce />} />
-                            <Route exact path={`${url}/document`} component={() => <AuctionRegistrationOtherdDocuments />} />
-                            <Route exact path={`${url}/contract`} component={() => <AuctionRegistrationContract />} />
+                        <Route path="/account"
+                            render={({ match: { url } }) => (
+                                <>
+                                    <Route exact path={`${url}/`} component={() => <Account />} />
+                                    <Route exact path={`${url}/change-password`} component={() => <AccountChangepassword />} />
+                                    <Route exact path={`${url}/messages`} component={() => <AccountMessages />} />
+                                    <Route exact path={`${url}/ticket-detail`} component={() => <AccountMessagesTicketDetail />} />
+                                    <Route exact path={`${url}/my-auctions`} component={() => <AccountMyAuctions />} />
+                                    <Route exact path={`${url}/my-profile`} component={() => <MyAccountProfile />} />
+                                    <Route exact path={`${url}/verify-email`} component={() => <MyProfileEmailverify />} />
+                                    <Route exact path={`${url}/verify-phone`} component={() => <MyProfilePhoneverifyCode />} />
+                                    <Route exact path={`${url}/wallet`} component={() => <AccountWallet />} />
+                                    <Route exact path={`${url}/won-item`} component={() => <AccountWonItem />} />
 
-                        </>
-                    )} />
+                                </>
+                            )} />
 
-                <Route path="/auctions"
-                    render={({ match: { url } }) => (
-                        <>
-                            <Route exact path={`${url}/`} component={() => <Auctions />} />
-                            <Route exact path={`${url}/one-artwork`} component={() => <OneArtworkAuctions />} />
-                            <Route exact path={`${url}/details`} component={() => <AuctionsDetails />} />
-                        </>
-                    )} />
+                        <Route path="/auction-registration"
+                            render={({ match: { url } }) => (
+                                <>
+                                    <Route exact path={`${url}/`} component={() => <AuctionRegistration />} />
+                                    <Route exact path={`${url}/Personalinfo`} component={() => <AuctionRegistrationPersonalinfo />} />
+                                    <Route exact path={`${url}/financialinfo`} component={() => <AuctionRegistrationFinancialinfo />} />
+                                    <Route exact path={`${url}/favorite`} component={() => <AuctionRegistrationFavorite />} />
+                                    <Route exact path={`${url}/values`} component={() => <AuctionRegistrationValue />} />
+                                    <Route exact path={`${url}/introduce`} component={() => <AuctionRegistrationIntroduce />} />
+                                    <Route exact path={`${url}/document`} component={() => <AuctionRegistrationOtherdDocuments />} />
+                                    <Route exact path={`${url}/contract`} component={() => <AuctionRegistrationContract />} />
 
-                <Route path="/discover"
-                    render={({ match: { url } }) => (
-                        <>
-                            <Route exact path={`${url}/`} component={() => <Discover />} />
+                                </>
+                            )} />
 
-                        </>
-                    )} />
+                        <Route path="/auctions"
+                            render={({ match: { url } }) => (
+                                <>
+                                    <Route exact path={`${url}/`} component={() => <Auctions />} />
+                                    <Route exact path={`${url}/one-artwork`} component={() => <OneArtworkAuctions />} />
+                                    <Route exact path={`${url}/details`} component={() => <AuctionsDetails />} />
+                                </>
+                            )} />
 
-                <Route path="/bids"
-                    render={({ match: { url } }) => (
-                        <>
-                            <Route exact path={`${url}/`} component={() => <MyBids />} />
+                        <Route path="/discover"
+                            render={({ match: { url } }) => (
+                                <>
+                                    <Route exact path={`${url}/`} component={() => <Discover />} />
 
-                        </>
-                    )} />
-                <Route path="/favorite"
-                    render={({ match: { url } }) => (
-                        <>
-                            <Route exact path={`${url}/`} component={() => <Favorite />} />
+                                </>
+                            )} />
 
-                        </>
-                    )} />
-                <Route path={`*`} component={() => <NotFound />} />
+                        <Route path="/bids"
+                            render={({ match: { url } }) => (
+                                <>
+                                    <Route exact path={`${url}/`} component={() => <MyBids />} />
+
+                                </>
+                            )} />
+                        <Route path="/favorite"
+                            render={({ match: { url } }) => (
+                                <>
+                                    <Route exact path={`${url}/`} component={() => <Favorite />} />
+
+                                </>
+                            )} />
+                        {/* <Route path={`*`} component={() => <NotFound />} /> */}
+
+
+                    </>
+                    :
+
+                    <Redirect to={{ pathname: "/auth/login" }} />}
+
             </Switch>
 
         </Router>
     )
 }
 
-export default RouterConfig;
+// export default RouterConfig;
+
+const mapStateToProps = (store) => {
+    return {
+        auth: store.authReducer,
+    }
+}
+
+export default connect(mapStateToProps, null)(RouterConfig)
