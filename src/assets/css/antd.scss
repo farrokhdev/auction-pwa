@@ -108,7 +108,7 @@
   
 .ant-input::placeholder {
   font-size: 0.85rem !important;
-  color: var(--gray50);
+  // color: var(--gray50);
 }
 
 
@@ -194,4 +194,20 @@
 
   margin-bottom: 24px !important;
 
+}
+
+.ant-input-affix-wrapper.ant-input-password.default-input{
+  padding: 0 !important;
+}
+
+.ant-input-affix-wrapper > input.ant-input {
+  border: none !important;
+}
+
+.ant-input-password {
+  color: #00305b !important;
+}
+
+.ant-input-suffix {
+  margin-left: 1rem;
 }
