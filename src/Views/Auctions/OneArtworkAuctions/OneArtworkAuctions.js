@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link ,useHistory} from 'react-router-dom';
 import pic1 from '../../../assets/img/pic1.jpg';
 import Footer from '../../../components/footer';
 import pic1thumb from '../../../assets/img/pic1-thumb.jpg';
@@ -17,8 +17,8 @@ function OneArtworkAuctions() {
     const { TabPane } = Tabs;
     const [activeKey, setActiveKey] = useState("1");
     const [data, setData] = useState({})
-
     const [Active, setActive] = useState(false);
+    const history = useHistory();
 
     const Like = () => {
         setActive(!Active)
@@ -76,9 +76,9 @@ function OneArtworkAuctions() {
         <>
             <div className="container">
                 <div class="top-header flex-between">
-                    <Link to="/auctions/details">
-                        <button type="button" class="btn-back"><i class="fal fa-chevron-left"></i></button>
-                    </Link>
+                    {/* <Link to="/auctions/details/:id"> */}
+                        <button onClick={()=>history.goBack()} type="button" class="btn-back"><i class="fal fa-chevron-left"></i></button>
+                    {/* </Link> */}
                     <div class="inner-title text-center">
                         <h2 class="main-title">دختری پشت پنجره</h2>
                         <h5 class="auction-house-name">ایران مدرن</h5>

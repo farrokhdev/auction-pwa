@@ -84,14 +84,14 @@ const RouterConfig = (props) => {
                         <Route path="/auction-registration"
                             render={({ match: { url } }) => (
                                 <>
-                                    <Route exact path={`${url}/`} component={() => <AuctionRegistration />} />
-                                    <Route exact path={`${url}/Personalinfo`} component={() => <AuctionRegistrationPersonalinfo />} />
-                                    <Route exact path={`${url}/financialinfo`} component={() => <AuctionRegistrationFinancialinfo />} />
-                                    <Route exact path={`${url}/favorite`} component={() => <AuctionRegistrationFavorite />} />
-                                    <Route exact path={`${url}/values`} component={() => <AuctionRegistrationValue />} />
-                                    <Route exact path={`${url}/introduce`} component={() => <AuctionRegistrationIntroduce />} />
-                                    <Route exact path={`${url}/document`} component={() => <AuctionRegistrationOtherdDocuments />} />
-                                    <Route exact path={`${url}/contract`} component={() => <AuctionRegistrationContract />} />
+                                    <Route exact path={`${url}/:id`} component={(p) => <AuctionRegistration {...p}/>} />
+                                    <Route exact path={`${url}/Personalinfo/:id`} component={(p) => <AuctionRegistrationPersonalinfo {...p} />} />
+                                    <Route exact path={`${url}/financialinfo/:id`} component={(p) => <AuctionRegistrationFinancialinfo {...p}/>} />
+                                    <Route exact path={`${url}/favorite/:id`} component={(p) => <AuctionRegistrationFavorite {...p}/>} />
+                                    <Route exact path={`${url}/values/:id`} component={(p) => <AuctionRegistrationValue {...p}/>} />
+                                    <Route exact path={`${url}/introduce/:id`} component={(p) => <AuctionRegistrationIntroduce {...p}/>} />
+                                    <Route exact path={`${url}/document/:id`} component={(p) => <AuctionRegistrationOtherdDocuments {...p}/>} />
+                                    <Route exact path={`${url}/contract/:id`} component={(p) => <AuctionRegistrationContract {...p}/>} />
 
                                 </>
                             )} />
@@ -101,7 +101,7 @@ const RouterConfig = (props) => {
                                 <>
                                     <Route exact path={`${url}/`} component={() => <Auctions />} />
                                     <Route exact path={`${url}/one-artwork`} component={() => <OneArtworkAuctions />} />
-                                    <Route exact path={`${url}/details`} component={() => <AuctionsDetails />} />
+                                    <Route exact path={`${url}/details/:id`} component={(p) => <AuctionsDetails {...p} />} />
                                 </>
                             )} />
 

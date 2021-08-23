@@ -6,7 +6,7 @@ import DateAuctions from "./DateAuctions";
 function Auctions() {
     const { TabPane } = Tabs;
     const [activeKey, setActiveKey] = useState("1");
-    const [data, setData] = useState({})
+    const [data , ] = useState({})
 
 
     const callback = (key) => {
@@ -26,10 +26,12 @@ function Auctions() {
                 <div className="main-content" id="auctions">
                     <Tabs activeKey={activeKey} onChange={callback} className="nav nav-pills nav-justified main-tab " unmountInactiveTabs={true}>
                         <TabPane tab="ویژه" key="1" className="nav-link nav-item " >
-                            <SpecialAuctions data={data} getProfile={setData} />
+                            <SpecialAuctions data="withParams" activeKey={activeKey} />
                         </TabPane>
                         <TabPane tab="تقویم" key="2" className="nav-link nav-item " >
-                            <DateAuctions data={data} getProfile={setData} />
+                            {/* <DateAuctions data={data} getProfile={setData} /> */}
+                            <SpecialAuctions data="withoutParams" activeKey={activeKey}/>
+
                         </TabPane>
                         <TabPane tab="نزدیک من" key="3" className="nav-link nav-item " >
                             {/* <MyLocationAuctions /> */}
