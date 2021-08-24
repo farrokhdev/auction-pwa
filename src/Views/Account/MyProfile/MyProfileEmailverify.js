@@ -44,11 +44,11 @@ function MyProfileEmailverify(props) {
                 {showNumber ?
                     <Form
                         onFinish={onFinish}
-                        class="verify-page">
+                        className="verify-page">
                         <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون
                             بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
                         <>
-                            <label class="default-label">ایمیل</label>
+                            <label className="default-label">ایمیل</label>
                             <Form.Item
                                 className="form-group mrgtb30"
                                 name="name"
@@ -58,18 +58,18 @@ function MyProfileEmailverify(props) {
                                         message: "تکمیل این فیلد ضروری است",
                                     }
                                 ]}>
-                                <Input type="text" class="default-input is-valid" placeholder="ایمیل خود را وارد نمایید." />
+                                <Input type="text" className="default-input is-valid" placeholder="ایمیل خود را وارد نمایید." />
                             </Form.Item>
                         </>
-                        <div class="btns">
-                            <button htmlType="submit" class="btn-main">ثبت</button>
+                        <div className="btns">
+                            <button htmlType="submit" className="btn-main">ثبت</button>
                         </div>
                     </Form>
                     :
 
                     <Form
                         onFinish={onSub}
-                        class="verify-page">
+                        className="verify-page">
                         <p className="darkgray">
 
 
@@ -79,7 +79,7 @@ function MyProfileEmailverify(props) {
                             برای تأیید آدرس ایمیل خود کد را در زیر وارد کنید.
                         </p>
                         <>
-                            <label class="default-label">کد</label>
+                            <label className="default-label">کد</label>
                             <Form.Item
                                 className="form-group mrgtb30"
                                 name="name"
@@ -89,12 +89,12 @@ function MyProfileEmailverify(props) {
                                         message: "تکمیل این فیلد ضروری است",
                                     }
                                 ]}>
-                                <Input type="text" class="default-input is-valid" placeholder=" کد را وارد نمایید." />
+                                <Input type="text" className="default-input is-valid" placeholder=" کد را وارد نمایید." />
                             </Form.Item>
                         </>
-                        <div class="button-group">
+                        <div className="button-group">
 
-                            {/* <Button htmlType="submit" class="btn-main">ثبت</Button> */}
+                            {/* <Button htmlType="submit" className="btn-main">ثبت</Button> */}
                             <Button className="btn btn-secondary rounded-pill" onClick={() => setShowNumber(true)}>
                                 ویرایش ایمیل
                             </Button>

@@ -132,8 +132,8 @@ function Login(props) {
               </button>
             </div>
 
-            <div class="s-footer-block ">
-              <div class="or-divider">
+            <div className="s-footer-block ">
+              <div className="or-divider">
                 <span> یا </span>
               </div>
               <GoogleLogin

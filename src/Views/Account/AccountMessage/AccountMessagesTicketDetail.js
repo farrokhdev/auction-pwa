@@ -71,7 +71,7 @@ function AccountMessagesTicketDetail() {
                 </div>
             </div>
             <footer>
-                <div class="input-group send-txt">
+                <div className="input-group send-txt">
                     <input type="text" className="default-input" placeholder="متن خود را اینجا بنویسید." />
                     <button type="button" className="btn-send"><i className="fal fa-chevron-circle-right"></i></button>
                 </div>
