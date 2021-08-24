@@ -18,7 +18,7 @@ function AccountChangepassword() {
         <>
             <div className="container bg-white">
                 <AccountHeader titlePage={"تغییر رمز عبور"} />
-                <Form class="changepassword-page" form={form}>
+                <Form className="changepassword-page" form={form}>
                     <label className="default-label">رمز عبور فعلی</label>
                     <Form.Item
                         className="form-group"

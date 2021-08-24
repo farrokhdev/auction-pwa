@@ -1,25 +1,11 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import pic1 from "../../../assets/img/pic1.jpg"
-import { AuctionType } from '../../../utils/converTypePersion';
+
+
 function Products(props) {
-
-
     const [activeKey, setActiveKey] = useState("1");
-    const [data, setData] = useState({});
     let numeral = require('numeral');
-
-    const [Active, setActive] = useState(false);
-
-    const Like = () => {
-        setActive(!Active)
-    }
-
-
-    const callback = (key) => {
-        console.log(key);
-        setActiveKey(key)
-    }
+ 
     return (
         <>
             {
@@ -30,7 +16,7 @@ function Products(props) {
                             <div className="row">
                                 <div className="col-4 col-lg-2">
                                     <div className="img-block">
-                                        <Link to="/auctions/one-artwork">
+                                        <Link to={`/auctions/one-artwork/${item?.id}`}>
                                             <img src={item.media.exact_url} width="493" height="621" alt="Smart Auction"
                                                 className="img-fluid" />
                                         </Link>
@@ -44,13 +30,14 @@ function Products(props) {
                                         </div>
                                         <div className="flex-col">
                                             <button
-                                                // onClick={() =>
-                                                //     Like(
-                                                //         item?.following?.follow?.is_active ?
-                                                //             item?.following?.follow?.id :
-                                                //             item?.id, item?.following?.follow?.is_active)}
+                                               onClick={() =>
+                                                props.addBookmark(
+                                                    item?.following?.bookmark?.is_active?
+                                                    item?.following?.bookmark?.id :
+                                                        item?.id, item?.following?.bookmark?.is_active)
+                                            }
                                                 type="button"
-                                                className={"btn-favorite " + (Active ? "active" : "")}
+                                                className={"btn-favorite " + (item?.following?.bookmark?.is_active ? "active" : "")}
                                             ></button>
                                         </div>
                                     </div>

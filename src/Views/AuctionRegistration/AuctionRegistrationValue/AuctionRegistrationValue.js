@@ -19,7 +19,7 @@ function AuctionRegistrationValue() {
                                             <h6 className="default">1000-2000<span className="unit"> تومان</span></h6>
                                         </div>
                                         <div className="flex-col">
-                                            <h6 className="default">200<span class="unit"> تومان</span></h6>
+                                            <h6 className="default">200<span className="unit"> تومان</span></h6>
                                         </div>
 
                                     </div>

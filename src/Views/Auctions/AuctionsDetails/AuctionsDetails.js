@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import pic1thumb from '../../../assets/img/pic1-thumb.jpg';
-import pic2thumb from '../../../assets/img/pic2-thumb.jpg';
-import pic3thumb from '../../../assets/img/pic3-thumb.jpg';
 import Slider from "react-slick";
 import { Link, useHistory } from 'react-router-dom';
 import { Tabs } from "antd";
@@ -27,7 +24,6 @@ function AuctionsDetails(props) {
     const [Product, setProduct] = useState([]);
     const [countProducts, setCountProducts] = useState(0)
     // const [reminder, setReminder] = useState(false)
-    // const [bookmark, setBookmark] = useState(false)
     const [loading, setLoading] = useState(false)
     const [HouseDetail, setHouseDetail] = useState([])
 
@@ -62,30 +58,30 @@ function AuctionsDetails(props) {
         slidesToScroll: 4,
         initialSlide: 0,
         responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                    infinite: true,
-                    dots: true
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    initialSlide: 2
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1
-                }
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 5,
+              infinite: true,
+              dots: true
             }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+              initialSlide: 2
+            }
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2
+            }
+          }
         ]
     };
 
@@ -110,7 +106,7 @@ function AuctionsDetails(props) {
             .then(resp => {
                 if (resp.data.code === 200) {
                     setAuction(resp.data.data.result)
-                    axios.get(`${BASE_URL}/account/home-auction/${resp.data.data.result?.house?.id}`).then(res => {
+                    axios.get(`${BASE_URL}/account/home-auction/${resp.data.data.result?.house?.id}/`).then(res => {
                         setHouseDetail(res.data.data.result);
                     }).catch(err => {
                         console.error(err)
@@ -134,85 +130,32 @@ function AuctionsDetails(props) {
         getProducts()
     }, [params])
 
-    const handeSelectPage = (e) => {
-        setParams({
-            ...params, page: e
-        })
+    
+    const addBookmark = (data, action) => {
+        if (action) {
+            axios.delete(`${BASE_URL}/following/${data}`)
+                .then(resp => {
+                    getProducts()
+                })
+        } else {
+            axios.post(`${BASE_URL}/following/`, {
+                "content_type": "product",
+                "object_id": data,
+                "activity_type": "mark"
+            })
+                .then(resp => {
+                    if (resp.data.code === 201) {
+                        getProducts()
+                    }
+
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+
+        }
     }
 
-    // const parseWebSite = (data, type) => {
-    //     for (let i in data)
-    //         if (data[i].type === type) {
-    //             if (data[i].url.startsWith("http"))
-    //                 return data[i].url
-    //             else
-    //                 return "http://" + data[i].url
-    //         }
-    // }
-
-    // const parser = (data, type) => {
-    //     for (let i in data)
-    //         if (data[i].type === type) {
-    //             return data[i].exact_url
-    //         }
-    // }
-
-    // const handleSearchProducts = (value) => {
-    //     setParams({
-    //         ...params, search: value
-    //     })
-    // }
-
-    // const handleSetOrdering = (value) => {
-    //     setParams({
-    //         ...params, ordering: value
-    //     })
-    // }
-
-
-    // const convertToEn = (value) => {
-    //     switch (value) {
-    //         case "ONLINE":
-    //             return <span className="category-icon online-icon">آنلاین</span>
-    //         case "LIVE":
-    //             return <span className="category-icon live-icon">زنده</span>
-
-    //         case "PERIODIC":
-    //             return <span className="category-icon timed-icon">مدت دار</span>
-
-    //         case "HIDDEN":
-    //             return <span className="category-icon firstoffer-icon">اولین پیشنهاد</span>
-
-    //         case "SECOND_HIDDEN":
-    //             return <span className="category-icon secondoffer-icon">دومین پیشنهاد</span>
-
-    //     }
-    // }
-
-    // const addBookmark = (data, action) => {
-    //     if (action) {
-    //         axios.delete(`${BASE_URL}/following/${data}`)
-    //             .then(resp => {
-    //                 getProducts()
-    //             })
-    //     } else {
-    //         axios.post(`${BASE_URL}/following/`, {
-    //             "content_type": "product",
-    //             "object_id": data,
-    //             "activity_type": "mark"
-    //         })
-    //             .then(resp => {
-    //                 if (resp.data.code === 201) {
-    //                     getProducts()
-    //                 }
-
-    //             })
-    //             .catch(err => {
-    //                 console.error(err);
-    //             })
-
-    //     }
-    // }
 
     return (
         <>
@@ -284,7 +227,7 @@ function AuctionsDetails(props) {
                                 </div>
                                 <div className="flex-col">
                                     {Auction.status === "CLOSED" ?
-                                        <button type="button" class="btn-main">حراج به
+                                        <button type="button" className="btn-main">حراج به
                                             پایان رسید</button>
                                         :
                                         <Link to={`/auction-registration/${Auction?.id}`}>
@@ -300,7 +243,7 @@ function AuctionsDetails(props) {
                     </div>
                     <Tabs activeKey={activeKey} onChange={callback} className="nav nav-pills nav-justified main-tab " unmountInactiveTabs={true}>
                         <TabPane tab="لت ها" key="1" className="nav-link nav-item " >
-                            <Products data={data} product={Product} />
+                            <Products data={data} product={Product} addBookmark={addBookmark} />
                         </TabPane>
                         <TabPane tab="جزئیات" key="2" className="nav-link nav-item " >
                             <InformationAndTerms data={data} Auction={Auction} />

@@ -72,9 +72,9 @@ function SignUp(props) {
 
                 <Form className="login-container" form={form}>
                     <img className="logo mx-auto my-3" src={Logo} width="156" height="34" alt="اسمارت آکشن" />
-                    <div class="login-block">
-                        <div class="main-title">
-                            <h2 class="default titr">ثبت نام</h2>
+                    <div className="login-block">
+                        <div className="main-title">
+                            <h2 className="default titr">ثبت نام</h2>
                         </div>
                         <p className="text-dark" >
                             با ثبت نام و ورود به سایت شما<Link to="/" className="text-secondary"> قوانین </Link> و
@@ -140,17 +140,17 @@ function SignUp(props) {
                                 placeholder="تکرار رمز عبور" />
                         </Form.Item>
 
-                        <div class="btn-container mt-3 mb-3">
+                        <div className="btn-container mt-3 mb-3">
                             <button
                                 onClick={handleRequestSignUp}
                                 type="submit"
-                                class="btn-default"
+                                className="btn-default"
                             >
                                 ثبت نام
                             </button>
                         </div>
-                        <div class="s-footer-block">
-                            <div class="or-divider">
+                        <div className="s-footer-block">
+                            <div className="or-divider">
                                 <span> یا </span>
                             </div>
                             <GoogleLogin
@@ -164,7 +164,7 @@ function SignUp(props) {
                             />
                         </div>
                     </div>
-                    <p class="l-signup ">
+                    <p className="l-signup ">
                         قبلا ثبت نام کرده‌اید؟<Link to="/auth/login" className="text-secondary"> ورود</Link>
                     </p>
                 </Form>

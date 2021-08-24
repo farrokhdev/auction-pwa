@@ -2,7 +2,7 @@ import React from 'react'
 
 function InformationAndTerms(props) {
 
-    console.log('Auction >>>> ', props?.Auction);
+    console.log('artwork >>>> ', props?.Auction);
     return (
         <div className="fw-block" >
             <p>{props?.Auction.details}</p>

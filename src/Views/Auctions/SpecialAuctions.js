@@ -130,6 +130,7 @@ function SpecialAuctions(props) {
                     Auctions && Auctions?.length >= 1 ? Auctions.map((item) => {
                         return (
                             <div className="fw-block">
+                                {console.log("Auctionssss ---->>>>",item)}
                                 {/* <Link to="/auctions/one-artwork"> */}
                                 <Link to={`/auctions/details/${item?.id}`}>
 

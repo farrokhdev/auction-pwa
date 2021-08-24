@@ -19,23 +19,23 @@ function AuctionRegistrationFavorite() {
                     {
                         [1, 2, 3, 4].map((item) => {
                             return (
-                                <div class="col">
-                                    <div class="form-check img-checkbox">
-                                        <input class="form-check-input" type="checkbox" value="" id="checkbox1" />
-                                        <label class="form-check-label" for="checkbox1">
-                                            <div class="artwork-block">
-                                                <div class="artwork-img">
-                                                    <img src={pic1thumb} width="493" height="493" alt="" class="img-fluid" />
+                                <div className="col">
+                                    <div className="form-check img-checkbox">
+                                        <input className="form-check-input" type="checkbox" value="" id="checkbox1" />
+                                        <label className="form-check-label" for="checkbox1">
+                                            <div className="artwork-block">
+                                                <div className="artwork-img">
+                                                    <img src={pic1thumb} width="493" height="493" alt="" className="img-fluid" />
                                                 </div>
-                                                <div class="flex-between mrgt10">
-                                                    <div class="flex-col">
-                                                        <h5 class="artist-name">سهراب سپهری</h5>
-                                                        <div class="flex-col">
-                                                            <h6 class="default">2000-5000<span class="unit"> تومان</span></h6>
+                                                <div className="flex-between mrgt10">
+                                                    <div className="flex-col">
+                                                        <h5 className="artist-name">سهراب سپهری</h5>
+                                                        <div className="flex-col">
+                                                            <h6 className="default">2000-5000<span className="unit"> تومان</span></h6>
                                                         </div>
                                                     </div>
-                                                    <div class="flex-col">
-                                                        <span class="lot-number">1</span>
+                                                    <div className="flex-col">
+                                                        <span className="lot-number">1</span>
                                                     </div>
                                                 </div>
                                             </div>
