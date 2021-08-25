@@ -3,15 +3,14 @@ import { Link } from 'react-router-dom';
 
 
 function Products(props) {
-    const [activeKey, setActiveKey] = useState("1");
     let numeral = require('numeral');
  
     return (
         <>
             {
-                props.product.map((item) => {
+                props.product.map((item,key) => {
                     return (
-                        <div className="fw-block">
+                        <div className="fw-block" key={key}>
 
                             <div className="row">
                                 <div className="col-4 col-lg-2">

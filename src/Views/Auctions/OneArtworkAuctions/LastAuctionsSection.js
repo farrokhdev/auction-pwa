@@ -8,12 +8,11 @@ function LastAuctionsSection(props) {
 
     const [products, setProducts] = useState(false)
 
-console.log("props?.artwork_id --->>>>" , typeof(props?.artwork_id));
+// console.log("props?.artwork_id --->>>>" , typeof(props?.artwork_id));
 
     const getAuction = () => {
         axios.get(`${BASE_URL}/sale/product/?auctions__id=${stringify(props?.artwork_id)}&page_size=8`)
             .then(resp => {
-                console.log(resp)
                 if (resp.data.code === 200) {
                     setProducts(resp.data?.data?.result)
                 }
