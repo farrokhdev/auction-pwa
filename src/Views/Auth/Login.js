@@ -53,7 +53,7 @@ function Login(props) {
       "access_token": response.tokenObj.access_token
     }
 
-    console.log("Ehsan", payload)
+    // console.log("Ehsan", payload)
     axios.post(`${BASE_URL}/rest-auth/google/`, payload).then(res => {
       setToken(res.data.data.result)
       message.success("به اسمارت آکشن خوش آمدید")

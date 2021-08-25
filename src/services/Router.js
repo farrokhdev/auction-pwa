@@ -48,6 +48,7 @@ const RouterConfig = (props) => {
         <Router >
             <Switch>
                 {/* {!props.auth.is_logged_in && <Route path="/" component={() => <Login />} />} */}
+                {/* <Route path="/" component={() => <Login />} /> */}
                 <Route path="/auth"
                     render={({ match: { url } }) => (
                         <>

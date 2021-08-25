@@ -8,10 +8,9 @@ import { BASE_URL } from '../../utils';
 import queryString from 'query-string';
 import Timer from 'react-compound-timer';
 import { Pagination, Spin } from "antd";
-import { DatePicker, ConfigProvider } from "antd";
-import { DatePicker as DatePickerJalali, Calendar } from "antd-jalali";
+import {  ConfigProvider } from "antd";
+import { DatePicker as DatePickerJalali } from "antd-jalali";
 import fa_IR from "antd/lib/locale/fa_IR";
-import en_US from "antd/lib/locale/en_US";
 import moment from "jalali-moment";
 import { AuctionType } from '../../utils/converTypePersion';
 
@@ -130,8 +129,7 @@ function SpecialAuctions(props) {
                     Auctions && Auctions?.length >= 1 ? Auctions.map((item) => {
                         return (
                             <div className="fw-block">
-                                {console.log("Auctionssss ---->>>>",item)}
-                                {/* <Link to="/auctions/one-artwork"> */}
+
                                 <Link to={`/auctions/details/${item?.id}`}>
 
                                     <div className="img-block">
@@ -201,10 +199,6 @@ function SpecialAuctions(props) {
                     onShowSizeChange={(current, pageSize) => {
                         getProducts(pageSize)
                     }}
-                    // onChange={(current, pageSize) => {
-                    //   console.log(current, pageSize)
-
-                    // }}
                     onChange={(e) => handeSelectPage(e)}
                     defaultCurrent={1}
                     total={countAuctions}

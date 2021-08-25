@@ -1,8 +1,7 @@
 import axios from "axios";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { BASE_URL } from "../../utils";
-import { withRouter } from "react-router-dom";
 import { setToken } from "../../utils/utils";
 import { setProfile } from "../../redux/reducers/auth/auth.actions";
 import { connect } from "react-redux";
@@ -51,7 +50,7 @@ function SignUp(props) {
             "access_token": response.tokenObj.access_token
         }
 
-        console.log("Ehsan", payload)
+        // console.log("Ehsan", payload)
         axios.post(`${BASE_URL}/rest-auth/google/`, payload).then(res => {
             setToken(res.data.data.result)
             message.success("به اسمارت آکشن خوش آمدید")

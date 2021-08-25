@@ -32,12 +32,7 @@ function OneArtworkAuctions(props) {
         console.log(key);
         setActiveKey(key)
     }
-
-
-    console.log("artwork --->>>> ", artwork?.details);
-
-
-
+    // console.log("artwork --->>>> ", artwork?.details);
     const getProduct = () => {
         setLoading(true)
         axios.get(`${BASE_URL}${ONE_PRODUCT(props.match.params.id)}`).then(res => {

@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import Logo from "../../assets/img/logo.svg";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { withRouter } from "react-router-dom"
-import { BASE_URL } from "../../utils/index";
 import { setToken, Token } from "../../utils/utils";
 import { connect } from 'react-redux';
 import { Form, Input, message } from "antd";
@@ -11,9 +8,6 @@ import authService from "../../services/auth.service";
 
 
 function RegistersetPassword(props) {
-  // const [Password, setPassword] = useState("");
-  // const [PasswordCheck, setPasswordCheck] = useState("");
-
   const [formData, setFormData] = useState({
     password: "",
     passwordCheck: "",
