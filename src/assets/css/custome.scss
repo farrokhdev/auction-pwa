@@ -95,8 +95,8 @@ a:hover {
 }
 
 ul, li {
-    margin: 0 !important;
-    padding: 0 !important;
+    margin: 4 !important;
+    padding: 0px 8px !important;
     list-style: none !important;
 }
 
@@ -141,7 +141,7 @@ button {
 .container {
     max-width: 1280px !important;
     width: 100% !important;
-    background: var(--bgcolor) !important;
+    // background: var(--bgcolor) !important;
     min-height: 100vh !important;
     padding-bottom: 15px !important;
     padding-right: 15px !important;
@@ -1213,7 +1213,7 @@ option#iran {
     border-bottom: 1px solid var(--gray95);
 }
 
-.value-list .flex-around:last-child {
+.value-list .flex-around:nth-child(odd) td {
     background-color: var(--bgcolor);
 }
 
@@ -1943,3 +1943,89 @@ option#iran {
   .signup-container .btn-google {
     margin-top: 30px;
   }
+
+  .wizard-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.wizard-list li::after {
+    content: "/";
+    font-family: inherit;
+    font-size: 15px;
+    position: relative;
+    right: 6px;
+    color: var(--gray50);
+}
+
+.wizard-list li.current {
+    font-size: 16px;
+    color: var(--darkgray);
+}
+
+@media (max-width: 576px){
+    .wallet-container .price-block {
+        background: var(--bgcolor);
+        padding: 10px;
+    }
+}
+
+.price-block .price {
+    font-size: 17px;
+}
+
+.wallet-container {
+    border: 1px solid var(--gray90);
+    padding: 50px 30px;
+  }
+  
+  .wallet-container .price {
+    color: var(--darkgray);
+    display: block;
+  }
+  
+  .wallet-container .price .price-unit {
+    margin-left: 5px;
+  }
+  
+  .price-lable {
+    font-size: 12px;
+    color: var(--gray50) !important;
+  }
+  
+  .wallet-container a {
+    color: var(--blue) !important;
+    font-style: italic;
+    display: block;
+    text-align: center;
+    margin: 50px auto 30px;
+    cursor: pointer;
+  }
+  
+  .wallet-container button,
+  .wallet-container button:hover {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .btn-gray {
+    background: var(--gray90) !important;
+    padding: 7px 15px !important;
+    min-width: 100px !important;
+    color: var(--gray50) !important;
+    border-radius: 25px !important;
+    font-size: 13px !important;
+  }
+
+  .category-icon {
+    position: relative;
+    font-size: 13px;
+    color: var(--pink);
+    padding: 0 10px 0 26px;
+    margin-right: 10px;
+    background-size: 20px !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

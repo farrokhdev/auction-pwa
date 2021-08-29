@@ -18,11 +18,11 @@ import MyBids from '../Views/MyBids/MyBids'
 import Favorite from '../Views/Favorite/Favorite'
 import AuctionRegistrationPersonalinfo from '../Views/AuctionRegistration/AuctionRegistrationPersonalinfo/AuctionRegistrationPersonalinfo'
 import AuctionRegistrationFinancialinfo from '../Views/AuctionRegistration/AuctionRegistrationFinancialinfo/AuctionRegistrationFinancialinfo'
-import AuctionRegistrationFavorite from '../Views/AuctionRegistration/AuctionRegistrationFavorite/AuctionRegistrationFavorite'
-import AuctionRegistrationValue from '../Views/AuctionRegistration/AuctionRegistrationValue/AuctionRegistrationValue'
-import AuctionRegistrationIntroduce from '../Views/AuctionRegistration/AuctionRegistrationIntroduce/AuctionRegistrationIntroduce'
+import AuctionRegistrationFavorite from '../Views/AuctionRegistration/AuctionRegistrationFavorite'
+import AuctionRegistrationValue from '../Views/AuctionRegistration/AuctionRegistrationValue'
+import AuctionRegistrationIntroduce from '../Views/AuctionRegistration/AuctionRegistrationIntroduce'
 import AuctionRegistrationOtherdDocuments from '../Views/AuctionRegistration/AuctionRegistrationOtherdDocuments/AuctionRegistrationOtherdDocuments'
-import AuctionRegistrationContract from '../Views/AuctionRegistration/AuctionRegistrationContract/AuctionRegistrationContract'
+import AuctionRegistrationContract from '../Views/AuctionRegistration/AuctionRegistrationContract'
 import Auctions from '../Views/Auctions/Auctions'
 import OneArtworkAuctions from '../Views/Auctions/OneArtworkAuctions/OneArtworkAuctions'
 import AuctionsDetails from '../Views/Auctions/AuctionsDetails/AuctionsDetails'
@@ -34,6 +34,7 @@ import ConfirmMobileNumber from '../Views/Auth/ConfirmMobileNumber'
 import RegistersetPassword from '../Views/Auth/RegistersetPassword'
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { getProfile } from '../redux/reducers/profile/profile.actions'
+import BuyerRegister from '../Views/AuctionRegistration/BuyerRegister';
 
 const RouterConfig = (props) => {
     console.log(console.log("Login ->> ", props.auth.is_logged_in))
@@ -85,14 +86,14 @@ const RouterConfig = (props) => {
                         <Route path="/auction-registration"
                             render={({ match: { url } }) => (
                                 <>
-                                    <Route exact path={`${url}/:id`} component={(p) => <AuctionRegistration {...p} />} />
-                                    <Route exact path={`${url}/Personalinfo/:id`} component={(p) => <AuctionRegistrationPersonalinfo {...p} />} />
+                                    <Route exact path={`${url}/:id`} component={(p) => <BuyerRegister {...p} />} />
+                                    {/* <Route exact path={`${url}/Personalinfo/:id`} component={(p) => <AuctionRegistrationPersonalinfo {...p} />} />
                                     <Route exact path={`${url}/financialinfo/:id`} component={(p) => <AuctionRegistrationFinancialinfo {...p} />} />
                                     <Route exact path={`${url}/favorite/:id`} component={(p) => <AuctionRegistrationFavorite {...p} />} />
                                     <Route exact path={`${url}/values/:id`} component={(p) => <AuctionRegistrationValue {...p} />} />
                                     <Route exact path={`${url}/introduce/:id`} component={(p) => <AuctionRegistrationIntroduce {...p} />} />
                                     <Route exact path={`${url}/document/:id`} component={(p) => <AuctionRegistrationOtherdDocuments {...p} />} />
-                                    <Route exact path={`${url}/contract/:id`} component={(p) => <AuctionRegistrationContract {...p} />} />
+                                    <Route exact path={`${url}/contract/:id`} component={(p) => <AuctionRegistrationContract {...p} />} /> */}
 
                                 </>
                             )} />
