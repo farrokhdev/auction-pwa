@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import Footer from '../../../components/footer';
-import { Tabs, Spin } from "antd";
+import { Tabs, Spin, Button, Form, message , Input } from "antd";
 import Details from './Details';
 import InformationAndTerms from './InformationAndTerms';
 import axios from "../../../utils/request";
 import { BASE_URL } from "../../../utils";
 import { ONE_PRODUCT } from "../../../utils/constant";
 import LastAuctionsSection from './LastAuctionsSection';
+import { useSelector } from "react-redux";
+import { BID } from "../../../utils/constant";
+import { Link } from "react-router-dom";
 
 
 
@@ -22,6 +25,10 @@ function OneArtworkAuctions(props) {
     const [loading, setLoading] = useState(false);
     const [artwork, setArtwork] = useState()
     const [artwork_id, setArtwork_id] = useState()
+    const { is_logged_in } = useSelector((state) => state.authReducer)
+    const [form] = Form.useForm();
+    const [steps, setSteps] = useState([])
+    const [currentValue, setCurrentValue] = useState(0)
 
     const history = useHistory()
     const Like = () => {
@@ -101,6 +108,65 @@ function OneArtworkAuctions(props) {
         }
     }
 
+    const setBid = (value) => {
+        form.setFieldsValue({ price: currentValue + value })
+        setCurrentValue(currentValue + value)
+    }
+
+    const handleIncrease = () => {
+        // console.log("[[26, 100.0, 300.0]]".splice(']' || '[' , ''));
+        if (steps.length) {
+            steps.some((item, i, array) => {
+                if (i !== (array.length - 1)) {
+                    // if (i > 0) {
+                    if ((currentValue >= item.threshold) && (currentValue < steps[i + 1].threshold)) {
+                        setBid(item.step)
+                        return true;
+                    } else if (i === 0) {
+                        console.log("It is an error")
+                        setBid(item.step)
+                        return true;
+                    }
+                    // } else {
+                    //     if ((currentValue < item.threshold)) {
+                    //         setBid(item.step)
+                    //         return true;
+                    //     }
+                    // }
+                } else {
+                    setBid(item.step)
+                }
+            })
+        }
+    }
+
+    const onFinish = (values) => {
+        console.log(values)
+        if (artwork?.id)
+            sendBid(values)
+    }
+    const sendBid = (values) => {
+        setLoading(true)
+        let payload = {
+            ...values,
+            "product_id": artwork?.id
+        }
+        axios.post(`${BASE_URL}${BID}`, payload)
+            .then(resp => {
+                if (resp.data.code === 200) {
+                    setAuction(resp.data.data.result)
+                }
+                setLoading(false)
+            })
+            .catch(err => {
+                console.error(err.response);
+                if (err.response?.data?.data?.error_message)
+                    message.error(err.response?.data?.data?.error_message)
+                else
+                    message.error("با خطا مواجه شدید")
+                setLoading(false)
+            })
+    }
 
 
     return (
@@ -169,6 +235,115 @@ function OneArtworkAuctions(props) {
                                     {/* <h6 className="default">2 روز بعد</h6> */}
                                 </div>
                             </div>
+
+
+                            {/* {is_logged_in ? <div className="detail-placebid general-bid">
+                      
+                        {artwork?.product_status==="on_stage" ? <Form onFinish={onFinish} form={form} className="m-0"
+                           
+                               wrapperCol={{span: 24}}>
+                            <div className="general-bid-block">
+                            <div className="general-bid-block">
+                                <div className="number-input">
+
+                                    <Form.Item
+                                        className="w-100"
+                                        name="price"
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: "تکمیل این فیلد ضروری است",
+                                            },
+                                        ]}>
+                                        <input className="default-inputquantity" min="0" name="quantity" type="number"
+                                               readOnly={true}
+                                               placeholder="انتخاب پیشنهاد"/>
+                                    </Form.Item>
+                                    <button onClick={handleIncrease}
+                                            type="button"
+                                            className="plus"/>
+                                    <span className="unit">تومان</span>
+                                </div>
+                                <Button htmlType="submit" className="btn-lightpink">ثبت پیشنهاد</Button>
+                            </div>
+                            </div>
+                        </Form> : <p className="text-center category-icon">
+                            {artwork?.sale_status ? 'محصول فروخته شد':
+                                <span>
+                                {(artwork?.product_status === "after_stage") && "حراج به پایان رسید"}
+                                {(artwork?.product_status === "pre_stage") && "حراج آغاز نشده است"}
+                            </span>}
+                        </p>}
+                    </div> :
+                    <p className="text-center mt-4 ">
+                        برای ثبت پیشنهاد
+                        <Link to="/login" className="d-inline-block px-1 color-link"> وارد </Link>
+                        شوید
+                    </p>
+                } */}
+
+                            {is_logged_in ? <div className="detail-placebid general-bid">
+
+                                {artwork?.product_status === "on_stage" ?
+                                    <div>
+
+                                        <div class="flex-column">
+                                            <div class="input-group with-step mrgt30">
+                                                <span ><i class="fal fa-minus"></i></span>
+                                                <input type="text" class="default-input" placeholder="3000 تومان" />
+                                                <span onClick={handleIncrease}><i class="fal fa-plus"></i></span>
+                                            </div>
+                                            <button type="button" class="btn-main">ارسال پیشنهاد</button>
+                                        </div>
+                                        <div class="flex-column">
+                                            <div class="input-group mrgt30">
+                                                <input type="text" class="default-input text-center" placeholder="بیشتر پیشنهاد خود را وارد نمایید." />
+                                            </div>
+                                            <button  htmlType="submit" class="btn-main">ثبت</button>
+                                        </div>
+                                    </div>
+
+                                    : <p className="text-center category-icon">
+                                        {artwork?.sale_status ? 'محصول فروخته شد' :
+                                            <span>
+                                                {(artwork?.product_status === "after_stage") && "حراج به پایان رسید"}
+                                                {(artwork?.product_status === "pre_stage") && "حراج آغاز نشده است"}
+                                            </span>}
+                                    </p>}
+                            </div> :
+                                <p className="text-center mt-4 ">
+                                    برای ثبت پیشنهاد
+                                    <Link to="/login" className="d-inline-block px-1 color-link"> وارد </Link>
+                                    شوید
+                                </p>
+                            }
+
+
+
+
+                            {/* <div class="flex-column">
+                                <div class="input-group with-step mrgt30">
+                                    <span><i class="fal fa-minus"></i></span>
+                                    <input type="text" class="default-input" placeholder="3000 تومان" />
+                                    <span><i class="fal fa-plus"></i></span>
+                                </div>
+                                <button type="button" class="btn-main">ارسال پیشنهاد</button>
+                            </div>
+                            <div class="flex-column">
+                                <div class="input-group mrgt30">
+                                    <input type="text" class="default-input text-center" placeholder="بیشتر پیشنهاد خود را وارد نمایید." />
+                                </div>
+                                <button type="button" class="btn-main">ثبت</button>
+                            </div>
+
+                            <p className="text-center category-icon">
+                                {artwork?.sale_status ? 'محصول فروخته شد' :
+                                    <span>
+                                        {(artwork?.product_status === "after_stage") && "حراج به پایان رسید"}
+                                        {(artwork?.product_status === "pre_stage") && "حراج آغاز نشده است"}
+                                    </span>}
+                            </p> */}
+
                         </div>
 
                         <LastAuctionsSection artwork_id={artwork_id} />

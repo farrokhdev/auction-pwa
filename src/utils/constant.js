@@ -42,5 +42,9 @@ module.exports={
     // -------- Refresh Token --------
     REFRESH_TOKEN:`/account/token/refresh/`,
 
+    // -------- Bids -----
+    BID:`/bidding/`,
+
+
 }
 

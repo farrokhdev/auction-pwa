@@ -163,7 +163,7 @@ function SpecialAuctions(props) {
                                         <h5 className="auction-house-name">{item.house}</h5>
                                     </div>
                                     <div className="flex-col">
-                                        <span className="auction-date"> {item.status !== "CLOSED" ?
+                                        <span className="auction-date"> {item.status == "CLOSED" ?
                                             <div className="ended">
                                                 <div className="text">حراج به پایان رسید</div>
                                             </div>

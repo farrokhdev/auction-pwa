@@ -18,14 +18,15 @@ function VerificationCode(props) {
     authService.ConfirmMobileNumber(props.auth.username, verify_code)
       .then(resp => {
         console.log("token =>", resp.data.data.result);
-        if (resp.data.data.statusCode === 200) {
+        if (resp.data.data.statusCode === 400) {
+          message.error("مجددا درخواست کد اعتبارسنجی دهید");
+
+        } else {
           setToken(resp.data.data.result);
           setTimeout(() => {
             window.location.href = "/auth/login"
-            message.success("به اسمارت آکشن خوش آمدید")
+            message.success("به اسمارت آکشن خوش آمدید");
           }, 500);
-        } else {
-          message.error("مجددا درخواست کد اعتبارسنجی دهید")
         }
       }
       )
