@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import AccountHeader from '../../components/AccountHeader';
 import Footer from '../../components/footer';
 import logo from '../../assets/img/logo.svg';
 import pic1 from '../../assets/img/pic1.jpg';
@@ -52,9 +51,11 @@ function Discover() {
                     <Link to="/">
                         <img src={logo} width="156" height="34" alt="Smart auction logo" />
                     </Link>
-                    <button type="button" className="notification new-notice">
-                        <i className="fal fa-bell"></i>
-                    </button>
+                    <Link to="/account/messages">
+                        <button type="button" className="notification new-notice">
+                            <i className="fal fa-bell"></i>
+                        </button>
+                    </Link>
                 </div>
                 <div className="input-group search">
                     <input type="text" className="default-input" placeholder="جستجوی اثر، حراج و خانه حراج" />
@@ -64,7 +65,7 @@ function Discover() {
                 </div>
                 <div className="main-filter">
                     <ul className="main-filterlist">
-                        <li id="l-location"><Link to="/"  className="text-secondary" to="/">موقعیت مکانی</Link ></li>
+                        <li id="l-location"><Link to="/" className="text-secondary" to="/">موقعیت مکانی</Link ></li>
                         <li id="l-category"><Link to="/" className="text-secondary" to="/">دسته‌بندی</Link ></li>
                         <li id="l-house"><Link to="/" className="text-secondary" to="/">خانه حراج</Link></li>
                         <li id="l-type"><Link to="/" className="text-secondary" to="/">نوع</Link></li>

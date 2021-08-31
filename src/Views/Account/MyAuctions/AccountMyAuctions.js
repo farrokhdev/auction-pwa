@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import AccountHeader from '../../../components/AccountHeader';
-import { Tabs } from "antd";
+import { Tabs } from 'antd';
 import MyAuctionAccepted from './MyAuctionAccepted';
-import Footer from "../../../components/footer";
+import Footer from '../../../components/footer';
 import MyAuctionPending from './MyAuctionPending';
 import MyAuctionFailed from './MyAuctionFailed';
 

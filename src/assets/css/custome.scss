@@ -68,7 +68,7 @@
     --bs-white: #fff;
 }
 * {
-    transition: all 0.3s ease-out;
+    transition: all 0.1s ease-out;
   }
   
 body, html {
@@ -1195,7 +1195,7 @@ option#iran {
     // bottom: 0;
     z-index: 100;
     padding: 10px 0;
-    background: var(--bs-white);
+    // background: var(--bs-white);
 }
 
 .form-check-input:focus {
@@ -2028,4 +2028,17 @@ option#iran {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.modal-content{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 97% !important;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    outline: 0;
 }

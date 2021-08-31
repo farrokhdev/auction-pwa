@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
-import axios from "../../utils/request";
-import { BASE_URL } from "../../utils";
-import { ACCOUNT_WALLET } from "../../utils/constant";
-import { message, Modal, Spin } from "antd";
-import ModalWallet from "./ModalWallet";
-import { Redirect } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import axios from '../../utils/request';
+import { BASE_URL } from '../../utils';
+import { ACCOUNT_WALLET } from '../../utils/constant';
+import { message, Modal } from 'antd';
+import ModalWallet from './ModalWallet';
 
 function AuctionRegistrationValue(props) {
-    const { setSelectComponent, selectComponent, selectProducts } = props
+
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState({})
     const [isModalVisible, setIsModalVisible] = useState(false)
-    const [msg, setMsg] = useState(false)
+    const [msg, setMsg] = useState(false);
+    const { setSelectComponent, selectComponent, selectProducts } = props
+    let numeral = require('numeral');
+
     useEffect(() => {
         getData()
     }, [])
 
     const getData = () => {
         setLoading(true)
+
         axios.get(`${BASE_URL}${ACCOUNT_WALLET}`)
             .then(resp => {
                 setLoading(false)
@@ -44,27 +47,21 @@ function AuctionRegistrationValue(props) {
                 message.error("صفحه را دوباره لود کنید")
             })
     }
+
     return (
         <>
             <div className="container container-form">
                 <div className="wallet-container">
                     <div className="price-block text-center">
                         <span className="price">
-                            {
-                                data?.total_inventory ?? 0
-                            }
+                            {numeral(data?.total_inventory).format('0,0') ?? 0}
                             <span className="price-unit">تومان</span>
                         </span>
                         <span className="price-lable">مانده حساب شما</span>
-
                         <div className="price-block">{msg}</div>
                     </div>
-                    <Link data-bs-toggle="modal" data-bs-target="#charge-modal">
-                        چقدر باید شارژ کنم؟
-                    </Link>
-                    <button type="button" className="btn-outline-pink" onClick={() => setIsModalVisible(true)}>
-                        افزایش اعتبار
-                    </button>
+                    <Link data-bs-toggle="modal" data-bs-target="#charge-modal"> چقدر باید شارژ کنم؟ </Link>
+                    <button type="button" className="btn-outline-pink" onClick={() => setIsModalVisible(true)}> افزایش اعتبار </button>
                 </div>
                 <div className="button-group mt-3">
                     <button type="button" className="btn-gray me-2" onClick={() => {
@@ -80,7 +77,6 @@ function AuctionRegistrationValue(props) {
                 </div>
             </div>
             <Modal centered
-
                 title={
                     <div className='d-flex align-items-center justify-content-between'>
                         <span>افزایش موجودی</span>
@@ -91,7 +87,6 @@ function AuctionRegistrationValue(props) {
                             aria-label="Close"
                             onClick={() => setIsModalVisible(false)}
                         />
-
                     </div>
                 }
                 className="text-end" width={1000} visible={isModalVisible}

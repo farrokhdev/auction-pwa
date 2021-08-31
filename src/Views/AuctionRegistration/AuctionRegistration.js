@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import AccountHeader from '../../components/AccountHeader';
 import Footer from '../../components/footer';
 import AuctionRegistrationContract from './AuctionRegistrationContract';
@@ -9,26 +8,23 @@ import AuctionRegistrationValue from './AuctionRegistrationValue';
 
 function AuctionRegistration(props) {
 
+    const [selectComponent, setSelectComponent] = useState(1);
+    const [selectProducts, setSelectProducts] = useState("");
+    const [RecommenderData, setRecommender] = useState("");
+
     const listComponent = [
-        // {name:"اطلاعات شخصی",value:1},
-        // {name:"اطلاعات مالی",value:2},
         { name: "علاقه‌مندی‌ها", value: 1 },
         { name: "مقادیر", value: 2 },
         { name: "معرف", value: 3 },
         { name: "قرارداد", value: 4 },
     ]
 
-    const [selectComponent, setSelectComponent] = useState(1);
-    const [selectProducts, setSelectProducts] = useState("");
-    const [RecommenderData, setRecommender] = useState("");
 
     return (
         <>
             <div className="container bg-white">
                 <AccountHeader backAuction={"/auctions/details"} titlePage={"عضویت در حراج"} />
                 <div className="sidebar-body mrgt30" id="auction-register">
-
-
                     <div className="row">
                         <div className="wizard">
                             <ul className="wizard-list">
@@ -41,15 +37,6 @@ function AuctionRegistration(props) {
                             </ul>
                         </div>
                     </div>
-                    <ul className="sidebar-filterlist">
-    
-                        {/* <li className="complete"><Link to={`/auction-registration/Personalinfo/${props.Auction?.id}`}>اطلاعات فردی
-                        <span>تکمیل شده</span>
-                        </Link></li>
-                        <li className="inprogress"><Link to={`/auction-registration/financialinfo/${props.Auction?.id}`}>اطلاعات مالی
-                        <span>در حال تکمیل</span>
-                        </Link></li> */}
-                    </ul>
                 </div>
 
                 {selectComponent === 1 && <AuctionRegistrationFavorite

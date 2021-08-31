@@ -236,52 +236,6 @@ function OneArtworkAuctions(props) {
                                 </div>
                             </div>
 
-
-                            {/* {is_logged_in ? <div className="detail-placebid general-bid">
-                      
-                        {artwork?.product_status==="on_stage" ? <Form onFinish={onFinish} form={form} className="m-0"
-                           
-                               wrapperCol={{span: 24}}>
-                            <div className="general-bid-block">
-                            <div className="general-bid-block">
-                                <div className="number-input">
-
-                                    <Form.Item
-                                        className="w-100"
-                                        name="price"
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message: "تکمیل این فیلد ضروری است",
-                                            },
-                                        ]}>
-                                        <input className="default-inputquantity" min="0" name="quantity" type="number"
-                                               readOnly={true}
-                                               placeholder="انتخاب پیشنهاد"/>
-                                    </Form.Item>
-                                    <button onClick={handleIncrease}
-                                            type="button"
-                                            className="plus"/>
-                                    <span className="unit">تومان</span>
-                                </div>
-                                <Button htmlType="submit" className="btn-lightpink">ثبت پیشنهاد</Button>
-                            </div>
-                            </div>
-                        </Form> : <p className="text-center category-icon">
-                            {artwork?.sale_status ? 'محصول فروخته شد':
-                                <span>
-                                {(artwork?.product_status === "after_stage") && "حراج به پایان رسید"}
-                                {(artwork?.product_status === "pre_stage") && "حراج آغاز نشده است"}
-                            </span>}
-                        </p>}
-                    </div> :
-                    <p className="text-center mt-4 ">
-                        برای ثبت پیشنهاد
-                        <Link to="/login" className="d-inline-block px-1 color-link"> وارد </Link>
-                        شوید
-                    </p>
-                } */}
-
                             {is_logged_in ? <div className="detail-placebid general-bid">
 
                                 {artwork?.product_status === "on_stage" ?
@@ -317,36 +271,9 @@ function OneArtworkAuctions(props) {
                                     شوید
                                 </p>
                             }
-
-
-
-
-                            {/* <div class="flex-column">
-                                <div class="input-group with-step mrgt30">
-                                    <span><i class="fal fa-minus"></i></span>
-                                    <input type="text" class="default-input" placeholder="3000 تومان" />
-                                    <span><i class="fal fa-plus"></i></span>
-                                </div>
-                                <button type="button" class="btn-main">ارسال پیشنهاد</button>
-                            </div>
-                            <div class="flex-column">
-                                <div class="input-group mrgt30">
-                                    <input type="text" class="default-input text-center" placeholder="بیشتر پیشنهاد خود را وارد نمایید." />
-                                </div>
-                                <button type="button" class="btn-main">ثبت</button>
-                            </div>
-
-                            <p className="text-center category-icon">
-                                {artwork?.sale_status ? 'محصول فروخته شد' :
-                                    <span>
-                                        {(artwork?.product_status === "after_stage") && "حراج به پایان رسید"}
-                                        {(artwork?.product_status === "pre_stage") && "حراج آغاز نشده است"}
-                                    </span>}
-                            </p> */}
-
                         </div>
 
-                        <LastAuctionsSection artwork_id={artwork_id} />
+                        <LastAuctionsSection artwork_id={artwork?.latest_auction?.id} />
 
                         <Tabs activeKey={activeKey} onChange={callback} className="nav nav-pills nav-justified main-tab " unmountInactiveTabs={true}>
                             <TabPane tab="جزئیات" key="1" className="nav-link nav-item " >

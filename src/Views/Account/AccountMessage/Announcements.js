@@ -1,19 +1,17 @@
-import React , {useState} from 'react';
+import React, { useState } from 'react';
 import ModalDetailMessage from './ModalDetailMessage';
 import authService from '../../../services/auth.service';
 
-function Announcements({messagesBox}) {
+function Announcements({ messagesBox }) {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [detailMessage, setDetailMessage] = useState()
 
-
-
-    const handleShowModal = (id) =>{
+    const handleShowModal = (id) => {
 
         authService.messageDetail(id).then(res => {
             console.log(res);
-            setDetailMessage(res.data.data.result)
+            setDetailMessage(res?.data?.data?.result)
 
             setTimeout(() => {
                 setIsModalVisible(true)
@@ -28,7 +26,7 @@ function Announcements({messagesBox}) {
                 messagesBox?.map(message => {
                     return (
                         <React.Fragment>
-                            <div onClick={()=>handleShowModal(message?.message?.id)} className="fw-block new-notices">
+                            <div onClick={() => handleShowModal(message?.message?.id)} className="fw-block new-notices">
                                 <div className="flex-between align-items-baseline">
                                     <div className="flex-col">
                                         <h6 className="default">{message?.message?.title}</h6>
@@ -38,19 +36,19 @@ function Announcements({messagesBox}) {
                                     </div>
                                 </div>
                                 <p>{message?.message?.body}</p>
-                            
+
                             </div>
                         </React.Fragment>
                     )
                 })
             }
-            <ModalDetailMessage 
-                detailMessage={detailMessage} 
+            <ModalDetailMessage
+                detailMessage={detailMessage}
                 setIsModalVisible={setIsModalVisible}
                 isModalVisible={isModalVisible}
-        />
+            />
 
-            
+
 
         </>
     )

@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input } from 'antd';
 
 
 function AuctionRegistrationIntroduce(props) {
-    const { setSelectComponent, selectComponent, setRecommender } = props
+
+    const [form] = Form.useForm();
     const [name, setName] = useState(false)
     const [family, setFamily] = useState(false)
     const [phone, setPhone] = useState(false)
+    const { setSelectComponent, selectComponent, setRecommender } = props
+    
     const sendData = () => {
         setRecommender({ "first_name": name, "last_name": family, "mobile_number": phone })
         setSelectComponent(selectComponent + 1)
     }
-    const [form] = Form.useForm();
+    
     return (
         <>
             <div className="container bg-white">

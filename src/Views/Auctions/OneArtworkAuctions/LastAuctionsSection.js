@@ -5,13 +5,12 @@ import axios from "../../../utils/request";
 import { BASE_URL } from "../../../utils";
 import { stringify } from 'qs';
 function LastAuctionsSection(props) {
-
+    const {artwork_id} = props;
     const [products, setProducts] = useState(false)
 
-// console.log("props?.artwork_id --->>>>" , typeof(props?.artwork_id));
-
     const getAuction = () => {
-        axios.get(`${BASE_URL}/sale/product/?auctions__id=${stringify(props?.artwork_id)}&page_size=8`)
+
+        axios.get(`${BASE_URL}/sale/product/?auctions__id=${artwork_id}&page_size=8`)
             .then(resp => {
                 if (resp.data.code === 200) {
                     setProducts(resp.data?.data?.result)
@@ -23,9 +22,10 @@ function LastAuctionsSection(props) {
     }
 
     useEffect(() => {
+        if(artwork_id)
         getAuction()
 
-    }, [])
+    }, [artwork_id])
 
 
     const settings = {
@@ -72,6 +72,7 @@ function LastAuctionsSection(props) {
                 <div className="owl-carousel auction-details-img mrgt10 dirltr">
                     <Slider className="mt-1 mb-2" {...settings}>
                         {products ? products.map((item, key) => {
+
                             return (
 
                                 <div className=" " key={key}>
