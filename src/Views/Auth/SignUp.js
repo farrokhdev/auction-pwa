@@ -110,7 +110,7 @@ function SignUp(props) {
                                     message: "حداقل 8 کارکتر مورد نیاز است",
                                 }
                             ]}>
-                            <Input className="default-input"
+                            <Input.Password className="default-input"
                                 type="password"
                                 onChange={(e) => {
                                     setformData({ ...formData, Password: e.target.value });
@@ -131,7 +131,7 @@ function SignUp(props) {
                                     message: "حداقل 8 کارکتر مورد نیاز است",
                                 }
                             ]}>
-                            <Input className="default-input"
+                            <Input.Password className="default-input"
                                 type="password"
                                 onChange={(e) => {
                                     setformData({ ...formData, confirmedPassword: e.target.value });

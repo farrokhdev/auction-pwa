@@ -1,7 +1,7 @@
 import React, { useState , useEffect } from 'react';
 import AccountHeader from '../../../components/AccountHeader';
 import Footer from '../../../components/footer';
-import { Tabs } from "antd";
+import { Tabs } from 'antd';
 import Announcements from './Announcements';
 import Tickets from './Tickets';
 import authService from '../../../services/auth.service';
@@ -24,10 +24,6 @@ function AccountMessages() {
         }
     )
     }, [])
-
-
-    
-    
 
     return (
         <>

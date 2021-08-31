@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { Redirect, Switch, Route, BrowserRouter as Router } from 'react-router-dom'
-import { createHashHistory } from "history";
 import NotFound from '../components/not-found'
 import Account from '../Views/Account/Account'
 import AccountChangepassword from '../Views/Account/AccountChangePassword/AccountChangepassword'
@@ -12,17 +11,11 @@ import MyProfileEmailverify from '../Views/Account/MyProfile/MyProfileEmailverif
 import MyProfilePhoneverifyCode from '../Views/Account/MyProfile/MyProfilePhoneverifyCode'
 import AccountWallet from '../Views/Account/AccountWallet/AccountWallet'
 import AccountWonItem from '../Views/Account/AccountWonItem/AccountWonItem'
-import AuctionRegistration from '../Views/AuctionRegistration/AuctionRegistration'
+import BuyerRegister from '../Views/AuctionRegistration/BuyerRegister';
 import Discover from '../Views/Discover/Discover'
 import MyBids from '../Views/MyBids/MyBids'
 import Favorite from '../Views/Favorite/Favorite'
-import AuctionRegistrationPersonalinfo from '../Views/AuctionRegistration/AuctionRegistrationPersonalinfo/AuctionRegistrationPersonalinfo'
 import AuctionRegistrationFinancialinfo from '../Views/AuctionRegistration/AuctionRegistrationFinancialinfo/AuctionRegistrationFinancialinfo'
-import AuctionRegistrationFavorite from '../Views/AuctionRegistration/AuctionRegistrationFavorite'
-import AuctionRegistrationValue from '../Views/AuctionRegistration/AuctionRegistrationValue'
-import AuctionRegistrationIntroduce from '../Views/AuctionRegistration/AuctionRegistrationIntroduce'
-import AuctionRegistrationOtherdDocuments from '../Views/AuctionRegistration/AuctionRegistrationOtherdDocuments/AuctionRegistrationOtherdDocuments'
-import AuctionRegistrationContract from '../Views/AuctionRegistration/AuctionRegistrationContract'
 import Auctions from '../Views/Auctions/Auctions'
 import OneArtworkAuctions from '../Views/Auctions/OneArtworkAuctions/OneArtworkAuctions'
 import AuctionsDetails from '../Views/Auctions/AuctionsDetails/AuctionsDetails'
@@ -34,22 +27,24 @@ import ConfirmMobileNumber from '../Views/Auth/ConfirmMobileNumber'
 import RegistersetPassword from '../Views/Auth/RegistersetPassword'
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { getProfile } from '../redux/reducers/profile/profile.actions'
-import BuyerRegister from '../Views/AuctionRegistration/BuyerRegister';
 
 const RouterConfig = (props) => {
+
+    const dispatch = useDispatch();
+    const { role } = useSelector((state) => state.profileReducer)
     console.log(console.log("Login ->> ", props.auth.is_logged_in))
 
-    const { role } = useSelector((state) => state.profileReducer)
-    const dispatch = useDispatch();
     useEffect(() => {
         if (!role)
             dispatch(getProfile())
     }, [])
+
     return (
         <Router >
             <Switch>
-                {/* {!props.auth.is_logged_in && <Route path="/" component={() => <Login />} />} */}
-                {/* <Route path="/" component={() => <Login />} /> */}
+
+                {/* Authentication */}
+
                 <Route path="/auth"
                     render={({ match: { url } }) => (
                         <>
@@ -60,11 +55,22 @@ const RouterConfig = (props) => {
                             <Route path={`${url}/confirm-mobile-number`} component={() => <ConfirmMobileNumber />} />
                             <Route path={`${url}/register-set-password`} component={() => <RegistersetPassword />} />
                         </>
-                    )} />
+                    )} 
+                />
+                
+                {/* Logged in */}
 
                 {props.auth.is_logged_in ?
 
                     <>
+
+                        {/* Home */}
+
+                        <Route exact path="/">
+                            {<Redirect to="/auctions" />}
+                        </Route>
+
+                        {/* My Account Profile */}
 
                         <Route path="/account"
                             render={({ match: { url } }) => (
@@ -79,24 +85,24 @@ const RouterConfig = (props) => {
                                     <Route exact path={`${url}/verify-phone`} component={() => <MyProfilePhoneverifyCode />} />
                                     <Route exact path={`${url}/wallet`} component={() => <AccountWallet />} />
                                     <Route exact path={`${url}/won-item`} component={() => <AccountWonItem />} />
+                                    <Route exact path={`${url}/financialinfo`} component={(p) => <AuctionRegistrationFinancialinfo />} />
 
                                 </>
-                            )} />
+                            )} 
+                        />
+
+                        {/* Auction Registration */}
 
                         <Route path="/auction-registration"
                             render={({ match: { url } }) => (
                                 <>
                                     <Route exact path={`${url}/:id`} component={(p) => <BuyerRegister {...p} />} />
-                                    {/* <Route exact path={`${url}/Personalinfo/:id`} component={(p) => <AuctionRegistrationPersonalinfo {...p} />} />
-                                    <Route exact path={`${url}/financialinfo/:id`} component={(p) => <AuctionRegistrationFinancialinfo {...p} />} />
-                                    <Route exact path={`${url}/favorite/:id`} component={(p) => <AuctionRegistrationFavorite {...p} />} />
-                                    <Route exact path={`${url}/values/:id`} component={(p) => <AuctionRegistrationValue {...p} />} />
-                                    <Route exact path={`${url}/introduce/:id`} component={(p) => <AuctionRegistrationIntroduce {...p} />} />
-                                    <Route exact path={`${url}/document/:id`} component={(p) => <AuctionRegistrationOtherdDocuments {...p} />} />
-                                    <Route exact path={`${url}/contract/:id`} component={(p) => <AuctionRegistrationContract {...p} />} /> */}
 
                                 </>
-                            )} />
+                            )} 
+                        />
+
+                        {/* Auctions */}
 
                         <Route path="/auctions"
                             render={({ match: { url } }) => (
@@ -105,7 +111,10 @@ const RouterConfig = (props) => {
                                     <Route exact path={`${url}/one-artwork/:id`} component={(p) => <OneArtworkAuctions {...p} />} />
                                     <Route exact path={`${url}/details/:id`} component={(p) => <AuctionsDetails {...p} />} />
                                 </>
-                            )} />
+                            )} 
+                        />
+
+                        {/* Search */}
 
                         <Route path="/discover"
                             render={({ match: { url } }) => (
@@ -113,7 +122,10 @@ const RouterConfig = (props) => {
                                     <Route exact path={`${url}/`} component={() => <Discover />} />
 
                                 </>
-                            )} />
+                            )} 
+                        />
+
+                        {/* My Bids */}
 
                         <Route path="/bids"
                             render={({ match: { url } }) => (
@@ -121,14 +133,22 @@ const RouterConfig = (props) => {
                                     <Route exact path={`${url}/`} component={() => <MyBids />} />
 
                                 </>
-                            )} />
+                            )} 
+                        />
+
+                        {/* Favorits */}
+
                         <Route path="/favorite"
                             render={({ match: { url } }) => (
                                 <>
                                     <Route exact path={`${url}/`} component={() => <Favorite />} />
 
                                 </>
-                            )} />
+                            )} 
+                        />
+                        
+                        {/* Page Not Found */}
+
                         {/* <Route path={`*`} component={() => <NotFound />} /> */}
 
 
@@ -142,8 +162,6 @@ const RouterConfig = (props) => {
         </Router>
     )
 }
-
-// export default RouterConfig;
 
 const mapStateToProps = (store) => {
     return {

@@ -3,6 +3,7 @@ import { Tabs } from "antd";
 import PresentBids from './PresentBids';
 import PastBids from './PastBids';
 import Footer from '../../components/footer';
+import { Link } from 'react-router-dom';
 
 
 function MyBids() {
@@ -22,9 +23,11 @@ function MyBids() {
             <div className="container">
                 <div className="top-header flex-between">
                     <h2 className="main-title">پیشنهادها</h2>
+                    <Link to="/account/messages">
                     <button type="button" className="notification new-notice">
                         <i className="fal fa-bell"></i>
                     </button>
+                    </Link>
                 </div>
                 <div className="main-content" id="auctions">
                     <Tabs activeKey={activeKey} onChange={callback} className="nav nav-pills nav-justified main-tab " unmountInactiveTabs={true}>

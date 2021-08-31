@@ -1,28 +1,32 @@
-import React, {useEffect, useState} from "react";
-import Footer from '../../components/footer';
-import axios from "../../utils/request";
-import {BASE_URL} from "../../utils";
-import {Redirect} from "react-router-dom";
-import AuctionRegistration from "./AuctionRegistration";
+import React, {useEffect, useState} from 'react';
+import AuctionRegistration from './AuctionRegistration';
+import axios from '../../utils/request';
+import {BASE_URL} from '../../utils';
+import {Redirect} from 'react-router-dom';
 
 function BuyerRegister(props) {
+
     const [hasPerm, setHasPerm] = useState(true);
     const [redirectUrl, setRedirectUrl] = useState("");
 
     const getProfile = () => {
+        
         axios.get(`${BASE_URL}/account/profile/`)
             .then(resp => {
                 if (resp.data.code === 200) {
-                    // if (!resp.data.data.result.complete_profile) {
-                    //     setRedirectUrl("/account/my-profile")
-                    //     setHasPerm(false)
-                    // }
-                    // else if (!resp.data.data.result.complete_bank_info) {
-                    //     setRedirectUrl("/auction-registration/financialinfo")
-                    //     setHasPerm(false) 
-                    // }
-                    // else {
-                    // }
+                    if (!resp.data.data.result.complete_profile) {
+                        setRedirectUrl("/account/my-profile")
+                        console.log("resp.data.data.result.complete_profile===>>>>",resp.data.data.result.complete_profile)
+                        setHasPerm(false)
+
+                    }
+                    else if (!resp.data.data.result.complete_bank_info) {
+                        setRedirectUrl("/account/financialinfo")
+                        console.log("resp.data.data.result.complete_bank_info===>>>>",resp.data.data.result.complete_bank_info)
+                        setHasPerm(false) 
+                    }
+                    else {
+                    }
                 }
             })
             .catch(err => {

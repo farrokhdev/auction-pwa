@@ -4,7 +4,6 @@ import avatar from '../../../assets/img/avatar.jpg';
 
 function AccountMessagesTicketDetail() {
 
-
     return (
         <>
             <div className="container bg-white">

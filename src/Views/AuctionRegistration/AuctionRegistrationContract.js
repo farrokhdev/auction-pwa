@@ -1,26 +1,30 @@
 import React, { useState } from 'react';
-import axios from "../../utils/request";
-import { BASE_URL } from "../../utils";
-import { CheckCircleTwoTone, LoadingOutlined } from "@ant-design/icons";
-import { JOIN_AUCTION } from "../../utils/constant";
+import axios from '../../utils/request';
+import { BASE_URL } from '../../utils';
+import { CheckCircleTwoTone, LoadingOutlined } from '@ant-design/icons';
+import { JOIN_AUCTION } from '../../utils/constant';
 import { message } from 'antd';
-import { Redirect } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
 
 function AuctionRegistrationContract(props) {
-    const { setSelectComponent, selectComponent } = props
+
     const [CoreUpload, setCoreUpload] = useState("");
     const [Uploaded, setUploaded] = useState(false);
     const [Uploading, setUploading] = useState(false);
     const [posted, setPosted] = useState(false);
     const [loading, setLoading] = useState(false)
+    const { setSelectComponent, selectComponent } = props
 
     const handleUpload = (e) => {
-        let payload = { "content_type": e.target.files[0].name.split ('.')[1] }
+
+        let payload = { "content_type": e.target.files[0].name.split('.')[1] }
+
         axios.post(`${BASE_URL}/core/upload/`, payload)
             .then(resp => {
                 if (resp.data.code === 200) {
                     setCoreUpload(resp.data.data.result)
                     setUploading(true)
+
                     axios.put(resp.data.data.result.upload_url, e.target.files[0])
                         .then(resp1 => {
                             if (resp1.status === 200) {
@@ -56,13 +60,8 @@ function AuctionRegistrationContract(props) {
     }
 
     const sendData = () => {
-        // console.log({
-        //     "sale_id": props.id,
-        //     "products_id": props.selectProducts,
-        //     "recommender": props.RecommenderData,
-        //     "medias": [CoreUpload]
-        // })
         setLoading(true)
+
         axios.post(`${BASE_URL}${JOIN_AUCTION}`, {
             "sale_id": props.id,
             "products_id": props.selectProducts,
@@ -91,7 +90,6 @@ function AuctionRegistrationContract(props) {
     return (
         <>
             <div className="container bg-white">
-
                 <div className="mrgt15 file-group">
                     <p><a href="#" className="text-secondary"><i className="fal fa-arrow-to-bottom"></i>برای دانلود نمونه قرارداد اینجا کلیک کنید.</a></p>
                     <div className="form-group">
@@ -102,10 +100,10 @@ function AuctionRegistrationContract(props) {
                             className="default-input"
                             onClick={(e) => e.target.value = ""}
                             onChange={(e) => handleUpload(e)}
-                            />
+                        />
                     </div>
-                            {Uploading ? <span style={{ marginRight: 5 }}> درحال آپلود </span> : ""}
-                            {Uploaded ? <CheckCircleTwoTone style={{ marginRight: 5 }} twoToneColor="#52c41a" /> : ""}
+                    {Uploading ? <span style={{ marginRight: 5 }}> درحال آپلود </span> : ""}
+                    {Uploaded ? <CheckCircleTwoTone style={{ marginRight: 5 }} twoToneColor="#52c41a" /> : ""}
                 </div>
 
                 <div className="btns">

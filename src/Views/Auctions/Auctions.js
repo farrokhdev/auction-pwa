@@ -3,10 +3,11 @@ import { Tabs } from "antd";
 import SpecialAuctions from './SpecialAuctions';
 import Footer from '../../components/footer';
 import DateAuctions from "./DateAuctions";
+import { Link } from 'react-router-dom';
 function Auctions() {
     const { TabPane } = Tabs;
     const [activeKey, setActiveKey] = useState("1");
-    const [data , ] = useState({})
+    const [data,] = useState({})
 
 
     const callback = (key) => {
@@ -18,9 +19,11 @@ function Auctions() {
             <div className="container">
                 <div className="top-header flex-between">
                     <h2 className="main-title">حراج‌ها</h2>
-                    <button type="button" className="notification new-notice">
-                        <i className="fal fa-bell"></i>
-                    </button>
+                    <Link to="/account/messages">
+                        <button type="button" className="notification new-notice">
+                            <i className="fal fa-bell"></i>
+                        </button>
+                    </Link>
                 </div>
 
                 <div className="main-content" id="auctions">
@@ -30,7 +33,7 @@ function Auctions() {
                         </TabPane>
                         <TabPane tab="تقویم" key="2" className="nav-link nav-item " >
                             {/* <DateAuctions data={data} getProfile={setData} /> */}
-                            <SpecialAuctions data="withoutParams" activeKey={activeKey}/>
+                            <SpecialAuctions data="withoutParams" activeKey={activeKey} />
 
                         </TabPane>
                         <TabPane tab="نزدیک من" key="3" className="nav-link nav-item " >
@@ -39,7 +42,7 @@ function Auctions() {
                     </Tabs>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </>
     )
 }

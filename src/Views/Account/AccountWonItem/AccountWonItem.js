@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import AccountHeader from '../../../components/AccountHeader';
 import Footer from '../../../components/footer';
-import Pic1 from "../../../assets/img/pic1.jpg"
+import Pic1 from '../../../assets/img/pic1.jpg'
 
 function AccountWonItem() {
     const [Active, setActive] = useState(false)
