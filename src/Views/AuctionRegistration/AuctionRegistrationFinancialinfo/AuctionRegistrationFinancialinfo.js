@@ -56,7 +56,7 @@ function AuctionRegistrationFinancialinfo() {
                     setTimeout(() => {
                         message.success("بروز رسانی اطلاعات بانکی", "اطلاعات با موفقیت بروز‌رسانی شد")
                         window.location.reload();
-                    }, 1500);
+                    }, 500);
 
                 }).catch(err => {
                     setLoading(false)
@@ -83,7 +83,7 @@ function AuctionRegistrationFinancialinfo() {
                     message.success("بروز رسانی اطلاعات بانکی", " با موفقیت انجام شد")
                     setTimeout(() => {
                         window.location.reload();
-                    }, 1500);
+                    }, 500);
 
                 }).catch(err => {
                     console.error(err)
