@@ -8,7 +8,7 @@ import { BASE_URL } from '../../utils';
 import queryString from 'query-string';
 import Timer from 'react-compound-timer';
 import { Pagination, Spin } from "antd";
-import {  ConfigProvider } from "antd";
+import { ConfigProvider } from "antd";
 import { DatePicker as DatePickerJalali } from "antd-jalali";
 import fa_IR from "antd/lib/locale/fa_IR";
 import moment from "jalali-moment";
@@ -32,8 +32,6 @@ function SpecialAuctions(props) {
     })
     const queries = queryString.stringify(queryparams);
 
-
-    
     let getProducts;
     if (props.data === "withParams") {
         getProducts = () => {
@@ -45,7 +43,6 @@ function SpecialAuctions(props) {
                     if (resp.data.code === 200) {
                         setAuctions(resp.data.data.result)
                         setCountAuctions(resp.data.data.count)
-                       
                     }
 
                 })
@@ -112,6 +109,30 @@ function SpecialAuctions(props) {
         }
     }
 
+    const Like = (data, action) => {
+        if (action) {
+            axios.delete(`${BASE_URL}/following/${data}`)
+                .then(resp => {
+                    getProducts()
+                })
+        } else {
+            axios.post(`${BASE_URL}/following/`, {
+                "content_type": "auction",
+                "object_id": data,
+                "activity_type": "mark"
+            })
+                .then(resp => {
+                    if (resp.data.code === 201) {
+                        getProducts()
+                    }
+
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+
+        }
+    }
 
 
 
@@ -135,7 +156,7 @@ function SpecialAuctions(props) {
                                     <div className="img-block">
                                         <div className="row">
                                             <div className="col g-0">
-                                                <img src={pic1thumb} width="493" height="493" alt="Smart Auction"
+                                                <img src={item.media.exact_url} width="493" height="493" alt="Smart Auction"
                                                     className="img-fluid" />
                                             </div>
                                             <div className="col g-0">
@@ -186,8 +207,16 @@ function SpecialAuctions(props) {
                                             </Timer>
                                         }</span>
                                     </div>
+                                    <button
+                                            onClick={() =>
+                                                Like(
+                                                    item?.following?.bookmark?.is_active ?
+                                                        item?.following?.bookmark?.id :
+                                                        item?.id, item?.following?.bookmark?.is_active)
+                                            }
+                                            className={"btn-favorite  " + (item?.following?.bookmark?.is_active ? "active" : "")}
+                                    ></button>
                                 </div>
-
                             </div>
                         )
                     }) : ""}
