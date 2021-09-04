@@ -1,5 +1,8 @@
 module.exports={
 
+    // ----------- Search ----------
+    SEARCH_DISCOVER : "/sale/search/",
+
     // ------- Account/Profile  -------
     EDIT_PROFILE:"/account/profile/",
     CHANGE_PASSWORD:"/account/change-password/",
