@@ -1,78 +1,90 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AccountHeader from '../../../components/AccountHeader';
 import Footer from '../../../components/footer';
-import Pic1 from '../../../assets/img/pic1.jpg'
+import CardItem from './CardItem';
+import axios from '../../../utils/request';
+import { BASE_URL } from '../../../utils';
+import { LIST_MY_WON_PERCHACE } from '../../../utils/constant';
+import { Pagination, Spin } from 'antd';
+import momentJalaali from 'moment-jalaali'
+import { convertMouthToPersian } from '../../../utils/converTypePersion';
 
 function AccountWonItem() {
-    const [Active, setActive] = useState(false)
 
-    const Like = ()=>{
-        setActive(!Active)
+    const [listWonPurchasse, setListWonPurchasse] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [countPurchase, setCountPurchase] = useState(0)
+    const [params, setParams] = useState({
+        page: 1,
+        page_size: 9,
+    })
+
+    useEffect(() => {
+        getMyWonPurchase()
+    }, [])
+
+    const getMyWonPurchase = () => {
+        axios.get(`${BASE_URL}${LIST_MY_WON_PERCHACE}`)
+            .then(resp => {
+                setLoading(false)
+                if (resp.data.code === 200) {
+                    setListWonPurchasse(resp.data.data.result)
+                    setCountPurchase(resp.data.total)
+                }
+
+            })
+            .catch(err => {
+                setLoading(false)
+                console.error(err);
+            })
     }
-    
+
+    const handeSelectPage = (e) => {
+        setParams({
+            ...params, page: e
+        })
+    }
+
     return (
         <>
-            <div className="container bg-white">
-                <AccountHeader titlePage={"موارد برنده شده"} />
-                <div className="main-content" id="mybids">
+            <Spin spinning={loading}>
+                <div className="container bg-white">
+                    <AccountHeader titlePage={"موارد برنده شده"} />
+                    <div className="main-content" id="mybids">
 
-                    {
-                        [1, 2, 3].map((item) => {
-                            return (
-
-                                <div className="fw-block">
-                                    <div className="row">
-                                        <div className="col-4 col-lg-2">
-                                            <div className="img-block">
-                                                <img src={Pic1} width="493" height="621" alt="Smart Auction" className="img-fluid" />
-                                                <div className="tags-block">
-                                                    <div className="auction-category won">برنده شده</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-8 col-lg-10">
-                                            <div className="flex-between">
-                                                <div className="flex-col">
-                                                    <h5 className="artist-name">سهراب سپهری</h5>
-                                                    <h5 className="auction-house-name">گالری آرتیبیشن</h5>
-                                                </div>
-                                                <div className="flex-col">
-                                                {/* btn-favorite active */}
-                                                    <button 
-                                                     onClick={() =>
-                                                        Like()}
-                                                    type="button" 
-                                                    className={"btn-favorite " + (Active ? "active" : "")}
-                                                    ></button>
-                                                </div>
-                                            </div>
-                                            <div className="flex-between align-items-baseline mrgt15">
-                                                <div className="flex-col">
-                                                    <span className="price-title">تخمین:</span>
-                                                    <div className="price">
-                                                        <span>400 - </span>
-                                                        <span>700</span>
-                                                        <span className="unit">تومان</span>
-                                                    </div>
-                                                </div>
-                                                <div className="flex-col right-align">
-                                                    <span className="price-title">پیشنهاد شما:</span>
-                                                    <div className="price">
-                                                        <span>135</span>
-                                                        <span className="unit">تومان</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })
-                    }
-
-
+                        {!loading && !!listWonPurchasse?.length ? listWonPurchasse?.map(item =>
+                            <CardItem
+                                artist={item?.persian_artist_name}
+                                artworkTitle={item?.artwork_title}
+                                exactUrl={item?.media?.exact_url}
+                                Link={item?.latest_auction?.house?.home_auction_name}
+                                ArtworkLink=" گالری آرتیبیشن"
+                                date={item?.bidding_details?.max_bid_date ?
+                                    `${momentJalaali(item?.bidding_details?.max_bid_date).format(`jDD`)}  
+                                     ${convertMouthToPersian(momentJalaali(item?.bidding_details?.max_bid_date).format(`jMM`))}   
+                                     ${momentJalaali(item?.bidding_details?.max_bid_date).format(`jYYYY`)}`
+                                    : ''}
+                                currency={item?.latest_auction?.currency}
+                                price={item?.bidding_details?.max_bid ? item?.bidding_details?.max_bid : ''}
+                                maxPrice={item?.max_price}
+                                minPice={item?.min_price}
+                                paymentMethod={item?.payment_method} />) : null}
+                    </div>
                 </div>
-            </div>
+
+                <Pagination
+                    style={{ direction: 'ltr', textAlign: 'center' }}
+                    showSizeChanger
+                    responsive
+                    onShowSizeChange={(current, pageSize) => { getMyWonPurchase(pageSize) }}
+                    onChange={(e) => handeSelectPage(e)}
+                    defaultCurrent={1}
+                    total={countPurchase}
+                    pageSizeOptions={[9, 18, 36, 48]}
+                    defaultPageSize={9}
+                />
+                
+            </Spin>
             <Footer />
         </>
     )
