@@ -701,6 +701,7 @@ footer .col {
 .main-filterlist li a {
     display: inline-block !important;
     font-size: .8rem !important;
+    color: var(--gray50) !important;
 }
 
 .main-filterlist li span {
@@ -2020,10 +2021,10 @@ option#iran {
 
   .category-icon {
     position: relative;
-    font-size: 13px;
+    font-size: 10px;
     color: var(--pink);
-    padding: 0 10px 0 26px;
-    margin-right: 10px;
+    padding: 0 3px 0 3px;
+    // margin-right: 10px;
     background-size: 20px !important;
     text-overflow: ellipsis;
     overflow: hidden;

@@ -16,15 +16,24 @@ function FiltersSearchDiscover(props) {
    window.location.href = "/discover"
  }
 
+ const handleSetOrdering = (option) => {
+   props.setFilterQueries({...props.discover , ordering : option})
+  // console.log("option -> ",option);
+ }
+
+ console.log("discover ->>" , props.discover);
+
 
   return (
     <React.Fragment>
       <div className="container ">
         <div className="sidebar-header">
           {/* <button type="button" className="btn-close"></button> */}
-          <button onClick={()=>history.goBack()} type="button" className="btn-back">
+
+          {/* <button onClick={()=>history.goBack()} type="button" className="btn-back">
               <i className="fal fa-chevron-left"></i>
-          </button>
+          </button> */}
+          <div></div>
           <h3 className="main-title">فیلتر</h3>
           <button onClick={handleRemoveFilters} type="button" className="btn-erase">
             پاک کردن همه
@@ -35,14 +44,18 @@ function FiltersSearchDiscover(props) {
             <label className="default-label">
               <i className="fal fa-sort-amount-up"></i>مرتب‌سازی بر اساس
             </label>
+
             <select
+              onChange={(e)=>handleSetOrdering(e.target.value)}
               className="form-select default-input"
               aria-label="Default select example"
             >
-              <option selected>جدیدترین</option>
-              <option value="1">محبوب‌ترین</option>
-              <option value="2">آخرین</option>
+              <option value="" selected></option>
+              <option value="creation_date">جدیدترین</option>
+              {/* <option value="2">محبوب‌ترین</option>
+              <option value="3">آخرین</option> */}
             </select>
+
           </div>
           <div className="sidebar-filter">
             <h5 className="default-label">

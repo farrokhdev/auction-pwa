@@ -138,3 +138,25 @@ export function AuctionType(type) {
     }
 
 }
+
+
+export const convertToEn = (value) => {
+
+    switch (value) {
+
+        case "ONLINE":
+            return <span className="category-icon online-icon">آنلاین</span>
+        case "LIVE":
+            return <span className="category-icon live-icon">زنده</span>
+
+        case "PERIODIC":
+            return <span className="category-icon timed-icon">مدت دار</span>
+
+        case "HIDDEN":
+            return <span className="category-icon firstoffer-icon">اولین پیشنهاد</span>
+
+        case "SECOND_HIDDEN":
+            return <span className="category-icon secondoffer-icon">دومین پیشنهاد</span>
+
+    }
+}
