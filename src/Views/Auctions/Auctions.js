@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { Tabs } from "antd";
 import SpecialAuctions from './SpecialAuctions';
 import Footer from '../../components/footer';
-import DateAuctions from "./DateAuctions";
 import { Link } from 'react-router-dom';
+
 function Auctions() {
     const { TabPane } = Tabs;
     const [activeKey, setActiveKey] = useState("1");
@@ -32,7 +32,6 @@ function Auctions() {
                             <SpecialAuctions data="withParams" activeKey={activeKey} />
                         </TabPane>
                         <TabPane tab="تقویم" key="2" className="nav-link nav-item " >
-                            {/* <DateAuctions data={data} getProfile={setData} /> */}
                             <SpecialAuctions data="withoutParams" activeKey={activeKey} />
 
                         </TabPane>

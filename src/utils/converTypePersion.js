@@ -18,6 +18,20 @@ export function convertTypePersian(value) {
     }
 }
 
+export function convertCurrencyType(value) {
+    
+    switch (value) {
+
+        case "toman" :
+            return 'تومان'
+        case "dollar" :
+            return 'دلار'
+
+        default:
+            return 'تومان'
+    }
+}
+
 
 export function convertTypeAuctionToPersian(value) {
 

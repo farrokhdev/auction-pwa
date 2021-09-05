@@ -9,6 +9,7 @@ module.exports={
     ACCOUNT_APPROVE:"/account/approve/",
     ACCOUNT_BANK_INFO:"/accounting/bankprofile/",
     ACCOUNT_WALLET:"/accounting/wallet/me/",
+    LIST_MY_WON_PERCHACE : `/sale/product/me/`,
     ACCOUNT_BANK_Edit:id=>`/accounting/bankprofile/${id}/`,
     ACCOUNT_MESSAGES_BOX : `/messaging/inbox/`,
     ACCOUNT_MESSAGE_DETAIL :`/messaging/inbox/`,
