@@ -49,10 +49,10 @@ export function convertTypeAuctionToPersian(value) {
             return 'زمان‌دار'
 
         case "HIDDEN":
-            return 'حراج با پیشنهاد قیمت مخفی'
+            return 'قیمت مخفی'
 
         case "SECOND_HIDDEN":
-            return 'حراج با دومین پیشنهاد قیمت مخفی'
+            return 'پیشنهاد دوم مخفی'
 
         default:
             return ''
@@ -151,4 +151,26 @@ export function AuctionType(type) {
             return ""
     }
 
+}
+
+
+export const convertToEn = (value) => {
+
+    switch (value) {
+
+        case "ONLINE":
+            return <span className="category-icon online-icon">آنلاین</span>
+        case "LIVE":
+            return <span className="category-icon live-icon">زنده</span>
+
+        case "PERIODIC":
+            return <span className="category-icon timed-icon">مدت دار</span>
+
+        case "HIDDEN":
+            return <span className="category-icon firstoffer-icon">اولین پیشنهاد</span>
+
+        case "SECOND_HIDDEN":
+            return <span className="category-icon secondoffer-icon">دومین پیشنهاد</span>
+
+    }
 }

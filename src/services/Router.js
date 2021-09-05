@@ -27,6 +27,11 @@ import ConfirmMobileNumber from '../Views/Auth/ConfirmMobileNumber'
 import RegistersetPassword from '../Views/Auth/RegistersetPassword'
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { getProfile } from '../redux/reducers/profile/profile.actions'
+import FiltersSearchDiscover from '../Views/Discover/FiltersSearchDiscover'
+import Locations from '../Views/Discover/Locations'
+import Categories from '../Views/Discover/Categories'
+import HouseAuctions from '../Views/Discover/HouseAuctions'
+import Types from '../Views/Discover/AuctionType'
 
 const RouterConfig = (props) => {
 
@@ -114,12 +119,17 @@ const RouterConfig = (props) => {
                             )} 
                         />
 
-                        {/* Search */}
+                        {/* Search Discover */}
 
                         <Route path="/discover"
                             render={({ match: { url } }) => (
                                 <>
                                     <Route exact path={`${url}/`} component={() => <Discover />} />
+                                    <Route exact path={`${url}/filters`} component={() => <FiltersSearchDiscover />} />
+                                    <Route exact path={`${url}/locations`} component={() => <Locations />} />
+                                    <Route exact path={`${url}/categories`} component={() => <Categories />} />
+                                    <Route exact path={`${url}/houseAuctions`} component={() => <HouseAuctions />} />
+                                    <Route exact path={`${url}/types`} component={() => <Types />} />
 
                                 </>
                             )} 

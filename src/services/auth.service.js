@@ -1,5 +1,5 @@
 import {BASE_URL} from '../utils';
-import { ACCOUNT_LOGIN, ACCOUNT_MESSAGES_BOX, ACCOUNT_MESSAGE_DETAIL } from '../utils/constant';
+import { ACCOUNT_LOGIN, ACCOUNT_MESSAGES_BOX, ACCOUNT_MESSAGE_DETAIL, SEARCH_DISCOVER  , CATEGORIE_ACTIVITY, HOME_AUCITONS} from '../utils/constant';
 
 import axios from '../utils/request';
 
@@ -98,6 +98,42 @@ class AuthService {
                 return err
             })
     }
+
+    // Search Discover app
+    searchDiscover=(queries)=> {
+        return axios.get(`${BASE_URL}${SEARCH_DISCOVER}?${queries}`)
+            .then(res => {
+                
+                return res
+            })
+            .catch(err => {
+                return err
+            })
+    } 
+
+        // Get Categories 
+        getCategories=()=> {
+            return axios.get(`${BASE_URL}${CATEGORIE_ACTIVITY}`)
+                .then(res => {
+                    
+                    return res
+                })
+                .catch(err => {
+                    return err
+                })
+        } 
+
+        getListHouseAuctions = () => {
+            return axios.get(`${BASE_URL}${HOME_AUCITONS}`)
+                .then(res => {
+                    
+                    return res
+                })
+                .catch(err => {
+                    return err
+                })
+        }
+
 
 }
 
