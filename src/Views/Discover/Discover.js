@@ -9,6 +9,7 @@ import { setFilterQueries, clearFilters } from '../../redux/reducers/discover/di
 import { Empty , Spin } from 'antd';
 import classnames from 'classnames';
 import {convertToEn} from '../../utils/converTypePersion'
+import Logo from '../../assets/img/logo.svg';
 
 // let numeral = require('numeral');
 
@@ -285,7 +286,7 @@ const SearchResults = (data) => {
         <div className="top-header flex-between">
           <a href="#">
             <img
-              src="img/logo.svg"
+              src={Logo}
               width="156"
               height="34"
               alt="Smart auction logo"

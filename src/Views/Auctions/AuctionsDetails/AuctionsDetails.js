@@ -186,7 +186,7 @@ function AuctionsDetails(props) {
                                         return (
                                             <div key={key}>
                                                 <div className="artwork-img">
-                                                    <img src={item.media.exact_url} width="998" height="880" alt="" className="img-fluid px-1" />
+                                                    <img src={item.media.exact_url} style={{minHeight : '120px'}} alt="" className="img-fluid px-1" />
                                                 </div>
                                             </div>
                                         )

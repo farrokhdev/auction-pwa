@@ -16,7 +16,7 @@ function Products(props) {
                                 <div className="col-4 col-lg-2">
                                     <div className="img-block">
                                         <Link to={`/auctions/one-artwork/${item?.id}`}>
-                                            <img src={item.media.exact_url} width="493" height="621" alt="Smart Auction"
+                                            <img src={item.media.exact_url} alt="Smart Auction"
                                                 className="img-fluid" />
                                         </Link>
                                     </div>

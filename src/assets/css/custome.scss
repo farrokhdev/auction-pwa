@@ -2043,3 +2043,63 @@ option#iran {
     border-radius: .3rem;
     outline: 0;
 }
+
+.ticket-state {
+    font-size: 12px !important;
+    padding-left: 20px !important;
+    margin-left: 20px !important;
+    position: relative !important;
+  }
+  
+  .ticket-state:before {
+    content: "" !important;
+    background: var(--gray80) !important;
+    width: 1px !important;
+    height: 10px !important; 
+    position: absolute !important;
+    left: 0 !important;
+    top: 2px !important;
+  }
+
+.ticket-state.replied {
+    color: var(--lightgreen) !important;
+  }
+  
+  .ticket-state.closed {
+    color: var(--gray50) !important;
+  }
+  
+  .ticket-state.pending {
+    color: var(--orange) !important;
+  }
+
+  .msg-date {
+    font-size: 12px;
+    color: var(--gray50);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .ticket-detail {
+    margin-bottom: 30px;
+}
+
+.ticket-detail-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.ticket-detail-body {
+    background: var(--bgcolor);
+    padding: 20px;
+}
+
+.td-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.td-right .msg-date {
+    margin-left: 10px;
+}
