@@ -1,149 +1,139 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import pic1 from '../../assets/img/pic1.jpg';
-import Timer from 'react-compound-timer';
+import axios from '../../utils/request';
+import { BASE_URL } from '../../utils';
+import { AuctionType } from '../../utils/converTypePersion';
+import { message, Spin, Pagination } from 'antd';
 
 function PresentBids() {
 
-    const [Active, setActive] = useState(false);
-    const [show, setShow] = useState(false);
+    const [PresentBids, setPresentBids] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [countAuctions, setCountAuctions] = useState(0)
+    const [queryparams, setqueryParams] = useState({
+        page: 1,
+        page_size: 9,
+        search: '',
+        category: [],
+        date_after: '',
+        date_before: '',
+        ordering: '',
+        auction_houses__home_auction_name: [],
+        type: [],
+    })
+    let numeral = require('numeral');
 
-    const Like = () => {
-        setActive(!Active)
+
+    useEffect(() => {
+        getData()
+    }, [])
+
+    const getData = () => {
+        setLoading(true)
+        axios.get(`${BASE_URL}/bidding/?auction_status=ACTIVE`)
+            .then(resp => {
+                setLoading(false)
+
+                if ((resp.data.code === 200) && resp.data?.data?.result) {
+                    setPresentBids(resp.data?.data?.result)
+                    setCountAuctions(resp.data.data.count)
+                }
+            })
+            .catch(err => {
+                setLoading(false)
+                console.error(err);
+                message.error("صفحه را دوباره لود کنید")
+            })
     }
 
-    function timeExpire(time) {
-        let expire = new Date(time)
-        let now = new Date()
-        if (expire > now) {
-            return expire - now
-        } else {
-            return 0
-
-        }
+    const handeSelectPage = (e) => {
+        setqueryParams({
+            ...queryparams, page: e
+        })
     }
-    const convertToEn = (value) => {
 
-        switch (value) {
-
-            case "ONLINE":
-                return <span className="category-icon online-icon">آنلاین</span>
-            case "LIVE":
-                return <span className="category-icon live-icon">زنده</span>
-
-            case "PERIODIC":
-                return <span className="category-icon timed-icon">مدت دار</span>
-
-            case "HIDDEN":
-                return <span className="category-icon firstoffer-icon">اولین پیشنهاد</span>
-
-            case "SECOND_HIDDEN":
-                return <span className="category-icon secondoffer-icon">دومین پیشنهاد</span>
-
-        }
-    }
     return (
         <>
-            {
-                [1, 2].map((item) => {
-                    return (
-                        <div className="fw-block">
-                            <div className="row">
-                                <div className="col-4 col-lg-2">
-                                    <div className="img-block px-0">
-                                        <img src={pic1} width="493" height="621" alt="Smart Auction" className="img-fluid" />
-                                        <div className="tags-block">
-                                            <div className="auction-category online">
-                                                آنلاین
-                                                {/* {convertToEn(item)} */}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-8 col-lg-10">
-                                    <div className="flex-between">
-                                        <div className="flex-col">
-                                            <h5 className="artist-name">سهراب سپهری</h5>
-                                            <h5 className="auction-house-name">گالری آرتیبیشن</h5>
-                                        </div>
-                                        <div className="flex-col">
-                                            <button
-                                                onClick={() =>
-                                                    Like()}
-                                                type="button"
-                                                className={"btn-favorite " + (Active ? "active" : "")}
-                                            ></button>
-                                        </div>
-                                    </div>
-                                    <div className="flex-between align-items-baseline mrgt15">
-                                        <div className="flex-col">
-                                            <div className="price">
-                                                <span>400 - </span>
-                                                <span>700</span>
-                                                <span className="unit">تومان</span>
-                                            </div>
-                                        </div>
-                                        <div className="flex-col right-align">
-                                            <div className={"jumbotron countdown " + (show ? "show" : "end")} data-Date='2021/7/30 16:09:00'>
-                                                <div className="running">
-                                                    {/* <timer>
-                                                        <span className="days"></span><span className="gutter-5">:</span><span
-                                                            className="hours"></span><span className="gutter-5">:</span><span
-                                                                className="minutes"></span>
-                                                        <br><span
-                                                            className="show-text"></span>
-                                                </timer> */}
-                                                    {/* <div className="break"></div> */}
-                                                    {item.status !== "CLOSED" ?
-                                                                <div className="ended">
-                                                                    <div className="text">پایان یافته</div>
-                                                                </div>
-                                                                :
-                                                                <Timer
-                                                                    initialTime={timeExpire(item.end_time)}
-                                                                    direction="backward"
-                                                                >
-                                                                    {() => (
-                                                                        <div style={{
-                                                                            direction: 'ltr',
-                                                                            textAlign: "right"
-                                                                        }}>
-                                                                            <Timer.Days /> :
-                                                                            <Timer.Hours /> :
-                                                                            <Timer.Minutes /> :
-                                                                            <Timer.Seconds />
-                                                                        </div>
-                                                                    )}
-                                                                </Timer>
-                                                            }
+
+            <Spin spinning={loading}>
+
+
+                {
+                    PresentBids ? PresentBids.map((item) => {
+                        return (
+                            <div className="fw-block">
+                                <div className="row">
+                                    <div className="col-4 col-lg-2">
+                                        <div className="img-block px-0">
+                                            <img style={{
+                                                backgroundImage: `url(${item?.product_auction?.product?.media?.exact_url ?
+                                                    item?.product_auction?.product?.media?.exact_url : ""})`, height: "8rem"
+                                            }}
+                                                className="img-fluid image-custom-back" />
+                                            <div className="tags-block">
+                                                <div className="auction-category online">
+                                                    {AuctionType(item?.product_auction?.auction_type)}
                                                 </div>
-                                                {/* <div className="ended">
-                                                    <div className="text">پایان یافته</div>
-                                                </div> */}
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="flex-between mrgt15">
-                                        <div className="flex-col">
-                                            <span className="price-title">Your last bid:</span>
-                                            <div className="price">
-                                                <span>135</span>
-                                                <span className="unit">تومان</span>
+                                    <div className="col-8 col-lg-10">
+                                        <div className="flex-between">
+                                            <div className="flex-col">
+                                                <h5 className="artist-name">{item?.product_auction?.product?.artwork_title}</h5>
+                                                <h5 className="auction-house-name">{item?.auction_house_name}</h5>
                                             </div>
                                         </div>
-                                        <div className="flex-col current">
-                                            <span className="price-title">پیشنهاد فعلی:</span>
-                                            <div className="price">
-                                                <span>195</span>
-                                                <span className="unit">تومان</span>
+                                        <div className="flex-between align-items-baseline mrgt15">
+                                            <div className="flex-col">
+                                                <div className="price">
+                                                    <span>{numeral(item?.product_auction?.min_price).format('0,0')}- </span>
+                                                    <span>{numeral(item?.product_auction?.max_price).format('0,0')}</span>
+                                                    <span className="unit">تومان</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div className="flex-between mrgt15">
+                                            <div className="flex-col">
+                                                <span className="price-title">آخرین پیشنهاد شما:</span>
+                                                <div className="price">
+                                                    <span>{numeral(item?.last_your_bid).format('0,0')}</span>
+                                                    <span className="unit">تومان</span>
+                                                </div>
+                                            </div>
+                                            <div className="flex-col current">
+                                                <span className="price-title">پیشنهاد فعلی:</span>
+                                                <div className="price">
+                                                    <span>{numeral(item?.last_bid).format('0,0')}</span>
+                                                    <span className="unit">تومان</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    )
-                })
-            }
+                        )
+                    }) : ""}
+
+                <div className="my-2">
+
+                    <Pagination
+                        style={{ direction: 'ltr', textAlign: 'center' }}
+                        showSizeChanger
+                        responsive
+                        onShowSizeChange={(current, pageSize) => {
+                            getData(pageSize)
+                        }}
+                        onChange={(e) => handeSelectPage(e)}
+                        defaultCurrent={1}
+                        total={countAuctions}
+                        pageSizeOptions={[9, 18, 36, 48]}
+                        defaultPageSize={9}
+                    />
+                </div>
+            </Spin>
+
         </>
     )
 }

@@ -12,7 +12,7 @@ function CardItem(props) {
                 <div className="row">
                     <div className="col-4 col-lg-2">
                         <div className="img-block">
-                            <img src={props?.exactUrl} width="493" height="621" alt="Smart Auction" className="img-fluid" />
+                            <img style={{ backgroundImage: `url(${props?.exactUrl ? props?.exactUrl : ""})`, height: "12rem" }} className="img-fluid image-custom-back" />
                             <div className="tags-block">
                                 <div className="auction-category won">برنده شده</div>
                             </div>

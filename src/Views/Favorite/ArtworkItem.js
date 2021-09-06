@@ -68,17 +68,22 @@ function ArtworkItem() {
                             <div className="row">
                                 <div className="col-4 col-lg-2">
                                     <div className="img-block">
-                                        <img src={item.media.exact_url} alt="Smart Auction" className="img-fluid" />
+                                        <img
+                                            style={{
+                                                backgroundImage: `url(${item?.media?.exact_url ?
+                                                    item?.media?.exact_url : ""})`, height: "8rem"
+                                            }}
+                                            className="img-fluid image-custom-back"/>
                                         <div className="tags-block">
-                                            <div className="auction-category online">{AuctionType(item.latest_auction.type)}</div>
+                                            <div className="auction-category online">{AuctionType(item?.latest_auction?.type)}</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-8 col-lg-10">
                                     <div className="flex-between">
                                         <div className="flex-col">
-                                            <h5 className="artist-name">{item.artwork_title}</h5>
-                                            <h5 className="auction-house-name">{item.latest_auction.title}</h5>
+                                            <h5 className="artist-name">{item?.artwork_title}</h5>
+                                            <h5 className="auction-house-name">{item?.latest_auction?.title}</h5>
                                         </div>
                                         <div className="flex-col">
                                             <button
@@ -100,7 +105,7 @@ function ArtworkItem() {
                                                     {item?.latest_auction?.start_time ? moment(item?.latest_auction?.start_time, 'YYYY/MM/DD').locale('fa').format('DD MMMM') : ""}
                                                 </span>
                                                 <span className="end-date">
-                                                   - {item?.latest_auction?.end_time ? moment(item?.latest_auction?.end_time, 'YYYY/MM/DD').locale('fa').format('DD MMMM') : ""}
+                                                    - {item?.latest_auction?.end_time ? moment(item?.latest_auction?.end_time, 'YYYY/MM/DD').locale('fa').format('DD MMMM') : ""}
                                                 </span>
                                             </div>
                                         </div>
@@ -110,7 +115,7 @@ function ArtworkItem() {
                                         <div className="flex-col">
                                             <span className="price-title"> پیشنهاد شروع : </span>
                                             <div className="price">
-                                                <span>{numeral(item.price).format('0,0')}</span>
+                                                <span>{numeral(item?.price).format('0,0')}</span>
                                                 <span className="unit"> تومان </span>
                                             </div>
                                         </div>
