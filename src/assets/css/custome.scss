@@ -69,6 +69,7 @@
 }
 * {
     transition: all 0.1s ease-out;
+    // font-family: vazir, Arial, sans-serif !important;
   }
   
 body, html {
@@ -1338,6 +1339,12 @@ option#iran {
     color: var(--darkgray) !important;
 }
 
+.new-notices .default:hover{
+    color: #00a900 !important;
+    cursor: pointer !important;
+    transform: scale(1.1) !important;
+}
+
 #pills-notification .default {
     color: var(--gray50);
 }
@@ -2042,4 +2049,22 @@ option#iran {
     border: 1px solid rgba(0,0,0,.2);
     border-radius: .3rem;
     outline: 0;
+}
+
+.modal-detail-message .ant-modal-footer{
+    display: flex !important;
+    justify-content: center !important;
+}
+
+
+.modal-detail-message .ant-modal-footer .ant-btn-primary{
+    background-color: #e6007e;
+    height: 38px !important;
+    border-radius: 38px !important;
+    width: 80px !important;
+    align-content: center !important;
+}
+
+.ant-pagination a{
+    font-family: vazir, Arial, sans-serif !important;
 }
