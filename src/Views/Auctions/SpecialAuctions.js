@@ -156,7 +156,7 @@ function SpecialAuctions(props) {
                                     <div className="img-block">
                                         <div className="row">
                                             <div className="col g-0">
-                                                <img src={item.media.exact_url} width="493" height="493" alt="Smart Auction"
+                                                <img src={pic1thumb} width="493" height="493" alt="Smart Auction"
                                                     className="img-fluid" />
                                             </div>
                                             <div className="col g-0">

@@ -50,7 +50,7 @@ function Login(props) {
     console.log("Sign Up", response);
 
     let payload = {
-      "access_token": response.tokenObj.access_token
+      // "access_token": response.tokenObj.access_token
     }
 
     // console.log("Ehsan", payload)

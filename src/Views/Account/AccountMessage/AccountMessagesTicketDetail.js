@@ -1,15 +1,19 @@
-import React from 'react'
+import React,{useState} from 'react'
 import AccountHeader from '../../../components/AccountHeader'
 import avatar from '../../../assets/img/avatar.jpg';
+import UserMessagesTicketDetails from './UserMessagesTicketDetails';
 
 function AccountMessagesTicketDetail() {
+
 
     return (
         <>
             <div className="container bg-white">
 
                 <AccountHeader linkBack={"/account/messages"} titlePage={"تیکت"} />
-                <div className="main-content" id="Ticket-detail">
+                <div className="main-content" id="Ticket-detail"> 
+            
+                    {/* <UserMessagesTicketDetails /> */}
                     <div className="ticket-block">
                         <div className="d-flex flex-between">
                             <div className="img-block flex-start">
