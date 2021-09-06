@@ -1375,7 +1375,8 @@ option#iran {
 }
 
 .ticket-block.support {
-    float: left;
+    // float: left;
+    margin-right: 20px !important;
 }
 
 .ticket-block.support .fw-block {
@@ -2099,7 +2100,28 @@ option#iran {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    font-size: 10px !important;
 }
 .td-right .msg-date {
     margin-left: 10px;
+}
+
+.modal-detail-ticket{
+    // width: 100vw !important;
+    // height:  100vh !important;
+    top: 0px !important;
+}
+
+.modal-detail-ticket .ant-modal.footer {
+    display: flex !important;
+
+    justify-content: center !important;
+    background-color: yellow !important;
+}
+
+.modal-detail-ticket button{
+    background-color: #e6007e !important;
+    border-radius: 38px !important;
+    height: 38px !important;
+    color: white !important;
 }

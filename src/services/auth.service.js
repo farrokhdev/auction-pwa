@@ -1,5 +1,5 @@
 import {BASE_URL} from '../utils';
-import { ACCOUNT_LOGIN, ACCOUNT_MESSAGES_BOX, ACCOUNT_MESSAGE_DETAIL, SEARCH_DISCOVER  , CATEGORIE_ACTIVITY, HOME_AUCITONS} from '../utils/constant';
+import { ACCOUNT_LOGIN, ACCOUNT_MESSAGES_BOX, ACCOUNT_MESSAGE_DETAIL, SEARCH_DISCOVER  , CATEGORIE_ACTIVITY, HOME_AUCITONS, ACCOUNT_TICKET_BOX, ACCOUNT_TICKET_REPLY, ACCOUNT_TICKET_DETAIL} from '../utils/constant';
 
 import axios from '../utils/request';
 
@@ -17,6 +17,44 @@ class AuthService {
                 return err
             })
     }
+
+
+    ticketBox=()=> {
+        return axios.get(`${BASE_URL}${ACCOUNT_TICKET_BOX}`)
+            .then(res => {
+                
+                return res
+            })
+            .catch(err => {
+                return err
+            })
+    }    
+    
+    
+    ticketDetial=(id)=> {
+        return axios.get(`${BASE_URL}${ACCOUNT_TICKET_DETAIL(id)}`)
+            .then(res => {
+                
+                return res
+            })
+            .catch(err => {
+                return err
+            })
+    }    
+    
+    ticketReply=(id , replyTicket)=> {
+        let payload = {
+            "body": replyTicket
+        }
+        return axios.post(`${BASE_URL}${ACCOUNT_TICKET_REPLY(id) }` , payload)
+            .then(res => {
+                
+                return res
+            })
+            .catch(err => {
+                return err
+            })
+    }    
     
     messageBox=()=> {
         return axios.get(`${BASE_URL}${ACCOUNT_MESSAGES_BOX}`)

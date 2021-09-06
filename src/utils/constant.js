@@ -14,7 +14,11 @@ module.exports={
     ACCOUNT_MESSAGES_BOX : `/messaging/inbox/`,
     ACCOUNT_MESSAGE_DETAIL :`/messaging/inbox/`,
     ACCOUNT_TICKET_BOX : `/ticketing/`,
+    ACCOUNT_TICKET_DETAIL : id => `/ticketing/${id}/`,
+    ACCOUNT_TICKET_REPLY : id =>  `/ticketing/${id}/reply/`,
     ACCOUNT_LOGIN : `/account/login/`,
+
+    
 
     // ------ Products -------
     LIST_PRODUCTS:"/sale/product/",
