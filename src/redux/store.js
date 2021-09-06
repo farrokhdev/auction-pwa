@@ -21,6 +21,7 @@ const persistedReducer = persistReducer(persistConfig, combineReducers({
     auctionReducer,
     allReducer , 
     discoverReducer , 
+
 }));
 let store = createStore(
     persistedReducer,
