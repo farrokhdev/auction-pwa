@@ -1,5 +1,5 @@
 import {BASE_URL} from '../utils';
-import { ACCOUNT_LOGIN, ACCOUNT_MESSAGES_BOX, ACCOUNT_MESSAGE_DETAIL, SEARCH_DISCOVER  , CATEGORIE_ACTIVITY, HOME_AUCITONS, ACCOUNT_TICKET_BOX, ACCOUNT_TICKET_REPLY, ACCOUNT_TICKET_DETAIL} from '../utils/constant';
+import { ACCOUNT_LOGIN, ACCOUNT_MESSAGES_BOX, ACCOUNT_MESSAGE_DETAIL, SEARCH_DISCOVER  , CATEGORIE_ACTIVITY, HOME_AUCITONS, ACCOUNT_TICKET_BOX, ACCOUNT_TICKET_REPLY, ACCOUNT_TICKET_DETAIL, CATEGORY_TICKET, CREATE_NEW_TICKET, ACCOUNT_CLOSE_TICKET} from '../utils/constant';
 
 import axios from '../utils/request';
 
@@ -18,7 +18,7 @@ class AuthService {
             })
     }
 
-
+    // get list of tickets service
     ticketBox=()=> {
         return axios.get(`${BASE_URL}${ACCOUNT_TICKET_BOX}`)
             .then(res => {
@@ -30,7 +30,7 @@ class AuthService {
             })
     }    
     
-    
+    // get detail of ticket service
     ticketDetial=(id)=> {
         return axios.get(`${BASE_URL}${ACCOUNT_TICKET_DETAIL(id)}`)
             .then(res => {
@@ -42,9 +42,10 @@ class AuthService {
             })
     }    
     
-    ticketReply=(id , replyTicket)=> {
+    // send reply ticket service
+    ticketReply=(id , body)=> {
         let payload = {
-            "body": replyTicket
+            "body": body
         }
         return axios.post(`${BASE_URL}${ACCOUNT_TICKET_REPLY(id) }` , payload)
             .then(res => {
@@ -54,8 +55,53 @@ class AuthService {
             .catch(err => {
                 return err
             })
+    } 
+    
+    // get list of categories ticket service
+    categoryTicket=()=> {
+   
+        return axios.get(`${BASE_URL}${CATEGORY_TICKET}`)
+            .then(res => {
+                
+                return res
+            })
+            .catch(err => {
+                return err
+            })
+    }  
+
+    // close ticket service
+    closeTicket=(id)=> {
+        return axios.get(`${BASE_URL}${ACCOUNT_CLOSE_TICKET(id) }`)
+            .then(res => {
+                
+                return res
+            })
+            .catch(err => {
+                return err
+            })
     }    
     
+    // create new ticket service
+    createNewTicket=(title , body , category)=> {
+
+        let payload = {
+            "title": title,
+            "body": body,
+            "category": category
+        }
+
+        return axios.post(`${BASE_URL}${CREATE_NEW_TICKET}` , payload)
+            .then(res => {
+                
+                return res
+            })
+            .catch(err => {
+                return err
+            })
+    }  
+
+    // get liset of inbox message service
     messageBox=()=> {
         return axios.get(`${BASE_URL}${ACCOUNT_MESSAGES_BOX}`)
             .then(res => {
@@ -67,6 +113,7 @@ class AuthService {
             })
     }    
     
+    // get detail of message service
     messageDetail = (id) => {
         return axios.get(`${BASE_URL}${ACCOUNT_MESSAGE_DETAIL}${id}/`)
             .then(res => {

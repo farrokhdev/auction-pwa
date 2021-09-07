@@ -22,7 +22,13 @@ const ModalDetailMessage = ({ detailMessage, isModalVisible, setIsModalVisible }
   return (
     <>
 
-      <Modal title={detailMessage?.message?.title} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <Modal 
+        title={detailMessage?.message?.title} 
+        visible={isModalVisible} 
+        onOk={handleOk} 
+        onCancel={handleCancel}
+        footer={[]}
+        >
 
         <p>{detailMessage?.message?.body}</p>
 

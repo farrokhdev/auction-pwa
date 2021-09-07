@@ -2,7 +2,7 @@ import React from "react";
 
 function CardTicket(props) {
 
-    console.log("IIDD --->> ", props.id);
+    
   return (
     <div onClick={()=>props.showModal(props.id)} className=" fw-block justify-content-start">
       <div className="">

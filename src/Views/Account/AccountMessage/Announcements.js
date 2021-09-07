@@ -27,15 +27,17 @@ function Announcements({ messagesBox }) {
                     return (
                         <React.Fragment>
                             <div onClick={() => handleShowModal(message?.message?.id)} className="fw-block new-notices">
-                                <div className="flex-between align-items-baseline">
+                                <div className="flex-between align-items-start">
                                     <div className="flex-col">
-                                        <h6 className="default">{message?.message?.title}</h6>
+                                        <h6 className="default text-right">{message?.message?.title}</h6>
                                     </div>
                                     <div className="flex-col">
                                         {!message?.is_read ? <i className="fal fa-circle"></i> : null}
                                     </div>
                                 </div>
-                                <p>{message?.message?.body}</p>
+                                <div className="d-flex">
+                                    <p className="text-right">{message?.message?.body}</p>
+                                </div>
 
                             </div>
                         </React.Fragment>

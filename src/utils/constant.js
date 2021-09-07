@@ -16,6 +16,9 @@ module.exports={
     ACCOUNT_TICKET_BOX : `/ticketing/`,
     ACCOUNT_TICKET_DETAIL : id => `/ticketing/${id}/`,
     ACCOUNT_TICKET_REPLY : id =>  `/ticketing/${id}/reply/`,
+    ACCOUNT_CLOSE_TICKET : id =>  `/ticketing/${id}/close/`,
+    CATEGORY_TICKET : `/ticketing/category/`,
+    CREATE_NEW_TICKET : `/ticketing/`,
     ACCOUNT_LOGIN : `/account/login/`,
 
     

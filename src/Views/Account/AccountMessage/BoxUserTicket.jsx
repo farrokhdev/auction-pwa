@@ -3,7 +3,7 @@ import avatar from "../../../assets/img/avatar.jpg";
 import moment from "jalali-moment";
 import {Avatar} from "antd";
 
-function BoxUserTicket({ticketDetial}) {
+function BoxUserTicket({ticketDetial , reply}) {
 
 
   return (
@@ -44,8 +44,8 @@ function BoxUserTicket({ticketDetial}) {
       </div>
 
       <div className="fw-block">
-        <h6 className="default">{ticketDetial?.title}</h6>
-        <p>{ticketDetial?.body}</p>
+        <h6 className="default">{reply?.title}</h6>
+        <p>{reply?.body}</p>
       </div>
     </div>
   );

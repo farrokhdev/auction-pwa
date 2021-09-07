@@ -35,7 +35,11 @@ function AccountMessages() {
                             <Announcements messagesBox={messagesBox}  />
                         </TabPane>
                         <TabPane tab="تیکت‌ها" key="2" className="nav-link nav-item" >
-                            <AccountTickets messageBox={messagesBox} setMessagesBox={setMessagesBox} />
+                            <AccountTickets
+                                 messageBox={messagesBox} 
+                                 setMessagesBox={setMessagesBox} 
+                                 setActiveKey={setActiveKey}
+                                 />
                         </TabPane>
                     </Tabs>
                 </div>

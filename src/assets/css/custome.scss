@@ -1531,6 +1531,32 @@ option#iran {
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.24);
 }
 
+.btn-cancel-ticket{
+    background: var(--darkgray) !important;
+    padding: 7px 15px !important;
+    min-width: 100px !important;
+    color: var(--bs-white) !important;
+    border-radius: 20px !important;
+    font-size: 13px !important;
+  }
+
+  .btn-close-ticket{
+    @extend .btn-default;
+    background: var(--gray70) !important;
+  }
+
+  .conrifm-close-ticket .ant-btn-dangerous{
+    background-color: var(--bgcolor) !important;
+    border-radius: 38px !important;
+    margin-right: 10px !important;
+  }
+
+  .conrifm-close-ticket .ant-btn:first-child{
+    background-color: var(--darkgray) !important;
+    color: white !important;
+    border-radius: 38px !important;
+  }
+
 .innercontainer {
     width: 100%;
     max-width: 1360px;
@@ -2106,22 +2132,39 @@ option#iran {
     margin-left: 10px;
 }
 
-.modal-detail-ticket{
-    // width: 100vw !important;
-    // height:  100vh !important;
-    top: 0px !important;
+
+
+
+.modal-detail-ticket .ant-modal-header{
+    text-align: center !important;
 }
 
 .modal-detail-ticket .ant-modal.footer {
     display: flex !important;
-
     justify-content: center !important;
     background-color: yellow !important;
 }
 
 .modal-detail-ticket button{
-    background-color: #e6007e !important;
     border-radius: 38px !important;
     height: 38px !important;
     color: white !important;
+}
+
+.modal-detail-ticket , .modal-create-ticket{
+    top: 0px !important;
+}
+
+.modal-create-ticket .ant-modal-header {
+    text-align: center !important;
+}
+
+.icon-send-reply{
+    position: absolute !important;
+    top:7px !important;
+    left: 20px !important;
+}
+
+.fa-chevron-circle-right:hover{
+    color: var(--lightgreen) !important;
 }
