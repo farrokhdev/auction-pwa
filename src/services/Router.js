@@ -26,7 +26,7 @@ import VerificationCode from '../Views/Auth/VerificationCode'
 import ConfirmMobileNumber from '../Views/Auth/ConfirmMobileNumber'
 import RegistersetPassword from '../Views/Auth/RegistersetPassword'
 import { connect, useSelector, useDispatch } from 'react-redux';
-import { getProfile } from '../redux/reducers/profile/profile.actions'
+// import { getProfile } from '../redux/reducers/profile/profile.actions'
 import FiltersSearchDiscover from '../Views/Discover/FiltersSearchDiscover'
 import Locations from '../Views/Discover/Locations'
 import Categories from '../Views/Discover/Categories'
@@ -35,14 +35,14 @@ import Types from '../Views/Discover/AuctionType'
 
 const RouterConfig = (props) => {
 
-    const dispatch = useDispatch();
-    const { role } = useSelector((state) => state.profileReducer)
+    // const dispatch = useDispatch();
+    // const { role } = useSelector((state) => state.profileReducer)
     console.log(console.log("Login ->> ", props.auth.is_logged_in))
 
-    useEffect(() => {
-        if (!role)
-            dispatch(getProfile())
-    }, [])
+    // useEffect(() => {
+    //     if (!role)
+    //         dispatch(getProfile())
+    // }, [])
 
     return (
         <Router >

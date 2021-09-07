@@ -17,6 +17,7 @@ function AuctionRegistrationValue(props) {
 
     useEffect(() => {
         getData()
+        document.documentElement.scrollTop = 0;
     }, [])
 
     const getData = () => {

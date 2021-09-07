@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import { Button, Form, Input } from 'antd';
 
 
@@ -14,6 +14,10 @@ function AuctionRegistrationIntroduce(props) {
         setRecommender({ "first_name": name, "last_name": family, "mobile_number": phone })
         setSelectComponent(selectComponent + 1)
     }
+
+    useEffect(() => {
+        document.documentElement.scrollTop = 0;
+    }, []);
     
     return (
         <>

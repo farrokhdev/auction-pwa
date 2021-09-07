@@ -27,13 +27,13 @@ function Account() {
             })
             .catch(err => {
                 console.error(err);
-                message.error("صفحه را دوباره لود کنید")
+                message.error("صفحه را دوباره لود کنید")   
             })
     }
 
     return (
         <>
-            <div className="container bg-white">
+            <div className="container bg-white"> 
                 <AccountHeader titlePage={"پروفایل"} />
                 <div className="sidebar-body" id="account-page">
                     <div className="img-block flex-start">

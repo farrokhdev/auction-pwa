@@ -107,8 +107,11 @@ function Discover(props) {
                                     <div className="col-4 col-lg-2">
                                         <div className="img-block">
                                             <Link to={`/auctions/one-artwork/${item?.id}`}>
-                                                <img src={item.media.exact_url} alt="Smart Auction"
-                                                    className="img-fluid image-card-product" />
+                                                <img style={{
+                                                    backgroundImage: `url(${item?.media?.exact_url ?
+                                                        item?.media?.exact_url : ""})`, height: "8rem"
+                                                }}
+                                                    className="img-fluid image-custom-back" />
                                             </Link>
                                         </div>
                                     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import { Button } from 'antd';
 import Chooseartwork from './ChooseArtwork';
 
@@ -24,6 +24,10 @@ function AuctionRegistrationFavorite(props) {
         setSelectComponent(selectComponent + 1)
 
     }
+
+    useEffect(() => {
+        document.documentElement.scrollTop = 0;
+    }, []);
 
     return (
         <>
