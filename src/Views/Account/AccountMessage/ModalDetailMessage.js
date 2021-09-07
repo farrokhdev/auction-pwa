@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
-import { Modal } from 'antd';
+import { Modal  , Button} from 'antd';
 
-const ModalDetailMessage = ({ detailMessage, isModalVisible, setIsModalVisible }) => {
-
-  console.log("detailMessage -->> ", detailMessage);
-  
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
+const ModalDetailMessage = ({ detailMessage, isModalVisible, setIsModalVisible  }) => {
 
   const handleOk = () => {
     setIsModalVisible(false);
+   
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-
-
 
   return (
     <>
@@ -30,7 +23,8 @@ const ModalDetailMessage = ({ detailMessage, isModalVisible, setIsModalVisible }
         footer={[]}
         >
 
-        <p>{detailMessage?.message?.body}</p>
+
+        {<p dangerouslySetInnerHTML={{__html: detailMessage?.message?.body}} /> }
 
       </Modal>
     </>

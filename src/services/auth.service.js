@@ -57,6 +57,7 @@ class AuthService {
             })
     } 
     
+
     // get list of categories ticket service
     categoryTicket=()=> {
    
@@ -102,8 +103,8 @@ class AuthService {
     }  
 
     // get liset of inbox message service
-    messageBox=()=> {
-        return axios.get(`${BASE_URL}${ACCOUNT_MESSAGES_BOX}`)
+    messageBox=(queries)=> {
+        return axios.get(`${BASE_URL}${ACCOUNT_MESSAGES_BOX}?${queries}`)
             .then(res => {
                 
                 return res

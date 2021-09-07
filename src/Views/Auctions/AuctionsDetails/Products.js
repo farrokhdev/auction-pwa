@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 
 function Products(props) {
     let numeral = require('numeral');
- 
+
     return (
         <>
             {
-                props.product.map((item,key) => {
+                props.product.map((item, key) => {
                     return (
                         <div className="fw-block" key={key}>
 
@@ -16,8 +16,13 @@ function Products(props) {
                                 <div className="col-4 col-lg-2">
                                     <div className="img-block">
                                         <Link to={`/auctions/one-artwork/${item?.id}`}>
-                                            <img src={item.media.exact_url} alt="Smart Auction"
-                                                className="img-fluid" />
+                                            <img
+                                                style={{
+                                                    backgroundImage: `url(${item?.media?.exact_url ?
+                                                        item?.media?.exact_url : ""})`, height: "10rem"
+                                                }}
+                                                className="img-fluid image-custom-back"
+                                            />
                                         </Link>
                                     </div>
                                 </div>
@@ -29,12 +34,12 @@ function Products(props) {
                                         </div>
                                         <div className="flex-col">
                                             <button
-                                               onClick={() =>
-                                                props.addBookmark(
-                                                    item?.following?.bookmark?.is_active?
-                                                    item?.following?.bookmark?.id :
-                                                        item?.id, item?.following?.bookmark?.is_active)
-                                            }
+                                                onClick={() =>
+                                                    props.addBookmark(
+                                                        item?.following?.bookmark?.is_active ?
+                                                            item?.following?.bookmark?.id :
+                                                            item?.id, item?.following?.bookmark?.is_active)
+                                                }
                                                 type="button"
                                                 className={"btn-favorite " + (item?.following?.bookmark?.is_active ? "active" : "")}
                                             ></button>

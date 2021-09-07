@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { convertCurrencyType } from '../../../utils/converTypePersion';
 
 
-function TransferToPay({paymentMethod , price , currency , artist , artworkTitle , homAuction , url}) {
+function TransferToPay({ paymentMethod, price, currency, artist, artworkTitle, homAuction, url }) {
     const [loading, setloading] = useState(false);
     const [visible, setvisible] = useState(false);
     let numeral = require('numeral');
@@ -28,14 +28,14 @@ function TransferToPay({paymentMethod , price , currency , artist , artworkTitle
 
     return (
         <>
-            <Button 
-                className={paymentMethod === "OFFLINE" ? "d-none" : "btn-default mrgl20 w-100"} 
-                type="primary"  
+            <Button
+                className={paymentMethod === "OFFLINE" ? "d-none" : "btn-default mrgl20 w-100"}
+                type="primary"
                 onClick={showModal}>
                 مشاهده و پرداخت
             </Button>
             <Modal
-                
+
                 centered title={
                     <div className="d-flex align-items-center justify-content-between">
                         <h2 className="default titr">ارسال به درگاه</h2>
@@ -60,7 +60,7 @@ function TransferToPay({paymentMethod , price , currency , artist , artworkTitle
                         <Button key="back" className="btn btn-gray align-items-center" onClick={handleCancel}>
                             بستن
                         </Button>
-                        <Button   key="submit" type="btn btn-default" loading={loading} onClick={handleOk}>
+                        <Button key="submit" type="btn btn-default" loading={loading} onClick={handleOk}>
                             پرداخت
                         </Button>
 
@@ -71,7 +71,8 @@ function TransferToPay({paymentMethod , price , currency , artist , artworkTitle
                     <div className="transfer-to-pay">
                         <div className="d-flex flex-row">
                             <div className="artwork-img">
-                                <img src={url} width="317" height="280" alt="" className="img-fluid" />
+                                <img
+                                    style={{ backgroundImage: `url(${url ? url : ""})`, height: "9rem", width: "12rem" }} className="img-fluid image-custom-back" />
                             </div>
                             <div className="artwork-info-left col-8 text-start ps-3">
                                 <div>

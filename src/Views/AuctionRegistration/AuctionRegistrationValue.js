@@ -104,9 +104,9 @@ function AuctionRegistrationValue(props) {
                         <div className="modal-header">
                             <div className=" g-0 d-flex justify-content-center align-items-baseline">
                                 <div className="main-title">
-                                    <h2 className="default titr">
+                                    <h5 className="default titr">
                                         چقدر باید شارژ کنم؟
-                                    </h2>
+                                    </h5>
                                 </div>
                                 <button type="button"
                                     style={{ marginRight: '15rem' }}

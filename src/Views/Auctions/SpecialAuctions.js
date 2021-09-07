@@ -33,7 +33,7 @@ function SpecialAuctions(props) {
     const queries = queryString.stringify(queryparams);
 
     let getProducts;
-    if (props.data === "withParams") {
+    if (props.data === "withoutParams") {
         getProducts = () => {
 
             setLoading(true)
@@ -87,8 +87,8 @@ function SpecialAuctions(props) {
     const handleSetDate = (dateFrom, dateTo) => {
         setqueryParams({
             ...queryparams,
-            date_before: dateFrom ? moment.from(dateFrom, 'fa', 'YYYY/MM/DD').locale('en').format('YYYY-MM-DD') : "",
-            date_after: dateTo ? moment.from(dateTo, 'fa', 'YYYY/MM/DD').locale('en').format('YYYY-MM-DD') : ""
+            start_date_before: dateTo ? moment.from(dateTo, 'fa', 'YYYY/MM/DD').locale('en').format('YYYY-MM-DD') : "",
+            start_date_after: dateFrom ? moment.from(dateFrom, 'fa', 'YYYY/MM/DD').locale('en').format('YYYY-MM-DD') : "",
         })
 
     }
@@ -208,13 +208,13 @@ function SpecialAuctions(props) {
                                         }</span>
                                     </div>
                                     <button
-                                            onClick={() =>
-                                                Like(
-                                                    item?.following?.bookmark?.is_active ?
-                                                        item?.following?.bookmark?.id :
-                                                        item?.id, item?.following?.bookmark?.is_active)
-                                            }
-                                            className={"btn-favorite  " + (item?.following?.bookmark?.is_active ? "active" : "")}
+                                        onClick={() =>
+                                            Like(
+                                                item?.following?.bookmark?.is_active ?
+                                                    item?.following?.bookmark?.id :
+                                                    item?.id, item?.following?.bookmark?.is_active)
+                                        }
+                                        className={"btn-favorite  " + (item?.following?.bookmark?.is_active ? "active" : "")}
                                     ></button>
                                 </div>
                             </div>

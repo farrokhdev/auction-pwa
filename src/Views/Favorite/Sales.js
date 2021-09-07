@@ -17,7 +17,7 @@ function Sales() {
 
     const getData = () => {
         setLoading(true)
-        axios.get(`${BASE_URL}/following/auctions`)
+        axios.get(`${BASE_URL}/following/auctions?activity_type=mark`)
             .then(resp => {
                 setLoading(false)
 
@@ -79,18 +79,23 @@ function Sales() {
                             <div className="row">
                                 <div className="col-4 col-lg-2">
                                     <div className="img-block">
-                                        <img src={item.media.exact_url} alt="Smart Auction" className="img-fluid" />
+                                        <img
+                                            style={{
+                                                backgroundImage: `url(${item?.media?.exact_url ?
+                                                    item?.media?.exact_url : ""})`, height: "8rem"
+                                            }}
+                                            className="img-fluid image-custom-back" />
                                         <div className="tags-block">
-                                            <div className="auction-category online">{AuctionType(item.type)}</div>
+                                            <div className="auction-category online">{AuctionType(item?.type)}</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-8 col-lg-10">
                                     <div className="flex-between">
                                         <div className="flex-col">
-                                            <h5 className="artist-name"> {item.description}</h5>
-                                            <h5 className="auction-house-name ms-5"> {item.title}</h5>
-                                            <h6 className="auction-house-name">{item.house}</h6>
+                                            <h5 className="artist-name"> {item?.description}</h5>
+                                            <h5 className="auction-house-name ms-5"> {item?.title}</h5>
+                                            <h6 className="auction-house-name">{item?.house}</h6>
                                         </div>
                                         <div className="flex-col">
                                             <button
@@ -107,7 +112,7 @@ function Sales() {
                                     </div>
                                     <div className="flex-between align-items-baseline mrgt20 mrgb5">
                                         <div className="flex-col">
-                                            {item.status !== "CLOSED" ?
+                                            {item?.status !== "CLOSED" ?
                                                 <div className="ended">
                                                     <div className="text-dark">حراج به پایان رسید</div>
                                                 </div>
