@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Footer from "../../components/footer";
-import Timer from "react-compound-timer";
-import authService from "../../services/auth.service";
-import queryString from "query-string";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Footer from '../../components/footer';
+import Timer from 'react-compound-timer';
+import authService from '../../services/auth.service';
+import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { setFilterQueries, clearFilters } from '../../redux/reducers/discover/discover.actions'
 import { Empty, Spin } from 'antd';
 import classnames from 'classnames';
 import { convertToEn } from '../../utils/converTypePersion'
 import Logo from '../../assets/img/logo.svg';
+import axios from '../../utils/request';
+import { BASE_URL } from '../../utils';
+import { message } from 'antd';
 
 // let numeral = require('numeral');
 
@@ -17,6 +20,7 @@ import Logo from '../../assets/img/logo.svg';
 function Discover(props) {
 
     const [loading, setLoading] = useState(true)
+    const [Notification, setNotification] = useState({})
     const [resultSearchAndFilters, setResultSearchAndFilters] = useState({
         auctions: [],
         home_auctions: [],
@@ -26,6 +30,28 @@ function Discover(props) {
 
     const queries = queryString.stringify(props.discover);
 
+
+
+    useEffect(() => {
+        getNotification()
+    }, [])
+
+    const getNotification = () => {
+        setLoading(true)
+        axios.get(`${BASE_URL}/messaging/inbox/unread_count/`)
+            .then(resp => {
+                setLoading(false)
+
+                if ((resp.data.code === 200) && resp.data?.data?.result) {
+                    setNotification(resp.data?.data?.result)
+                }
+            })
+            .catch(err => {
+                setLoading(false)
+                console.error(err);
+                message.error("صفحه را دوباره لود کنید")
+            })
+    }
     const handleSearch = () => {
         authService.searchDiscover(queries)
             .then((resp) => {
@@ -284,17 +310,23 @@ function Discover(props) {
 
                     <div className="container">
                         <div className="top-header flex-between">
-                            <a href="#">
+                            <Link to="/auctions">
                                 <img
                                     src={Logo}
                                     width="156"
                                     height="34"
                                     alt="Smart auction logo"
                                 />
-                            </a>
-                            <button type="button" className="notification new-notice">
-                                <i className="fal fa-bell"></i>
-                            </button>
+                            </Link>
+                            <Link to="/account/messages">
+                                <button type="button"
+                                    className={classnames({
+                                        "notification new-notice": Notification?.count,
+                                        "notification": !Notification?.count,
+                                    })}>
+                                    <i className="fal fa-bell"></i>
+                                </button>
+                            </Link>
                         </div>
 
                         <div className="d-flex input-group search">
