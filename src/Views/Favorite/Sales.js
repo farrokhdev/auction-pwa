@@ -17,7 +17,7 @@ function Sales() {
 
     const getData = () => {
         setLoading(true)
-        axios.get(`${BASE_URL}/following/auctions`)
+        axios.get(`${BASE_URL}/following/auctions?activity_type=mark`)
             .then(resp => {
                 setLoading(false)
 
