@@ -240,12 +240,12 @@ function AuctionsDetails(props) {
                                         <button type="button" className="btn-main">حراج به
                                             پایان رسید</button>
                                         :
-                                        <Link to={`/auction-registration/${Auction?.id}`}>
+                                        // <Link to={`/auction-registration/${Auction?.id}`}>
                                             <button type="button" className="">
                                             {AuctionStatusTextBtn(Auction?.status , Auction?.user_is_enrolled , Auction.id)}
                                                 {/* {Auction.status !== "CLOSED" ? "عضویت در حراج" : "ثبت نطر"} */}
                                             </button>
-                                        </Link>
+                                        // </Link>
                                     }
                                 </div>
                             </div>
