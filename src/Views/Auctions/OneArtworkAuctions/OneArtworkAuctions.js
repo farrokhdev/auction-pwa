@@ -256,7 +256,7 @@ function OneArtworkAuctions(props) {
                                                 <input className="default-input text-center" min="0" name="quantity" type="number"
                                                     placeholder="انتخاب پیشنهاد" />
                                             </Form.Item>
-                                            <span className="input-state" style={{ top: "40.8rem", left: "2rem " }}>تومان</span>
+                                            <span className="input-state" style={{ top: "472px", left: "25px " }}>تومان</span>
                                         </>
                                         <button htmlType="submit" className="btn-main" style={{ height: '3rem' }}>ثبت پیشنهاد</button>
                                     </Form>
@@ -270,7 +270,7 @@ function OneArtworkAuctions(props) {
                                                 {(artwork?.product_status !== "after_stage") ? <div>
                                                     {artwork?.join_auction_request_state ?? <p>
                                                         <span>برای ثبت پیشنهاد باید   </span>
-                                                        <Link to={`/buyer-register/${artwork?.latest_auction?.id}`}
+                                                        <Link to={`/auction-registration/${artwork?.latest_auction?.id}`}
                                                             className="d-inline-block"> عضو حراجی </Link>
                                                         <span>   باشید</span>
                                                     </p>}
