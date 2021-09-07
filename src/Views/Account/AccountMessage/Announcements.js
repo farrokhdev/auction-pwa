@@ -37,19 +37,17 @@ function Announcements(props) {
                     return (
                         <React.Fragment>
 
-                            <div onClick={() => handleShowModal(message?.message?.id)} className="fw-block new-notices">
+                            <div onClick={() => handleShowModal(message?.id)} className="fw-block new-notices">
                                 <div className="flex-between align-items-start">
                                     <div className="flex-col">
                                         <h6 className="default text-right">{message?.message?.title}</h6>
-
-
                                     </div>
                                     <div className="flex-col">
                                         {( !message?.is_read  ) ? <i className="fal fa-circle"></i> : null}
                                     </div>
                                 </div>
                                 <div className="d-flex">
-                                    <p className="text-right">{message?.message?.body}</p>
+                                    <p dangerouslySetInnerHTML={{__html: message?.message?.body}} />
                                 </div>
 
 
