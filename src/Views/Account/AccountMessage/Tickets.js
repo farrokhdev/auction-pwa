@@ -148,14 +148,7 @@ function Tickets() {
                 <Link to="/account/ticket-detail">
                     <button type="button" className="btn-main"><i className="fal fa-plus"></i>تیکت جدید</button>
                 </Link>
-                {/* <div className="fw-block ">
-                    <div className="flex-between align-items-baseline">
-                        <div className="flex-col">
-                            <h6 className="default">چگونه می‌توان یک اثر خریداری کرد؟</h6>
-                        </div>
-                    </div>
-                    <p className="">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </p>
-                </div> */}
+                
                 {Tickets ? Tickets.map((item, key) => {
                     return (
                         <div className={"fw-block " + (stateToFa(item?.state).block)} onClick={() => getTicket(item?.id)} data-bs-target="#readticket-view" data-bs-toggle="modal" key={key}>
@@ -168,37 +161,12 @@ function Tickets() {
                                 <p className="">{item?.body}</p>
                                 <span
                                     className={`ticket-state + ${(stateToFa(item?.state).type)}`}>{stateToFa(item?.state).title}</span>
-                                {/* <span className="msg-date">{item?.date}</span> */}
+                                <span className="msg-date">{item?.date}</span>
                             </div>
                         </div>
                     )
                 }) : ""}
-                {/* <div className="row row-cols-1">
-                    {Tickets ? Tickets.map((item, key) => {
-                        return (
-                            <div className="col" key={key}>
-                                <div className={"msg-block " + (stateToFa(item?.state).block)}
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#readticket-view"
-                                    onClick={() => getTicket(item?.id)}>
-                                    <div className="ticket">
-                                        <div className="ticket-right order-md-2">
-                                            <span
-                                                className={"ticket-state " + (stateToFa(item?.state).type)}>{stateToFa(item?.state).title}</span>
-                                            <span className="msg-date">{item?.date}</span>
-                                        </div>
-                                        <div className="ticket-left order-md-1">
-                                            <h5 className="default">پاسخ به "{item?.title}"</h5>
-                                        </div>
-                                    </div>
-                                    <p>{item?.body}</p>
-                                    <button type="button" className="btn btn-view">پاسخ</button>
-                                </div>
-                            </div>
-                        )
-                    }) : ""}
-
-                </div> */}
+                
                 {countTickets > 10 ?
                     <Pagination
                         style={{ direction: 'ltr', textAlign: 'center' }}
@@ -212,91 +180,7 @@ function Tickets() {
             </div>
 
 
-            {/* <div className="modal fade" id="readticket-view" tabIndex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div className="modal-dialog w-800">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <div className="container g-0 d-flex justify-content-between">
-                                <div className="main-title">
-                                    <h2 className="default titr">{TicketDetail?.title}</h2>
-                                </div>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"/>
-                            </div>
-                        </div>
-                        <div className="modal-body">
-                            <div className="ticket-detail">
-                                <div className="ticket-detail-header">
-                                    <div className="td-left">
-                                        <h6 className="default">پشتیبانی</h6>
-                                    </div>
-                                    <div className="td-right">
-                                        <span
-                                            className="msg-date">{TicketDetail ? moment(TicketDetail?.creation_date, 'YYYY/MM/DD').locale('fa').format('DD MMMM YYYY') : ""}</span>
-                                        <span
-                                            className="msg-date">{TicketDetail ? moment(TicketDetail?.creation_date).locale('fa').format('hh:mm') : ""}</span>
-                                    </div>
-                                </div>
-                                <div className="ticket-detail-body">
-                                    <p>{TicketDetail?.body}</p>
-                                </div>
-                            </div>
-
-                            {TicketDetail ? TicketDetail.reply.map((item, key) => {
-                                return (
-                                    <div className="ticket-detail" key={key}>
-                                        <div className="ticket-detail-header">
-                                            <div className="td-left">
-                                                <h6 className="default">{item?.owner.first_name + " " + item?.owner.last_name}</h6>
-                                            </div>
-                                            <div className="td-right">
-                                                <span className="msg-date"> no time </span>
-                                                <span className="msg-date">in api</span>
-                                            </div>
-                                        </div>
-                                        <div className="ticket-detail-body">
-                                            <p>
-                                                {item?.body}
-                                            </p>
-                                        </div>
-                                    </div>
-                                )
-                            }) : ""}
-
-                            <div className="ticket-reply-box">
-                                {TicketDetail?.state === 'close' ?
-                                    <Alert style={{margin: 5}}
-                                           message="به دلیل بسته بودن تیکت امکان ارسال پیام وجود ندارد." type="info"
-                                           showIcon/> :
-                                    <div className="input-group">
-                                    <textarea rows="4" className="default-input"
-                                              disabled={TicketDetail?.state === 'close'}
-                                              onChange={(e) => {
-                                                  setReplyBody(e.target.value)
-                                              }}
-                                              placeholder="متن مورد نظر خود را وارد نمایید."/>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-outline-pink"
-                                    disabled={TicketDetail?.state === 'close'}
-                                    onClick={() => {
-                                        closeTicket(TicketDetail?.id)
-                                    }}>بستن تیکت
-                            </button>
-                            <button type="button" className="btn btn-default" disabled={TicketDetail?.state === 'close'}
-                                    onClick={() => {
-                                        handleReply(TicketDetail?.id)
-                                    }}>ارسال
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
-
+            
 
 
 
@@ -314,14 +198,7 @@ function Tickets() {
                                     aria-label="Close"></button>
                             </div>
                         </div>
-                        {/* <div className="modal-body text-center pt-5 h-50">
-                            <h6 className="default">اعتبار نقدی</h6>
-                            <div className="search-input">
-                                <label className="default-lable pt-5">مبلغ مورد نظر خود را وارد نمایید.</label>
-                                <input type="text" className="default-input" placeholder="100,000" />
-                                <span className="unit">تومان</span>
-                            </div>
-                        </div> */}
+                        
                         <div className="modal-body">
                             <div className="ticket-detail">
                                 <div className="ticket-detail-header">

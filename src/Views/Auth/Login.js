@@ -54,17 +54,17 @@ function Login(props) {
     }
 
     // console.log("Ehsan", payload)
-    axios.post(`${BASE_URL}/rest-auth/google/`, payload).then(res => {
-      setToken(res.data.data.result)
-      message.success("به اسمارت آکشن خوش آمدید")
-      setTimeout(() => {
-        window.location.href = "/account"
-      }, 500);
-    })
-      .catch(err => {
-        message.error("کاربری با این مشخصات یافت نشد")
-        console.log(err)
-      })
+    // axios.post(`${BASE_URL}/rest-auth/google/`, payload).then(res => {
+    //   setToken(res.data.data.result)
+    //   message.success("به اسمارت آکشن خوش آمدید")
+    //   setTimeout(() => {
+    //     window.location.href = "/account"
+    //   }, 500);
+    // })
+    //   .catch(err => {
+    //     message.error("کاربری با این مشخصات یافت نشد")
+    //     console.log(err)
+    //   })
 
   }
 
@@ -136,7 +136,7 @@ function Login(props) {
               <div className="or-divider">
                 <span> یا </span>
               </div>
-              <GoogleLogin
+              {/* <GoogleLogin
                 className="btn-google-login btn-google mt-5"
                 clientId="204714783619-coki1sldsv5iev552dcmtcpfj1sn77sg.apps.googleusercontent.com"
                 buttonText=" ورود با گوگل"
@@ -144,7 +144,7 @@ function Login(props) {
                 onFailure={responseGoogle}
                 cookiePolicy={'single_host_origin'}
 
-              />
+              /> */}
             </div>
             <div className="l-footer-block">
               <div className="form-check">

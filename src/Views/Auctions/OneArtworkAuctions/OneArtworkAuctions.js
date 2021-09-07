@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import Footer from '../../../components/footer';
-import { Tabs, Spin, Button, Form, message , Input } from "antd";
+import { Tabs, Spin, Button, Form, message, Input } from "antd";
 import Details from './Details';
 import InformationAndTerms from './InformationAndTerms';
 import axios from "../../../utils/request";
@@ -83,6 +83,10 @@ function OneArtworkAuctions(props) {
         getAuction();
     }, [])
 
+    useEffect(() => {
+        document.documentElement.scrollTop = 0;
+    }, []);
+
     const addBookmark = (data, action) => {
         if (action) {
             axios.delete(`${BASE_URL}/following/${data}`)
@@ -113,38 +117,39 @@ function OneArtworkAuctions(props) {
         setCurrentValue(currentValue + value)
     }
 
-    const handleIncrease = () => {
-        // console.log("[[26, 100.0, 300.0]]".splice(']' || '[' , ''));
-        if (steps.length) {
-            steps.some((item, i, array) => {
-                if (i !== (array.length - 1)) {
-                    // if (i > 0) {
-                    if ((currentValue >= item.threshold) && (currentValue < steps[i + 1].threshold)) {
-                        setBid(item.step)
-                        return true;
-                    } else if (i === 0) {
-                        console.log("It is an error")
-                        setBid(item.step)
-                        return true;
-                    }
-                    // } else {
-                    //     if ((currentValue < item.threshold)) {
-                    //         setBid(item.step)
-                    //         return true;
-                    //     }
-                    // }
-                } else {
-                    setBid(item.step)
-                }
-            })
-        }
-    }
+    // const handleIncrease = () => {
+    //     // console.log("[[26, 100.0, 300.0]]".splice(']' || '[' , ''));
+    //     if (steps.length) {
+    //         steps.some((item, i, array) => {
+    //             if (i !== (array.length - 1)) {
+    //                 // if (i > 0) {
+    //                 if ((currentValue >= item.threshold) && (currentValue < steps[i + 1].threshold)) {
+    //                     setBid(item.step)
+    //                     return true;
+    //                 } else if (i === 0) {
+    //                     console.log("It is an error")
+    //                     setBid(item.step)
+    //                     return true;
+    //                 }
+    //                 // } else {
+    //                 //     if ((currentValue < item.threshold)) {
+    //                 //         setBid(item.step)
+    //                 //         return true;
+    //                 //     }
+    //                 // }
+    //             } else {
+    //                 setBid(item.step)
+    //             }
+    //         })
+    //     }
+    // }
 
     const onFinish = (values) => {
         console.log(values)
         if (artwork?.id)
             sendBid(values)
     }
+
     const sendBid = (values) => {
         setLoading(true)
         let payload = {
@@ -153,8 +158,8 @@ function OneArtworkAuctions(props) {
         }
         axios.post(`${BASE_URL}${BID}`, payload)
             .then(resp => {
-                if (resp.data.code === 200) {
-                    setAuction(resp.data.data.result)
+                if (resp.data.code === 201) {
+                    message.success("درخواست شما با موفقیت ارسال شد")
                 }
                 setLoading(false)
             })
@@ -163,7 +168,7 @@ function OneArtworkAuctions(props) {
                 if (err.response?.data?.data?.error_message)
                     message.error(err.response?.data?.data?.error_message)
                 else
-                    message.error("با خطا مواجه شدید")
+                    message.error("قیمت پیشنهادی شما از قیمت پایه محصول کمتر است.")
                 setLoading(false)
             })
     }
@@ -190,7 +195,6 @@ function OneArtworkAuctions(props) {
                             <div className="flex-between">
                                 <div className="flex-col">
                                     <div className="lot-arrow">
-                                        {/* <i className="fal fa-chevron-right"></i><span>لت قبلی</span> */}
                                     </div>
                                 </div>
                                 <div className="flex-col">
@@ -199,8 +203,6 @@ function OneArtworkAuctions(props) {
                                 <div className="flex-col">
                                     <div className="flex-col">
                                         <div className="lot-arrow">
-                                            {/* <span>لت بعدی</span> */}
-                                            {/* <i className="fal fa-chevron-left"></i> */}
                                         </div>
                                     </div>
                                 </div>
@@ -231,38 +233,53 @@ function OneArtworkAuctions(props) {
                             <div className="flex-between mrgt15">
 
                                 <div className="flex-col">
-                                    <span className="price-title">ارسال پیشنهاد زنده</span>
+                                    {/* <span className="price-title">ارسال پیشنهاد زنده</span> */}
                                     {/* <h6 className="default">2 روز بعد</h6> */}
                                 </div>
                             </div>
 
                             {is_logged_in ? <div className="detail-placebid general-bid">
 
-                                {artwork?.product_status === "on_stage" ?
-                                    <div>
+                                {((artwork?.product_status === "on_stage") && (artwork?.join_auction_request_state)) ?
+                                    <Form onFinish={onFinish} form={form} className="m-0"
+                                        wrapperCol={{ span: 24 }}>
+                                        <>
+                                            <Form.Item
+                                                className="w-100"
+                                                name="price"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        message: "تکمیل این فیلد ضروری است",
+                                                    },
+                                                ]}>
+                                                <input className="default-input text-center" min="0" name="quantity" type="number"
+                                                    placeholder="انتخاب پیشنهاد" />
+                                            </Form.Item>
+                                            <span className="input-state" style={{ top: "472px", left: "25px " }}>تومان</span>
+                                        </>
+                                        <button htmlType="submit" className="btn-main" style={{ height: '3rem' }}>ثبت پیشنهاد</button>
+                                    </Form>
 
-                                        <div class="flex-column">
-                                            <div class="input-group with-step mrgt30">
-                                                <span ><i class="fal fa-minus"></i></span>
-                                                <input type="text" class="default-input" placeholder="3000 تومان" />
-                                                <span onClick={handleIncrease}><i class="fal fa-plus"></i></span>
-                                            </div>
-                                            <button type="button" class="btn-main">ارسال پیشنهاد</button>
-                                        </div>
-                                        <div class="flex-column">
-                                            <div class="input-group mrgt30">
-                                                <input type="text" class="default-input text-center" placeholder="بیشتر پیشنهاد خود را وارد نمایید." />
-                                            </div>
-                                            <button  htmlType="submit" class="btn-main">ثبت</button>
-                                        </div>
-                                    </div>
-
-                                    : <p className="text-center category-icon">
+                                    :
+                                    <p className="text-center category-icon">
                                         {artwork?.sale_status ? 'محصول فروخته شد' :
-                                            <span>
-                                                {(artwork?.product_status === "after_stage") && "حراج به پایان رسید"}
-                                                {(artwork?.product_status === "pre_stage") && "حراج آغاز نشده است"}
-                                            </span>}
+                                            <p>
+                                                <p>{(artwork?.product_status === "after_stage") && "حراج به پایان رسید"}
+                                                    {(artwork?.product_status === "pre_stage") && "حراج آغاز نشده است"}</p>
+                                                {(artwork?.product_status !== "after_stage") ? <div>
+                                                    {artwork?.join_auction_request_state ?? <p>
+                                                        <span>برای ثبت پیشنهاد باید   </span>
+                                                        <Link to={`/auction-registration/${artwork?.latest_auction?.id}`}
+                                                            className="d-inline-block"> عضو حراجی </Link>
+                                                        <span>   باشید</span>
+                                                    </p>}
+                                                    {artwork?.join_auction_request_state === false && <p>
+                                                        درخواست عضویت شما در انتظار تایید حراجی است
+                                                    </p>}
+                                                </div> : ''}
+
+                                            </p>}
                                     </p>}
                             </div> :
                                 <p className="text-center mt-4 ">
@@ -271,6 +288,7 @@ function OneArtworkAuctions(props) {
                                     شوید
                                 </p>
                             }
+
                         </div>
 
                         <LastAuctionsSection artwork_id={artwork?.latest_auction?.id} />

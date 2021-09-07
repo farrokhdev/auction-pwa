@@ -71,8 +71,13 @@ function Chooseartwork(props) {
                                                 style={{ width: "100%" }}
                                                 cover={
                                                   <img
-                                                      alt="بدون تصویر"
-                                                      src={item?.media?.exact_url}
+                                                  style={{
+                                                    backgroundImage: `url(${item?.media?.exact_url ?
+                                                        item?.media?.exact_url : ""})`, height: "19rem"
+                                                }}
+                                                    className="img-fluid image-custom-back"
+                                                    //   alt="بدون تصویر"
+                                                    //   src={item?.media?.exact_url}
                                                   />
                                                 }
                                             >

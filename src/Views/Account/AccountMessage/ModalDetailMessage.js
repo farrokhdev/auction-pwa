@@ -15,20 +15,14 @@ const ModalDetailMessage = ({ detailMessage, isModalVisible, setIsModalVisible  
   return (
     <>
 
-      <Modal
+      <Modal 
+        title={detailMessage?.message?.title} 
+        visible={isModalVisible} 
+        onOk={handleOk} 
+        onCancel={handleCancel}
+        footer={[]}
+        >
 
-
-            footer={[
-              <Button key="back" type="primary" onClick={handleCancel}>
-                بستن
-              </Button>
-            ]}
-
-          className="modal-detail-message" 
-          title={detailMessage?.message?.title} 
-          visible={isModalVisible} 
-          onOk={handleOk} 
-          onCancel={handleCancel}>
 
         {<p dangerouslySetInnerHTML={{__html: detailMessage?.message?.body}} /> }
 
