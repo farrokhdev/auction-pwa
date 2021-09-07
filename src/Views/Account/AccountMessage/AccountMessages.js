@@ -3,7 +3,7 @@ import AccountHeader from '../../../components/AccountHeader';
 import Footer from '../../../components/footer';
 import { Tabs } from 'antd';
 import Announcements from './Announcements';
-import Tickets from './Tickets';
+import AccountTickets from './AccountTickets';
 import authService from '../../../services/auth.service';
 import queryString from 'query-string';
 
@@ -75,7 +75,11 @@ function AccountMessages() {
                             />
                         </TabPane>
                         <TabPane tab="تیکت‌ها" key="2" className="nav-link nav-item" >
-                            <Tickets messageBox={messagesBox} setMessagesBox={setMessagesBox} />
+                            <AccountTickets
+                                 messageBox={messagesBox} 
+                                 setMessagesBox={setMessagesBox} 
+                                 setActiveKey={setActiveKey}
+                                 />
                         </TabPane>
                     </Tabs>
                 </div>
