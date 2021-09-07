@@ -11,6 +11,7 @@ import queryString from 'query-string';
 import Breadcrumbs from '../../../components/Breadcrumbs';
 import moment from "jalali-moment";
 import { Pagination, Spin } from "antd";
+import { AuctionStatusTextBtn } from '../../../utils/converTypePersion';
 
 
 function AuctionsDetails(props) {
@@ -240,9 +241,9 @@ function AuctionsDetails(props) {
                                             پایان رسید</button>
                                         :
                                         <Link to={`/auction-registration/${Auction?.id}`}>
-                                            <button type="button" className="btn-main">
-
-                                                {Auction.status !== "CLOSED" ? "عضویت در حراج" : "ثبت نطر"}
+                                            <button type="button" className="">
+                                            {AuctionStatusTextBtn(Auction?.status , Auction?.user_is_enrolled , Auction.id)}
+                                                {/* {Auction.status !== "CLOSED" ? "عضویت در حراج" : "ثبت نطر"} */}
                                             </button>
                                         </Link>
                                     }

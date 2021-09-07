@@ -505,7 +505,14 @@ footer .col {
     color: var(--bs-white);
     font-size: .8rem;
 }
-
+.btn-succuss{
+    width: 100%;
+    padding: 5px 15px;
+    border-radius: 30px;
+    background: var( --lightgreen);
+    color: var(--bs-white);
+    font-size: .8rem;
+}
 .show-text {
     display: none;
 }

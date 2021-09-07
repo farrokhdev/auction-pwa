@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom'
+
 export function convertTypePersian(value) {
 
     switch (value) {
@@ -173,4 +175,22 @@ export const convertToEn = (value) => {
             return <span className="category-icon secondoffer-icon">دومین پیشنهاد</span>
 
     }
+}
+
+export function AuctionStatusTextBtn(type , enrolled , id) {
+    // auction ended and user not allow to join auction
+    if(type === "CLOSED"){
+        return <button type="button" className="btn-main">حراج به پایان رسیده است</button>
+        // user registred to auction then user not allow to join auction
+    }else if(enrolled){
+        return <button type="button" className="btn-succuss">در حراجی ثبت‌نام کرده‌اید</button>
+        // user not register to auction and auction is preparing or started then user allow to join auction
+    }else {
+        return <Link to ={`/auction-registration/${id}`}>
+                    <button type="button" className="btn-main">
+                        عضویت <span class="">در حراج</span>
+                    </button>
+                </Link>
+    }
+
 }
