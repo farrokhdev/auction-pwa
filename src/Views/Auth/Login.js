@@ -25,6 +25,11 @@ function Login(props) {
     authService.login(userName, password)
       .then(
         resp => {
+          if (resp?.response?.data?.code === 401) {
+            message.error(resp?.response?.data?.message)
+          } else if (resp.status !== 200) {
+            message.error(resp?.response?.data?.data?.error_message[0])
+          }
           // console.log("token =>", resp.data.data.result);
           if (resp.data.code === 200) {
             setToken(resp.data.data.result);
@@ -38,8 +43,7 @@ function Login(props) {
         }
       )
       .catch(err => {
-        message.error("کاربری با این مشخصات یافت نشد")
-        console.log("error message", err);
+        console.log("error message", err?.response?.data.data?.error_message);
       })
 
   }

@@ -15,6 +15,9 @@ function PasswordRecovery(props) {
   const handleRequestPasswordRecovery = (value) => {
     authService.PasswordRecovery(username)
       .then(res => {
+        if (res.status !== 200){
+          message.error(res?.response?.data?.data?.error_message[0])
+        }
         console.log("password Recovery", res);
 
         if (res.data.code === 200) {
@@ -27,8 +30,8 @@ function PasswordRecovery(props) {
         }
       })
       .catch(err => {
-        message.error("دوباره تلاش کنید")
-        console.log("Can not Login", err);
+        // message.error("دوباره تلاش کنید")
+        // console.log("Can not Login", err);
       })
   }
 

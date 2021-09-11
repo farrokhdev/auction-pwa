@@ -25,11 +25,14 @@ function SignUp(props) {
     const handleRequestSignUp = (value) => {
         authService.SignUp(formData)
             .then(res => {
-                console.log("Sign Up", res);
+                if (res.status !== 201){
+                    message.error(res?.response?.data?.data?.error_message[0])
+                  }
+                // console.log("Sign Up", res);
                 if (res.data.code === 201) {
                     setToken(res.data.data.result);
                     props.setProfile({ username: formData.userName })
-
+                    
                     setTimeout(() => {
                         window.location.href = "/auth/verification-code"
                         message.success("کد تایید ارسال شد")
@@ -37,8 +40,8 @@ function SignUp(props) {
                 }
             })
             .catch(err => {
-                message.error("دوباره تلاش کنید")
-                console.log("Error Message", err);
+                // message.error("دوباره تلاش کنید")
+                // console.log("Error Message", err);
             })
     }
 
