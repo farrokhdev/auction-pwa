@@ -22,6 +22,9 @@ function RegistersetPassword(props) {
     authService.RegistersetPassword(formData)
       .then(res => {
         console.log("Confrim-Mobile", res);
+        if (res.status !== 200) {
+          message.error(res?.response?.data?.data?.error_message)
+        }
 
         if (res.data.code === 200) {
           setToken(res.data.data.result);
@@ -33,7 +36,7 @@ function RegistersetPassword(props) {
         }
       })
       .catch(err => {
-        message.error("مقادیر ورودی یکسان نیستند")
+        // message.error("مقادیر ورودی یکسان نیستند")
         console.log("Error Message as Confrim-Mobile", err);
       })
   }

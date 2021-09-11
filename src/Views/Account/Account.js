@@ -27,7 +27,7 @@ function Account() {
             })
             .catch(err => {
                 console.error(err);
-                message.error("صفحه را دوباره لود کنید")   
+                message.error(err?.response?.data?.message)   
             })
     }
 
