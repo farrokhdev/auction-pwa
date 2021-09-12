@@ -6,12 +6,14 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'antd/dist/antd.css'
+import * as serviceWorker from './serviceWorkerRegistration';
 // import './assets/css/custom.scss';
 import './assets/css/style.scss';
 import './assets/css/fontawesome-all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.rtl.min.css';
 
+serviceWorker.register();
 ReactDOM.render(
   <Suspense fallback={null}>
       <Provider store={store}>
