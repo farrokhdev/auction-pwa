@@ -32,17 +32,16 @@ import Locations from '../Views/Discover/Locations'
 import Categories from '../Views/Discover/Categories'
 import HouseAuctions from '../Views/Discover/HouseAuctions'
 import Types from '../Views/Discover/AuctionType'
+import {getTokenObject} from "../utils/utils";
+import {clearStorageAll} from "../redux/reducers/all/all.actions";
 
 const RouterConfig = (props) => {
 
-    // const dispatch = useDispatch();
-    // const { role } = useSelector((state) => state.profileReducer)
-    console.log(console.log("Login ->> ", props.auth.is_logged_in))
-
-    // useEffect(() => {
-    //     if (!role)
-    //         dispatch(getProfile())
-    // }, [])
+    let token = getTokenObject()
+    const dispatch = useDispatch();
+    if(token === undefined && props.auth.is_logged_in) {
+        dispatch(clearStorageAll())
+    }
 
     return (
         <Router >
