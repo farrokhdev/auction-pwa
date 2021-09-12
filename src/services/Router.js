@@ -48,20 +48,22 @@ const RouterConfig = (props) => {
             <Switch>
 
                 {/* Authentication */}
-
                 <Route path="/auth"
-                    render={({ match: { url } }) => (
-                        <>
-                            <Route path={`${url}/login`} component={() => <Login />} />
-                            <Route path={`${url}/sign-up`} component={() => <SignUp />} />
-                            <Route path={`${url}/password-recovery`} component={() => <PasswordRecovery />} />
-                            <Route path={`${url}/verification-code`} component={() => <VerificationCode />} />
-                            <Route path={`${url}/confirm-mobile-number`} component={() => <ConfirmMobileNumber />} />
-                            <Route path={`${url}/register-set-password`} component={() => <RegistersetPassword />} />
-                        </>
-                    )} 
-                />
-                
+                          render={({ match: { url } }) => (
+                              !props.auth.is_logged_in ?
+                              <>
+                                  <Route path={`${url}/login`} component={() => <Login />} />
+                                  <Route path={`${url}/sign-up`} component={() => <SignUp />} />
+                                  <Route path={`${url}/password-recovery`} component={() => <PasswordRecovery />} />
+                                  <Route path={`${url}/verification-code`} component={() => <VerificationCode />} />
+                                  <Route path={`${url}/confirm-mobile-number`} component={() => <ConfirmMobileNumber />} />
+                                  <Route path={`${url}/register-set-password`} component={() => <RegistersetPassword />} />
+                              </>
+                                  :
+                                  <Redirect to="/auctions" />
+                          )}
+                    />
+
                 {/* Logged in */}
 
                 {props.auth.is_logged_in ?
@@ -92,7 +94,7 @@ const RouterConfig = (props) => {
                                     <Route exact path={`${url}/financialinfo`} component={(p) => <AuctionRegistrationFinancialinfo />} />
 
                                 </>
-                            )} 
+                            )}
                         />
 
                         {/* Auction Registration */}
@@ -103,7 +105,7 @@ const RouterConfig = (props) => {
                                     <Route exact path={`${url}/:id`} component={(p) => <BuyerRegister {...p} />} />
 
                                 </>
-                            )} 
+                            )}
                         />
 
                         {/* Auctions */}
@@ -115,7 +117,7 @@ const RouterConfig = (props) => {
                                     <Route exact path={`${url}/one-artwork/:id`} component={(p) => <OneArtworkAuctions {...p} />} />
                                     <Route exact path={`${url}/details/:id`} component={(p) => <AuctionsDetails {...p} />} />
                                 </>
-                            )} 
+                            )}
                         />
 
                         {/* Search Discover */}
@@ -131,7 +133,7 @@ const RouterConfig = (props) => {
                                     <Route exact path={`${url}/types`} component={() => <Types />} />
 
                                 </>
-                            )} 
+                            )}
                         />
 
                         {/* My Bids */}
@@ -142,7 +144,7 @@ const RouterConfig = (props) => {
                                     <Route exact path={`${url}/`} component={() => <MyBids />} />
 
                                 </>
-                            )} 
+                            )}
                         />
 
                         {/* Favorits */}
@@ -153,9 +155,9 @@ const RouterConfig = (props) => {
                                     <Route exact path={`${url}/`} component={() => <Favorite />} />
 
                                 </>
-                            )} 
+                            )}
                         />
-                        
+
                         {/* Page Not Found */}
 
                         {/* <Route path={`*`} component={() => <NotFound />} /> */}
