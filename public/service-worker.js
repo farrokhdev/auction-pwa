@@ -24,6 +24,9 @@ self.addEventListener('fetch', async event => {
 
     const url = new URL(req.url);
 
+    if (event.request.destination === 'image') {
+        event.respondWith(networkAndCache(req));
+    }
     // if (url.origin === this.location.origin) {
     //     event.respondWith(networkAndCache(req));
     // }
