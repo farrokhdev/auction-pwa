@@ -1,12 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import AccountHeader from '../../../components/AccountHeader';
 import Footer from '../../../components/footer';
+import axios from '../../../utils/request';
+import { BASE_URL } from '../../../utils';
 
 function AccountWallet() {
+
     const [Wallet, setWallet] = useState("");
+    let numeral = require('numeral');
 
     const getWallet = () => {
-
+        axios.get(`${BASE_URL}/accounting/wallet/me/`)
+            .then(resp => {
+                if (resp.data.code === 200) {
+                    setWallet(resp.data.data.result)
+                }
+            })
+            .catch(err => {
+                console.error(err);
+            })
     }
 
     useEffect(() => {
@@ -20,7 +32,7 @@ function AccountWallet() {
                 <div className="main-content" id="wallet-page">
                     <div className="wallet-container">
                         <h6 className="default">اعتبار نقدی</h6>
-                        <h3 className="default">5000<span className="unit">تومان</span></h3>
+                        <h3 className="default">{numeral(Wallet.inventory).format('0,0')}<span className="unit">تومان</span></h3>
                     </div>
                     <div className="row mrgtb15 pt-4 px-2">
                         <div className="col">
@@ -34,7 +46,7 @@ function AccountWallet() {
                     </div>
                     <div className="wallet-container">
                         <h6 className="default">اعتبار هدیه</h6>
-                        <h3 className="default">200<span className="unit">تومان</span></h3>
+                        <h3 className="default">{numeral(Wallet.gift_credit).format('0,0')}<span className="unit">تومان</span></h3>
                     </div>
                 </div>
             </div>
@@ -42,8 +54,8 @@ function AccountWallet() {
 
             <div className="modal fade" id="increasecreadit" tabIndex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
-                <div className="modal-dialog w-100 h-100">
-                    <div className="modal-content h-100">
+                <div className="modal-dialog w-100 ">
+                    <div className="modal-content h-50">
                         <div className="modal-header">
                             <div className="display">
                                 <div className="">
@@ -55,8 +67,8 @@ function AccountWallet() {
                                     aria-label="Close"></button>
                             </div>
                         </div>
-                        <div className="modal-body text-center pt-5">
-                            <h3 className="default">1000100 <span className="price-unit">تومان</span></h3>
+                        <div className="modal-body text-center pt-5 h-50">
+                            <h3 className="default">{numeral(Wallet.inventory).format('0,0')}<span className="price-unit">تومان</span></h3>
                             <h6 className="default">اعتبار نقدی</h6>
                             <div className="search-input">
                                 <label className="default-lable pt-5">مبلغ مورد نظر خود را وارد نمایید.</label>
@@ -73,7 +85,7 @@ function AccountWallet() {
 
             <div className="modal fade" id="withdrawal" tabIndex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
-                <div className="modal-dialog w-100 h-100">
+                <div className="modal-dialog w-100">
                     <div className="modal-content h-100">
                         <div className="modal-header">
                             <div className="display">
@@ -87,7 +99,7 @@ function AccountWallet() {
                             </div>
                         </div>
                         <div className="modal-body text-center pt-5">
-                            <h3 className="default">1000100 <span className="price-unit">تومان</span></h3>
+                            <h3 className="default">{numeral(Wallet.inventory).format('0,0')} <span className="price-unit">تومان</span></h3>
                             <h6 className="default">اعتبار نقدی</h6>
                             <div className="search-input">
                                 <label className="default-lable pt-5">مبلغ مورد نظر خود را وارد نمایید.</label>

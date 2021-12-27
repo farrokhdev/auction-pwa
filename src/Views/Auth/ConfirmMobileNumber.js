@@ -18,20 +18,21 @@ function ConfirmMobileNumber(props) {
     authService.ConfirmMobileNumber(props.auth.username, verify_code)
       .then(resp => {
         console.log("token =>", resp.data.data.result);
-        if (resp.data.data.statusCode === 200) {
+        if (resp.data.data.statusCode === 400) {
+          message.error("مجددا درخواست کد اعتبارسنجی دهید")
+
+        } else {
           setToken(resp.data.data.result);
           props.getOtp({ otp: verify_code })
           setTimeout(() => {
             window.location.href = "/auth/register-set-password"
             message.success("به اسمارت آکشن خوش آمدید")
           }, 500);
-        } else {
-          message.error("مجددا درخواست کد اعتبارسنجی دهید")
         }
       }
       )
       .catch(err => {
-        message.error("کاربری با این مشخصات یافت نشد")
+        message.error("A valid integer is required.")
         console.log("error message", err);
       })
   }

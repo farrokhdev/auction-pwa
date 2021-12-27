@@ -1,28 +1,34 @@
 import React, { useState, useEffect } from 'react'
 import AccountHeader from '../../../components/AccountHeader';
 import Footer from '../../../components/footer';
-import { Form, Input, message, Button } from 'antd';
+import { Form, Input, message, Button, Spin } from 'antd';
+import axios from '../../../utils/request';
+import { BASE_URL } from '../../../utils';
+import { EDIT_PROFILE, ACCOUNT_APPROVE } from '../../../utils/constant';
+import { connect } from 'react-redux';
 
 
 function MyProfilePhoneverifyCode(props) {
+    
     const [form] = Form.useForm();
-    const [showNumber, setShowNumber] = useState(true);
-    const [newField, setNewField] = useState(null);
+    const [loading, setLoading] = useState(false)
+    const [showNumber, setShowNumber] = useState(true)
     const [number, setNumber] = useState("")
-    const { Profile } = props
+    const [newField, setNewField] = useState(null)
+    const { profile } = props;
 
     useEffect(() => {
-        if (Profile?.email) {
-            setNumber(Profile?.email)
-            form.setFieldsValue({ email: Profile?.email })
+        if (profile?.mobile) {
+            setNumber(profile?.mobile)
+            form.setFieldsValue({ mobile: profile?.mobile })
         } else {
-            setNumber(Profile?.mobile)
+            setNumber(profile?.email)
         }
-    }, [Profile])
+
+    }, [profile])
 
     const onFinish = (values) => {
-        if (values?.email)
-            // setNumber(values?.email)
+        if (values?.mobile)
             sendData(values)
     }
 
@@ -30,82 +36,121 @@ function MyProfilePhoneverifyCode(props) {
         sendCode(values)
     }
 
-    const sendData = () => {
-
+    const sendData = (values) => {
+        setLoading(true)
+        axios.put(`${BASE_URL}${EDIT_PROFILE}`, values)
+            .then(resp => {
+                setLoading(false)
+                if (resp.data.code === 200) {
+                    setNewField(values?.mobile)
+                    setShowNumber(false)
+                    message.success(" کد تایید به موبایل شما ارسال شد")
+                }
+            })
+            .catch(err => {
+                setLoading(false)
+                console.error(err);
+                message.error("دوباره تلاش کنید")
+            })
     }
 
-    const sendCode = () => {
+    const sendCode = (values) => {
+        setLoading(true)
+        axios.post(`${BASE_URL}${ACCOUNT_APPROVE}`, { ...values, user_name: props.auth.username, tmp_user_name: newField })
+            .then(resp => {
+                setLoading(false)
+                if (resp.data.code === 200) {
+                    setShowNumber(true)
+                    message.success(" موبایل شما با موفقیت تایید شد")
 
+                } else {
+                    message.error(resp.data.result)
+                }
+            })
+            .catch(err => {
+                setLoading(false)
+                message.error("دوباره تلاش کنید")
+            })
     }
+
     return (
         <>
-            <div className="container bg-white">
-                <AccountHeader linkBack={"/account/my-profile"} titlePage={"تایید شماره همراه"} />
-                {showNumber ?
-                    <Form
-                        onFinish={onFinish}
-                        class="verify-page">
-                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون
-                            بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
-                        <>
-                            <label class="default-label">شماره همراه</label>
-                            <Form.Item
-                                className="form-group mrgtb30"
-                                name="name"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "تکمیل این فیلد ضروری است",
-                                    }
-                                ]}>
-                                <Input type="text" class="default-input is-valid" placeholder="شماره همراه خود را وارد نمایید." />
-                            </Form.Item>
-                        </>
-                        <div class="btns">
-                            <button htmlType="submit" class="btn-main">ثبت</button>
-                        </div>
-                    </Form>
-                    :
+            <Spin spinning={loading}>
 
-                    <Form
-                        onFinish={onSub}
-                        class="verify-page">
-                        <p className="darkgray">
+                <div className="container bg-white">
+                    <AccountHeader linkBack={"/account/my-profile"} titlePage={"تایید شماره همراه"} />
+                    {showNumber ?
+                        <Form
+                            onFinish={onFinish}
+                            className="verify-page">
+                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون
+                                بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+                            <>
+                                <label className="default-label">شماره همراه</label>
+                                <Form.Item
+                                    className="form-group mrgtb30"
+                                    name="mobile"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: "تکمیل این فیلد ضروری است",
+                                        }
+                                    ]}>
+                                    <Input type="text" className="default-input is-valid" placeholder="شماره همراه خود را وارد نمایید." />
+                                </Form.Item>
+                            </>
+                            <div className="btns">
+                                <button htmlType="submit" className="btn-main">ثبت</button>
+                            </div>
+                        </Form>
+                        :
+
+                        <Form
+                            onFinish={onSub}
+                            className="verify-page">
+                            <p className="darkgray">
 
 
-                            ما یک کد به
-                            <span className="px-2">{newField}</span>
-                            ارسال کردیم ،
-                            برای تأیید آدرس ایمیل خود کد را در زیر وارد کنید.
-                        </p>
-                        <>
-                            <label class="default-label">کد</label>
-                            <Form.Item
-                                className="form-group mrgtb30"
-                                name="name"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "تکمیل این فیلد ضروری است",
-                                    }
-                                ]}>
-                                <Input type="text" class="default-input is-valid" placeholder=" کد را وارد نمایید." />
-                            </Form.Item>
-                        </>
-                        <div class="button-group">
+                                ما یک کد به
+                                <span className="px-2">{newField}</span>
+                                ارسال کردیم ،
+                                برای تأیید آدرس ایمیل خود کد را در زیر وارد کنید.
+                            </p>
+                            <>
+                                <label className="default-label">کد</label>
+                                <Form.Item
+                                    className="form-group mrgtb30"
+                                    name="verify_code"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: "تکمیل این فیلد ضروری است",
+                                        }
+                                    ]}>
+                                    <Input type="text" className="default-input is-valid" placeholder=" کد را وارد نمایید." />
+                                </Form.Item>
+                            </>
+                            <div className="button-group">
 
-                            {/* <Button htmlType="submit" class="btn-main">ثبت</Button> */}
-                            <Button className="btn btn-secondary rounded-pill" onClick={() => setShowNumber(true)}>
-                                ویرایش شماره همراه
-                            </Button>
+                                <Button htmlType="submit" className="btn-default">ثبت</Button>
+                                <Button className="btn-gray me-2" onClick={() => setShowNumber(true)}>
+                                    ویرایش ایمیل
+                                </Button>
 
-                        </div>
-                    </Form>
-                }
-            </div>
+                            </div>
+                        </Form>
+                    }
+                </div>
+            </Spin>
             <Footer />
         </>
     )
 }
 
-export default MyProfilePhoneverifyCode;
+const mapStateToProps = (store) => {
+    return {
+        auth: store.authReducer,
+    }
+}
+
+export default connect(mapStateToProps, null)(MyProfilePhoneverifyCode)

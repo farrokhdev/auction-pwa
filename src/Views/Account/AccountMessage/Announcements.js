@@ -1,29 +1,82 @@
-import React from 'react'
+import React, { useState , useEffect} from 'react';
+import ModalDetailMessage from './ModalDetailMessage';
+import authService from '../../../services/auth.service';
+import PaginationComponent from '../../../components/PaginationComponent';
+import { Spin } from "antd";
 
-function Announcements() {
+
+function Announcements(props) {
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [detailMessage, setDetailMessage] = useState()
+    const [loading, setLoading] = useState(false)
+
+
+    const handleShowModal = (id) => {
+        
+        authService.messageDetail(id).then(res => {
+            console.log(res);
+            setLoading(false)
+            setDetailMessage(res?.data?.data?.result)
+            props.handleChangeStatusMessage(id)
+      
+            setTimeout(() => {
+                setIsModalVisible(true)
+            }, 300);
+        })
+        
+    }
+
+
     return (
         <>
 
+        <Spin spinning={loading}>
             {
-                [1, 2, 3].map((item) => {
+                props.messagesBox?.map(message => {
                     return (
-                        <div className="fw-block new-notices">
-                            <div className="flex-between align-items-baseline">
-                                <div className="flex-col">
-                                    <h6 className="default">درخواست شما برای عضویت در کالکشن 5 پذیرفته شد.</h6>
+                        <React.Fragment>
+
+                            <div onClick={() => handleShowModal(message?.id)} className="fw-block new-notices">
+                                <div className="flex-between align-items-start">
+                                    <div className="flex-col">
+                                        <h6 className="default text-right">{message?.message?.title}</h6>
+                                    </div>
+                                    <div className="flex-col">
+                                        {( !message?.is_read  ) ? <i className="fal fa-circle"></i> : null}
+                                    </div>
                                 </div>
-                                <div className="flex-col">
-                                    <i className="fal fa-circle"></i>
+                                <div className="d-flex">
+                                    <p dangerouslySetInnerHTML={{__html: message?.message?.body}} />
                                 </div>
+
+
                             </div>
-                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </p>
-                        </div>
+                        </React.Fragment>
                     )
                 })
             }
+            <ModalDetailMessage
+                detailMessage={detailMessage}
+                setIsModalVisible={setIsModalVisible}
+                isModalVisible={isModalVisible}
+            />
 
+
+            <div className="mt-4">
+                <PaginationComponent  
+                    handeSelectPage={props.handeSelectPage} 
+                    pageSize={props.params.pageSize} 
+                    count={props.countMessage} 
+                    fetchData={props.getMessageBox}
+                />
+
+            </div>
+        </Spin>
         </>
     )
 }
 
 export default Announcements;
+
+

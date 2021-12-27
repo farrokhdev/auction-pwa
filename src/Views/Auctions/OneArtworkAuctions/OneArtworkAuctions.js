@@ -1,209 +1,309 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
-import pic1 from '../../../assets/img/pic1.jpg';
+import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom';
 import Footer from '../../../components/footer';
-import pic1thumb from '../../../assets/img/pic1-thumb.jpg';
-import pic2thumb from '../../../assets/img/pic2-thumb.jpg';
-import pic3thumb from '../../../assets/img/pic3-thumb.jpg';
-import { Tabs } from "antd";
+import { Tabs, Spin, Button, Form, message, Input } from "antd";
 import Details from './Details';
 import InformationAndTerms from './InformationAndTerms';
-import Slider from "react-slick";
+import axios from "../../../utils/request";
+import { BASE_URL } from "../../../utils";
+import { ONE_PRODUCT } from "../../../utils/constant";
+import LastAuctionsSection from './LastAuctionsSection';
+import { useSelector } from "react-redux";
+import { BID } from "../../../utils/constant";
+import { Link } from "react-router-dom";
 
 
 
-function OneArtworkAuctions() {
+function OneArtworkAuctions(props) {
 
     const { TabPane } = Tabs;
     const [activeKey, setActiveKey] = useState("1");
     const [data, setData] = useState({})
-
+    const [Auction, setAuction] = useState([]);
+    const [HouseDetail, setHouseDetail] = useState([])
     const [Active, setActive] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [artwork, setArtwork] = useState()
+    const [artwork_id, setArtwork_id] = useState()
+    const { is_logged_in } = useSelector((state) => state.authReducer)
+    const [form] = Form.useForm();
+    const [steps, setSteps] = useState([])
+    const [currentValue, setCurrentValue] = useState(0)
 
+    const history = useHistory()
     const Like = () => {
         setActive(!Active)
     }
-
 
     const callback = (key) => {
         console.log(key);
         setActiveKey(key)
     }
+    // console.log("artwork --->>>> ", artwork?.details);
+    const getProduct = () => {
+        setLoading(true)
+        axios.get(`${BASE_URL}${ONE_PRODUCT(props.match.params.id)}`).then(res => {
+            setArtwork(res.data.data.result)
+            setArtwork_id(res.data.data.result.latest_auction.id)
+            setLoading(false)
+        }).catch(err => {
+            console.error(err)
+            setLoading(false)
+        })
+    }
 
-    const settings = {
-        // dots: false,
-        // breakpoint: 1024,
-        // infinite: false,
-        // speed: 500,
-        // slidesToShow: 4,
-        // slidesToScroll: 4,
-        dots: true,
-        infinite: false,
-        speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 4,
-        initialSlide: 0,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                    infinite: true,
-                    dots: true
+
+    const getAuction = () => {
+        setLoading(true)
+        axios.get(`${BASE_URL}/sale/auctions/${props.match.params.id}/`)
+            .then(resp => {
+                if (resp.data.code === 200) {
+                    setAuction(resp.data.data.result)
+                    axios.get(`${BASE_URL}/account/home-auction/${resp.data.data.result?.house?.id}/`).then(res => {
+                        setHouseDetail(res.data.data.result);
+                    }).catch(err => {
+                        console.error(err)
+                    })
                 }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    initialSlide: 2
+                getProduct()
+                setLoading(false)
+
+            })
+            .catch(err => {
+                console.error(err);
+                setLoading(false)
+            })
+    }
+
+    useEffect(() => {
+        getProduct();
+    }, [])
+
+    useEffect(() => {
+        getAuction();
+    }, [])
+
+    useEffect(() => {
+        document.documentElement.scrollTop = 0;
+    }, []);
+
+    const addBookmark = (data, action) => {
+        if (action) {
+            axios.delete(`${BASE_URL}/following/${data}`)
+                .then(resp => {
+                    getProduct()
+                })
+        } else {
+            axios.post(`${BASE_URL}/following/`, {
+                "content_type": "product",
+                "object_id": data,
+                "activity_type": "mark"
+            })
+                .then(resp => {
+                    if (resp.data.code === 201) {
+                        getProduct()
+                    }
+
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+
+        }
+    }
+
+    const setBid = (value) => {
+        form.setFieldsValue({ price: currentValue + value })
+        setCurrentValue(currentValue + value)
+    }
+
+    // const handleIncrease = () => {
+    //     // console.log("[[26, 100.0, 300.0]]".splice(']' || '[' , ''));
+    //     if (steps.length) {
+    //         steps.some((item, i, array) => {
+    //             if (i !== (array.length - 1)) {
+    //                 // if (i > 0) {
+    //                 if ((currentValue >= item.threshold) && (currentValue < steps[i + 1].threshold)) {
+    //                     setBid(item.step)
+    //                     return true;
+    //                 } else if (i === 0) {
+    //                     console.log("It is an error")
+    //                     setBid(item.step)
+    //                     return true;
+    //                 }
+    //                 // } else {
+    //                 //     if ((currentValue < item.threshold)) {
+    //                 //         setBid(item.step)
+    //                 //         return true;
+    //                 //     }
+    //                 // }
+    //             } else {
+    //                 setBid(item.step)
+    //             }
+    //         })
+    //     }
+    // }
+
+    const onFinish = (values) => {
+        console.log(values)
+        if (artwork?.id)
+            sendBid(values)
+    }
+
+    const sendBid = (values) => {
+        setLoading(true)
+        let payload = {
+            ...values,
+            "product_id": artwork?.id
+        }
+        axios.post(`${BASE_URL}${BID}`, payload)
+            .then(resp => {
+                if (resp.data.code === 201) {
+                    message.success("درخواست شما با موفقیت ارسال شد")
                 }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1
-                }
-            }
-        ]
-    };
+                setLoading(false)
+            })
+            .catch(err => {
+                console.error(err.response);
+                if (err.response?.data?.data?.error_message)
+                    message.error(err.response?.data?.data?.error_message)
+                else
+                    message.error("قیمت پیشنهادی شما از قیمت پایه محصول کمتر است.")
+                setLoading(false)
+            })
+    }
 
 
     return (
         <>
-            <div className="container">
-                <div class="top-header flex-between">
-                    <Link to="/auctions/details">
-                        <button type="button" class="btn-back"><i class="fal fa-chevron-left"></i></button>
-                    </Link>
-                    <div class="inner-title text-center">
-                        <h2 class="main-title">دختری پشت پنجره</h2>
-                        <h5 class="auction-house-name">ایران مدرن</h5>
-                    </div>
-                    <button type="button" class="share">
-                        <i class="fal fa-share-alt"></i>
-                    </button>
-                </div>
+            <Spin spinning={loading}>
 
-                <div class="main-content">
-                    <div class="fw-block">
-                        <div class="flex-between">
-                            <div class="flex-col">
-                                <div class="lot-arrow">
-                                    <i class="fal fa-chevron-right"></i><span>لت قبلی</span>
-                                </div>
-                            </div>
-                            <div class="flex-col">
-                                <h6 class="default">لت 22</h6>
-                            </div>
-                            <div class="flex-col">
-                                <div class="flex-col">
-                                    <div class="lot-arrow">
-                                        <span>لت بعدی</span>
-                                        <i class="fal fa-chevron-left"></i>
+                <div className="container">
+                    <div className="top-header flex-between">
+                        <button onClick={() => history.goBack()} type="button" className="btn-back"><i className="fal fa-chevron-left"></i></button>
+                        <div className="inner-title text-center">
+                            <h2 className="main-title">{artwork?.artwork_title}</h2>
+                            <h5 className="auction-house-name">{artwork?.latest_auction?.house?.home_auction_name}</h5>
+                        </div>
+                        <button type="button" className="share">
+                            <i className="fal fa-share-alt"></i>
+                        </button>
+                    </div>
+
+                    <div className="main-content">
+                        <div className="fw-block">
+                            <div className="flex-between">
+                                <div className="flex-col">
+                                    <div className="lot-arrow">
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row mrgt15 ">
-                            <div class="col artwork-bigimg">
-                                <img src={pic1} width="493" height="621" class="" alt="" />
-                            </div>
-                        </div>
-                        <div class="flex-between mrgt15">
-                            <div class="flex-col">
-                                <h5 class="artist-name">سهراب سپهری</h5>
-                                <h5 class="auction-house-name">گالری آرتیبیشن</h5>
-                            </div>
-                            <div class="flex-col">
-                                <button
-                                    onClick={() =>
-                                        Like()}
-                                    type="button"
-                                    className={"btn-favorite " + (Active ? "active" : "")}
-                                ></button>
-                            </div>
-                        </div>
-                        <div class="flex-between mrgt15">
-
-                            <div class="flex-col">
-                                <span class="price-title">ارسال پیشنهاد زنده</span>
-                                <h6 class="default">2 روز بعد</h6>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="fw-block">
-                        <h6 class="default">موراد بیشتر در این حراج</h6>
-                        <div class="owl-carousel auction-details-img mrgt10 dirltr">
-                        <Slider className="mt-1 mb-2" {...settings}>
-                                {[1, 2, 3, 4, 5, 6].map((item, key) => {
-                                    return (
-
-                                        <div className=" " key={key}>
-                                            <div className="artwork-img">
-
-                                                <img src={pic1thumb} width="998" height="880" alt=""
-                                                    className="img-fluid px-1" />
-
-
-                                            </div>
-
-                                        </div>
-                                    )
-                                })}
-
-                            </Slider>
-                        </div>
-                    </div>
-
-                    {/* {
-                        [1].map((item) => {
-                            return (
-
-                                <div className="fw-block">
-                                    <h6 class="default">موراد بیشتر در این حراج</h6>
-                                    <div className="img-block">
-                                        <div className="row">
-                                            <div className="col g-0">
-                                                <Link to="/auctions">
-                                                    <img src={pic1thumb} width="493" height="493" alt="Smart Auction"
-                                                        className="img-fluid" />
-                                                </Link>
-                                            </div>
-                                            <div className="col g-0">
-                                                <Link to="/auctions">
-                                                    <img src={pic2thumb} width="880" height="880" alt="Smart Auction"
-                                                        className="img-fluid" />
-                                                </Link>
-                                            </div>
-                                            <div className="col g-0">
-                                                <Link to="/auctions">
-                                                    <img src={pic3thumb} width="880" height="880" alt="Smart Auction"
-                                                        className="img-fluid" />
-                                                </Link>
-                                            </div>
-
+                                <div className="flex-col">
+                                    <h6 className="default">{artwork?.artwork_title}</h6>
+                                </div>
+                                <div className="flex-col">
+                                    <div className="flex-col">
+                                        <div className="lot-arrow">
                                         </div>
                                     </div>
                                 </div>
-                            )
-                        })
-                    } */}
+                            </div>
+                            <div className="row mrgt15 ">
+                                <div className="col artwork-bigimg">
+                                    <img src={artwork?.media.exact_url} width="493" height="621" className="" alt="" />
+                                </div>
+                            </div>
+                            <div className="flex-between mrgt15">
+                                <div className="flex-col">
+                                    <h5 className="artist-name">{artwork?.persian_artist_name}</h5>
+                                    <h5 className="auction-house-name">{artwork?.latest_auction?.house?.home_auction_name}</h5>
+                                </div>
+                                <div className="flex-col">
+                                    <button
+                                        onClick={() =>
+                                            addBookmark(
+                                                artwork?.following?.bookmark?.is_active ?
+                                                    artwork?.following?.bookmark?.id :
+                                                    artwork?.id, artwork?.following?.bookmark?.is_active)
+                                        }
+                                        type="button"
+                                        className={"btn-favorite " + (artwork?.following?.bookmark?.is_active ? "active" : "")}
+                                    ></button>
+                                </div>
+                            </div>
+                            <div className="flex-between mrgt15">
 
-                    <Tabs activeKey={activeKey} onChange={callback} className="nav nav-pills nav-justified main-tab " unmountInactiveTabs={true}>
-                        <TabPane tab="جزئیات" key="1" className="nav-link nav-item " >
-                            <Details data={data} getProfile={setData} />
-                        </TabPane>
-                        <TabPane tab="اطلاعات و شروایط" key="2" className="nav-link nav-item " >
-                            <InformationAndTerms data={data} getProfile={setData} />
-                        </TabPane>
-                    </Tabs>
+                                <div className="flex-col">
+                                    {/* <span className="price-title">ارسال پیشنهاد زنده</span> */}
+                                    {/* <h6 className="default">2 روز بعد</h6> */}
+                                </div>
+                            </div>
+
+                            {is_logged_in ? <div className="detail-placebid general-bid">
+
+                                {((artwork?.product_status === "on_stage") && (artwork?.join_auction_request_state)) ?
+                                    <Form onFinish={onFinish} form={form} className="m-0"
+                                        wrapperCol={{ span: 24 }}>
+                                        <>
+                                            <Form.Item
+                                                className="w-100"
+                                                name="price"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        message: "تکمیل این فیلد ضروری است",
+                                                    },
+                                                ]}>
+                                                <input className="default-input text-center" min="0" name="quantity" type="number"
+                                                    placeholder="انتخاب پیشنهاد" />
+                                            </Form.Item>
+                                            <span className="input-state" style={{ top: "472px", left: "25px " }}>تومان</span>
+                                        </>
+                                        <button htmlType="submit" className="btn-main" style={{ height: '3rem' }}>ثبت پیشنهاد</button>
+                                    </Form>
+
+                                    :
+                                    <p className="text-center category-icon">
+                                        {artwork?.sale_status ? 'محصول فروخته شد' :
+                                            <p>
+                                                <p>{(artwork?.product_status === "after_stage") && "حراج به پایان رسید"}
+                                                    {(artwork?.product_status === "pre_stage") && "حراج آغاز نشده است"}</p>
+                                                {(artwork?.product_status !== "after_stage") ? <div>
+                                                    {artwork?.join_auction_request_state ?? <p>
+                                                        <span>برای ثبت پیشنهاد باید   </span>
+                                                        <Link to={`/auction-registration/${artwork?.latest_auction?.id}`}
+                                                            className="d-inline-block"> عضو حراجی </Link>
+                                                        <span>   باشید</span>
+                                                    </p>}
+                                                    {artwork?.join_auction_request_state === false && <p>
+                                                        درخواست عضویت شما در انتظار تایید حراجی است
+                                                    </p>}
+                                                </div> : ''}
+
+                                            </p>}
+                                    </p>}
+                            </div> :
+                                <p className="text-center mt-4 ">
+                                    برای ثبت پیشنهاد
+                                    <Link to="/login" className="d-inline-block px-1 color-link"> وارد </Link>
+                                    شوید
+                                </p>
+                            }
+
+                        </div>
+
+                        <LastAuctionsSection artwork_id={artwork?.latest_auction?.id} />
+
+                        <Tabs activeKey={activeKey} onChange={callback} className="nav nav-pills nav-justified main-tab " unmountInactiveTabs={true}>
+                            <TabPane tab="جزئیات" key="1" className="nav-link nav-item " >
+                                <Details data={data} artwork={artwork} />
+                            </TabPane>
+                            <TabPane tab="اطلاعات و شروایط" key="2" className="nav-link nav-item " >
+                                <InformationAndTerms data={data} Auction={Auction} />
+                            </TabPane>
+                        </Tabs>
+                    </div>
                 </div>
-            </div>
+            </Spin>
             <Footer />
         </>
     )
