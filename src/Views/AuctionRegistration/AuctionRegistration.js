@@ -1,31 +1,68 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import AccountHeader from '../../components/AccountHeader';
 import Footer from '../../components/footer';
+import AuctionRegistrationContract from './AuctionRegistrationContract';
+import AuctionRegistrationFavorite from './AuctionRegistrationFavorite';
+import AuctionRegistrationIntroduce from './AuctionRegistrationIntroduce';
+import AuctionRegistrationValue from './AuctionRegistrationValue';
 
-function AuctionRegistration() {
+function AuctionRegistration(props) {
+
+    const [selectComponent, setSelectComponent] = useState(1);
+    const [selectProducts, setSelectProducts] = useState("");
+    const [RecommenderData, setRecommender] = useState("");
+
+    const listComponent = [
+        { name: "علاقه‌مندی‌ها", value: 1 },
+        { name: "مقادیر", value: 2 },
+        { name: "معرف", value: 3 },
+        { name: "قرارداد", value: 4 },
+    ]
+
+
     return (
         <>
             <div className="container bg-white">
-                <AccountHeader backAuction={"/auctions/details"}  titlePage={"عضویت در حراج"} />
+                <AccountHeader backAuction={"/auctions/details"} titlePage={"عضویت در حراج"} />
                 <div className="sidebar-body mrgt30" id="auction-register">
-                    <ul className="sidebar-filterlist">
-                        <li className="complete"><Link to="/auction-registration/Personalinfo">اطلاعات فردی
-                        {/* <span>تکمیل شده</span> */}
-                        </Link></li>
-                        <li className="inprogress"><Link to="/auction-registration/financialinfo">اطلاعات مالی
-                        {/* <span>در حال تکمیل</span> */}
-                        </Link></li>
-                        <li><Link to="/auction-registration/favorite">علاقه‌مندی‌ها<span></span></Link></li>
-                        <li><Link to="/auction-registration/values">مقادیر<span></span></Link></li>
-                        <li><Link to="/auction-registration/introduce">معرف<span></span></Link></li>
-                        <li><Link to="/auction-registration/document">سایر مدارک<span></span></Link></li>
-                        <li><Link to="/auction-registration/contract">قرارداد<span></span></Link></li>
-                    </ul>
-                    <button type="button" className="btn-main">ثبت</button>
+                    <div className="row">
+                        <div className="wizard">
+                            <ul className="wizard-list">
+                                {
+                                    listComponent.map((item, i) => <li key={i} className={selectComponent === item?.value && "current"}>
+                                        <span className="d-none d-md-inline-block"> {item?.name}</span>
+                                        <span className="wizard-mobile d-md-none"> {item?.name}</span>
+                                    </li>)
+                                }
+                            </ul>
+                        </div>
+                    </div>
                 </div>
+
+                {selectComponent === 1 && <AuctionRegistrationFavorite
+                    setSelectComponent={setSelectComponent}
+                    selectComponent={selectComponent}
+                    setSelectProducts={setSelectProducts}
+                    id={props.id} />}
+                {selectComponent === 2 && <AuctionRegistrationValue
+                    setSelectComponent={setSelectComponent}
+                    selectComponent={selectComponent}
+                    selectProducts={selectProducts}
+                />}
+                {selectComponent === 3 && <AuctionRegistrationIntroduce
+                    setSelectComponent={setSelectComponent}
+                    selectComponent={selectComponent}
+                    setRecommender={setRecommender}
+                />}
+                {selectComponent === 4 && <AuctionRegistrationContract
+                    setSelectComponent={setSelectComponent}
+                    selectComponent={selectComponent}
+                    selectProducts={selectProducts}
+                    RecommenderData={RecommenderData}
+                    id={props.id}
+                />}
             </div>
-            <Footer/>
+            <Footer />
         </>
     )
 }

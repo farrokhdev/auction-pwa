@@ -8,6 +8,7 @@ import storage from 'redux-persist/lib/storage';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import auctionReducer from "./reducers/auction/auction.reducer";
 import allReducer from "./reducers/all/all.reducer";
+import discoverReducer from "./reducers/discover/discover.reducer";
 
 const middleware = [thunk];
 const persistConfig = {
@@ -18,8 +19,9 @@ const persistedReducer = persistReducer(persistConfig, combineReducers({
     authReducer,
     profileReducer,
     auctionReducer,
-    allReducer
-    // panelReducer
+    allReducer , 
+    discoverReducer , 
+
 }));
 let store = createStore(
     persistedReducer,

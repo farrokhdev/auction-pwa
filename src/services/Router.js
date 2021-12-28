@@ -1,5 +1,5 @@
-import React from 'react'
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Redirect, Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 import NotFound from '../components/not-found'
 import Account from '../Views/Account/Account'
 import AccountChangepassword from '../Views/Account/AccountChangePassword/AccountChangepassword'
@@ -11,17 +11,11 @@ import MyProfileEmailverify from '../Views/Account/MyProfile/MyProfileEmailverif
 import MyProfilePhoneverifyCode from '../Views/Account/MyProfile/MyProfilePhoneverifyCode'
 import AccountWallet from '../Views/Account/AccountWallet/AccountWallet'
 import AccountWonItem from '../Views/Account/AccountWonItem/AccountWonItem'
-import AuctionRegistration from '../Views/AuctionRegistration/AuctionRegistration'
+import BuyerRegister from '../Views/AuctionRegistration/BuyerRegister';
 import Discover from '../Views/Discover/Discover'
 import MyBids from '../Views/MyBids/MyBids'
 import Favorite from '../Views/Favorite/Favorite'
-import AuctionRegistrationPersonalinfo from '../Views/AuctionRegistration/AuctionRegistrationPersonalinfo/AuctionRegistrationPersonalinfo'
 import AuctionRegistrationFinancialinfo from '../Views/AuctionRegistration/AuctionRegistrationFinancialinfo/AuctionRegistrationFinancialinfo'
-import AuctionRegistrationFavorite from '../Views/AuctionRegistration/AuctionRegistrationFavorite/AuctionRegistrationFavorite'
-import AuctionRegistrationValue from '../Views/AuctionRegistration/AuctionRegistrationValue/AuctionRegistrationValue'
-import AuctionRegistrationIntroduce from '../Views/AuctionRegistration/AuctionRegistrationIntroduce/AuctionRegistrationIntroduce'
-import AuctionRegistrationOtherdDocuments from '../Views/AuctionRegistration/AuctionRegistrationOtherdDocuments/AuctionRegistrationOtherdDocuments'
-import AuctionRegistrationContract from '../Views/AuctionRegistration/AuctionRegistrationContract/AuctionRegistrationContract'
 import Auctions from '../Views/Auctions/Auctions'
 import OneArtworkAuctions from '../Views/Auctions/OneArtworkAuctions/OneArtworkAuctions'
 import AuctionsDetails from '../Views/Auctions/AuctionsDetails/AuctionsDetails'
@@ -31,91 +25,159 @@ import PasswordRecovery from '../Views/Auth/PasswordRecovery'
 import VerificationCode from '../Views/Auth/VerificationCode'
 import ConfirmMobileNumber from '../Views/Auth/ConfirmMobileNumber'
 import RegistersetPassword from '../Views/Auth/RegistersetPassword'
+import { connect, useSelector, useDispatch } from 'react-redux';
+// import { getProfile } from '../redux/reducers/profile/profile.actions'
+import FiltersSearchDiscover from '../Views/Discover/FiltersSearchDiscover'
+import Locations from '../Views/Discover/Locations'
+import Categories from '../Views/Discover/Categories'
+import HouseAuctions from '../Views/Discover/HouseAuctions'
+import Types from '../Views/Discover/AuctionType'
+import {getTokenObject} from "../utils/utils";
+import {clearStorageAll} from "../redux/reducers/all/all.actions";
 
-const RouterConfig = () => {
+const RouterConfig = (props) => {
+
+    let token = getTokenObject()
+    const dispatch = useDispatch();
+    if(token === undefined && props.auth.is_logged_in) {
+        dispatch(clearStorageAll())
+    }
+
     return (
-        <Router>
+        <Router >
             <Switch>
+
+                {/* Authentication */}
                 <Route path="/auth"
-                    render={({ match: { url } }) => (
-                        <>
-                            <Route path={`${url}/login`} component={() => <Login />} />
-                            <Route path={`${url}/sign-up`} component={() => <SignUp />} />
-                            <Route path={`${url}/password-recovery`} component={() => <PasswordRecovery />} />
-                            <Route path={`${url}/verification-code`} component={() => <VerificationCode />} />
-                            <Route path={`${url}/confirm-mobile-number`} component={() => <ConfirmMobileNumber />} />
-                            <Route path={`${url}/register-set-password`} component={() => <RegistersetPassword />} />
-                        </>
-                    )} />
+                          render={({ match: { url } }) => (
+                              !props.auth.is_logged_in ?
+                              <>
+                                  <Route path={`${url}/login`} component={() => <Login />} />
+                                  <Route path={`${url}/sign-up`} component={() => <SignUp />} />
+                                  <Route path={`${url}/password-recovery`} component={() => <PasswordRecovery />} />
+                                  <Route path={`${url}/verification-code`} component={() => <VerificationCode />} />
+                                  <Route path={`${url}/confirm-mobile-number`} component={() => <ConfirmMobileNumber />} />
+                                  <Route path={`${url}/register-set-password`} component={() => <RegistersetPassword />} />
+                              </>
+                                  :
+                                  <Redirect to="/auctions" />
+                          )}
+                    />
 
-                <Route path="/account"
-                    render={({ match: { url } }) => (
-                        <>
-                            <Route exact path={`${url}/`} component={() => <Account />} />
-                            <Route exact path={`${url}/change-password`} component={() => <AccountChangepassword />} />
-                            <Route exact path={`${url}/messages`} component={() => <AccountMessages />} />
-                            <Route exact path={`${url}/ticket-detail`} component={() => <AccountMessagesTicketDetail />} />
-                            <Route exact path={`${url}/my-auctions`} component={() => <AccountMyAuctions />} />
-                            <Route exact path={`${url}/my-profile`} component={() => <MyAccountProfile />} />
-                            <Route exact path={`${url}/verify-email`} component={() => <MyProfileEmailverify />} />
-                            <Route exact path={`${url}/verify-phone`} component={() => <MyProfilePhoneverifyCode />} />
-                            <Route exact path={`${url}/wallet`} component={() => <AccountWallet />} />
-                            <Route exact path={`${url}/won-item`} component={() => <AccountWonItem />} />
+                {/* Logged in */}
 
-                        </>
-                    )} />
+                {props.auth.is_logged_in ?
 
-                <Route path="/auction-registration"
-                    render={({ match: { url } }) => (
-                        <>
-                            <Route exact path={`${url}/`} component={() => <AuctionRegistration />} />
-                            <Route exact path={`${url}/Personalinfo`} component={() => <AuctionRegistrationPersonalinfo />} />
-                            <Route exact path={`${url}/financialinfo`} component={() => <AuctionRegistrationFinancialinfo />} />
-                            <Route exact path={`${url}/favorite`} component={() => <AuctionRegistrationFavorite />} />
-                            <Route exact path={`${url}/values`} component={() => <AuctionRegistrationValue />} />
-                            <Route exact path={`${url}/introduce`} component={() => <AuctionRegistrationIntroduce />} />
-                            <Route exact path={`${url}/document`} component={() => <AuctionRegistrationOtherdDocuments />} />
-                            <Route exact path={`${url}/contract`} component={() => <AuctionRegistrationContract />} />
+                    <>
 
-                        </>
-                    )} />
+                        {/* Home */}
 
-                <Route path="/auctions"
-                    render={({ match: { url } }) => (
-                        <>
-                            <Route exact path={`${url}/`} component={() => <Auctions />} />
-                            <Route exact path={`${url}/one-artwork`} component={() => <OneArtworkAuctions />} />
-                            <Route exact path={`${url}/details`} component={() => <AuctionsDetails />} />
-                        </>
-                    )} />
+                        <Route exact path="/">
+                            {<Redirect to="/auctions" />}
+                        </Route>
 
-                <Route path="/discover"
-                    render={({ match: { url } }) => (
-                        <>
-                            <Route exact path={`${url}/`} component={() => <Discover />} />
+                        {/* My Account Profile */}
 
-                        </>
-                    )} />
+                        <Route path="/account"
+                            render={({ match: { url } }) => (
+                                <>
+                                    <Route exact path={`${url}/`} component={() => <Account />} />
+                                    <Route exact path={`${url}/change-password`} component={() => <AccountChangepassword />} />
+                                    <Route exact path={`${url}/messages`} component={() => <AccountMessages />} />
+                                    <Route exact path={`${url}/ticket-detail`} component={() => <AccountMessagesTicketDetail />} />
+                                    <Route exact path={`${url}/my-auctions`} component={() => <AccountMyAuctions />} />
+                                    <Route exact path={`${url}/my-profile`} component={() => <MyAccountProfile />} />
+                                    <Route exact path={`${url}/verify-email`} component={() => <MyProfileEmailverify />} />
+                                    <Route exact path={`${url}/verify-phone`} component={() => <MyProfilePhoneverifyCode />} />
+                                    <Route exact path={`${url}/wallet`} component={() => <AccountWallet />} />
+                                    <Route exact path={`${url}/won-item`} component={() => <AccountWonItem />} />
+                                    <Route exact path={`${url}/financialinfo`} component={(p) => <AuctionRegistrationFinancialinfo />} />
 
-                <Route path="/bids"
-                    render={({ match: { url } }) => (
-                        <>
-                            <Route exact path={`${url}/`} component={() => <MyBids />} />
+                                </>
+                            )}
+                        />
 
-                        </>
-                    )} />
-                <Route path="/favorite"
-                    render={({ match: { url } }) => (
-                        <>
-                            <Route exact path={`${url}/`} component={() => <Favorite />} />
+                        {/* Auction Registration */}
 
-                        </>
-                    )} />
-                <Route path={`*`} component={() => <NotFound />} />
+                        <Route path="/auction-registration"
+                            render={({ match: { url } }) => (
+                                <>
+                                    <Route exact path={`${url}/:id`} component={(p) => <BuyerRegister {...p} />} />
+
+                                </>
+                            )}
+                        />
+
+                        {/* Auctions */}
+
+                        <Route path="/auctions"
+                            render={({ match: { url } }) => (
+                                <>
+                                    <Route exact path={`${url}/`} component={() => <Auctions />} />
+                                    <Route exact path={`${url}/one-artwork/:id`} component={(p) => <OneArtworkAuctions {...p} />} />
+                                    <Route exact path={`${url}/details/:id`} component={(p) => <AuctionsDetails {...p} />} />
+                                </>
+                            )}
+                        />
+
+                        {/* Search Discover */}
+
+                        <Route path="/discover"
+                            render={({ match: { url } }) => (
+                                <>
+                                    <Route exact path={`${url}/`} component={() => <Discover />} />
+                                    <Route exact path={`${url}/filters`} component={() => <FiltersSearchDiscover />} />
+                                    <Route exact path={`${url}/locations`} component={() => <Locations />} />
+                                    <Route exact path={`${url}/categories`} component={() => <Categories />} />
+                                    <Route exact path={`${url}/houseAuctions`} component={() => <HouseAuctions />} />
+                                    <Route exact path={`${url}/types`} component={() => <Types />} />
+
+                                </>
+                            )}
+                        />
+
+                        {/* My Bids */}
+
+                        <Route path="/bids"
+                            render={({ match: { url } }) => (
+                                <>
+                                    <Route exact path={`${url}/`} component={() => <MyBids />} />
+
+                                </>
+                            )}
+                        />
+
+                        {/* Favorits */}
+
+                        <Route path="/favorite"
+                            render={({ match: { url } }) => (
+                                <>
+                                    <Route exact path={`${url}/`} component={() => <Favorite />} />
+
+                                </>
+                            )}
+                        />
+
+                        {/* Page Not Found */}
+
+                        {/* <Route path={`*`} component={() => <NotFound />} /> */}
+
+
+                    </>
+                    :
+
+                    <Redirect to={{ pathname: "/auth/login" }} />}
+
             </Switch>
 
         </Router>
     )
 }
 
-export default RouterConfig;
+const mapStateToProps = (store) => {
+    return {
+        auth: store.authReducer,
+    }
+}
+
+export default connect(mapStateToProps, null)(RouterConfig)

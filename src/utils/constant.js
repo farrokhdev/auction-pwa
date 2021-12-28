@@ -1,29 +1,62 @@
 module.exports={
+
+    // ----------- Search ----------
+    SEARCH_DISCOVER : "/sale/search/",
+
+    // ------- Account/Profile  -------
     EDIT_PROFILE:"/account/profile/",
     CHANGE_PASSWORD:"/account/change-password/",
     ACCOUNT_APPROVE:"/account/approve/",
     ACCOUNT_BANK_INFO:"/accounting/bankprofile/",
+    ACCOUNT_WALLET:"/accounting/wallet/me/",
+    LIST_MY_WON_PERCHACE : `/sale/product/me/`,
+    ACCOUNT_BANK_Edit:id=>`/accounting/bankprofile/${id}/`,
+    ACCOUNT_MESSAGES_BOX : `/messaging/inbox/`,
+    ACCOUNT_MESSAGE_DETAIL :`/messaging/inbox/`,
+    ACCOUNT_TICKET_BOX : `/ticketing/`,
+    ACCOUNT_TICKET_DETAIL : id => `/ticketing/${id}/`,
+    ACCOUNT_TICKET_REPLY : id =>  `/ticketing/${id}/reply/`,
+    ACCOUNT_CLOSE_TICKET : id =>  `/ticketing/${id}/close/`,
+    CATEGORY_TICKET : `/ticketing/category/`,
+    CREATE_NEW_TICKET : `/ticketing/`,
+    ACCOUNT_LOGIN : `/account/login/`,
+
+    
+
+    // ------ Products -------
     LIST_PRODUCTS:"/sale/product/",
     ONE_PRODUCT:id=> `/sale/product/${id}/`,
     LIST_PRODUCTS_MATCHED : id=> `/notification/auction-reminders/${id}/matched-products/`,
+
+    // -------- Auctions -------
     LIST_AUCTIONS:"/sale/auctions/",
     DELETE_AUCTION:id=>`/sale/auctions/${id}/`,
     EDIT_AUCTION:id=>`/sale/auctions/${id}/`,
     JOIN_AUCTION:"/sale/join-auction/",
-    ACCOUNT_WALLET:"/accounting/wallet/me/",
-    TRANSACTION:"/accounting/transaction/",
-    ACCOUNT_BANK_Edit:id=>`/accounting/bankprofile/${id}/`,
-    HOME_AUCITONS:"/account/home-auction/",
-    CATEGORIE_ACTIVITY:"/sale/category/",
-    ADD_AUCTION:"/sale/auctions/",
     DETAIL_AUCTION:id=>`/sale/auctions/${id}/`,
+    HOME_AUCITONS:"/account/home-auction/",
+    ADD_AUCTION:"/sale/auctions/",
     SEND_REQUEST_HOUMEAUCTION:"/account/request/me/",
-    PRE_UPLOAD : "/core/upload/",
+    TRANSACTION:"/accounting/transaction/",
+    CATEGORIE_ACTIVITY:"/sale/category/",
+
+    // -------- Uploads -------
+    UPLOAD_EXEL_AUCTION:name=>`/sale/upload/${name}/`,
     UPLOAD : "/core/media/photos/",
+    PRE_UPLOAD : "/core/upload/",
+
+
+    // -------- Reminders ---------
     LIST_REMINDERS : '/notification/auction-reminders/' , 
     DELETE_REMINDER : id => `/notification/auction-reminders/${id}/` , 
-    UPLOAD_EXEL_AUCTION:name=>`/sale/upload/${name}/`,
+
+    // -------- Refresh Token --------
     REFRESH_TOKEN:`/account/token/refresh/`,
+
+    // -------- Bids -----
+    BID:`/bidding/`,
+    WEB_SOCKET_BID: id => `/price/${id}`,
+
 
 }
 

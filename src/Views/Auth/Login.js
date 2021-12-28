@@ -25,6 +25,11 @@ function Login(props) {
     authService.login(userName, password)
       .then(
         resp => {
+          if (resp?.response?.data?.code === 401) {
+            message.error(resp?.response?.data?.message)
+          } else if (resp.status !== 200) {
+            message.error(resp?.response?.data?.data?.error_message[0])
+          }
           // console.log("token =>", resp.data.data.result);
           if (resp.data.code === 200) {
             setToken(resp.data.data.result);
@@ -38,8 +43,7 @@ function Login(props) {
         }
       )
       .catch(err => {
-        message.error("کاربری با این مشخصات یافت نشد")
-        console.log("error message", err);
+        console.log("error message", err?.response?.data.data?.error_message);
       })
 
   }
@@ -50,21 +54,21 @@ function Login(props) {
     console.log("Sign Up", response);
 
     let payload = {
-      "access_token": response.tokenObj.access_token
+      // "access_token": response.tokenObj.access_token
     }
 
-    console.log("Ehsan", payload)
-    axios.post(`${BASE_URL}/rest-auth/google/`, payload).then(res => {
-      setToken(res.data.data.result)
-      message.success("به اسمارت آکشن خوش آمدید")
-      setTimeout(() => {
-        window.location.href = "/account"
-      }, 500);
-    })
-      .catch(err => {
-        message.error("کاربری با این مشخصات یافت نشد")
-        console.log(err)
-      })
+    // console.log("Ehsan", payload)
+    // axios.post(`${BASE_URL}/rest-auth/google/`, payload).then(res => {
+    //   setToken(res.data.data.result)
+    //   message.success("به اسمارت آکشن خوش آمدید")
+    //   setTimeout(() => {
+    //     window.location.href = "/account"
+    //   }, 500);
+    // })
+    //   .catch(err => {
+    //     message.error("کاربری با این مشخصات یافت نشد")
+    //     console.log(err)
+    //   })
 
   }
 
@@ -115,7 +119,7 @@ function Login(props) {
                   message: "حداقل 8 کارکتر مورد نیاز است",
                 }
               ]}>
-              <Input className="default-input"
+              <Input.Password className="default-input"
                 type="password"
                 onChange={(e) => {
                   setPassword(e.target.value);
@@ -132,11 +136,11 @@ function Login(props) {
               </button>
             </div>
 
-            <div class="s-footer-block ">
-              <div class="or-divider">
+            <div className="s-footer-block ">
+              <div className="or-divider">
                 <span> یا </span>
               </div>
-              <GoogleLogin
+              {/* <GoogleLogin
                 className="btn-google-login btn-google mt-5"
                 clientId="204714783619-coki1sldsv5iev552dcmtcpfj1sn77sg.apps.googleusercontent.com"
                 buttonText=" ورود با گوگل"
@@ -144,7 +148,7 @@ function Login(props) {
                 onFailure={responseGoogle}
                 cookiePolicy={'single_host_origin'}
 
-              />
+              /> */}
             </div>
             <div className="l-footer-block">
               <div className="form-check">

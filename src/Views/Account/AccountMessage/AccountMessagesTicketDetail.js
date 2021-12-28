@@ -1,6 +1,7 @@
-import React from 'react'
+import React,{useState} from 'react'
 import AccountHeader from '../../../components/AccountHeader'
 import avatar from '../../../assets/img/avatar.jpg';
+import UserMessagesTicketDetails from './UserMessagesTicketDetails';
 
 function AccountMessagesTicketDetail() {
 
@@ -10,7 +11,9 @@ function AccountMessagesTicketDetail() {
             <div className="container bg-white">
 
                 <AccountHeader linkBack={"/account/messages"} titlePage={"تیکت"} />
-                <div className="main-content" id="Ticket-detail">
+                <div className="main-content" id="Ticket-detail"> 
+            
+                    {/* <UserMessagesTicketDetails /> */}
                     <div className="ticket-block">
                         <div className="d-flex flex-between">
                             <div className="img-block flex-start">
@@ -71,7 +74,7 @@ function AccountMessagesTicketDetail() {
                 </div>
             </div>
             <footer>
-                <div class="input-group send-txt">
+                <div className="input-group send-txt">
                     <input type="text" className="default-input" placeholder="متن خود را اینجا بنویسید." />
                     <button type="button" className="btn-send"><i className="fal fa-chevron-circle-right"></i></button>
                 </div>

@@ -1,0 +1,4 @@
+export default {
+    SET_FILTER_QUERIES : 'SET_FILTER_QUERIES' , 
+    CLEAR_FILTERS : "CLEAR_FILTERS" 
+}
