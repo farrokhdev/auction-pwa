@@ -55,6 +55,7 @@ module.exports={
 
     // -------- Bids -----
     BID:`/bidding/`,
+    WEB_SOCKET_BID: id => `/price/${id}`,
 
 
 }

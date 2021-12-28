@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
 
-function Products(props) {
+function Products({product ,addBookmark}) {
     let numeral = require('numeral');
 
     return (
         <>
             {
-                props.product.map((item, key) => {
+                product.map((item, key) => {
                     return (
                         <div className="fw-block" key={key}>
 
@@ -18,8 +18,8 @@ function Products(props) {
                                         <Link to={`/auctions/one-artwork/${item?.id}`}>
                                             <img
                                                 style={{
-                                                    backgroundImage: `url(${item?.media?.exact_url ?
-                                                        item?.media?.exact_url : ""})`, height: "10rem"
+                                                    backgroundImage: `url(${item?.media[0]?.exact_url ?
+                                                        item?.media[0]?.exact_url : ""})`, height: "10rem"
                                                 }}
                                                 className="img-fluid image-custom-back"
                                             />
@@ -35,7 +35,7 @@ function Products(props) {
                                         <div className="flex-col">
                                             <button
                                                 onClick={() =>
-                                                    props.addBookmark(
+                                                    addBookmark(
                                                         item?.following?.bookmark?.is_active ?
                                                             item?.following?.bookmark?.id :
                                                             item?.id, item?.following?.bookmark?.is_active)

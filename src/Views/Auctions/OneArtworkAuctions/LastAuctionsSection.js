@@ -78,7 +78,7 @@ function LastAuctionsSection(props) {
                                 <div className=" " key={key}>
                                     <div className="artwork-img">
 
-                                        <img src={item?.media.exact_url} width="998" height="880" alt=""
+                                        <img src={item?.media[0]?.exact_url} width="998" height="880" alt=""
                                             className="img-fluid px-1" />
 
 

@@ -13,25 +13,30 @@ import { DatePicker as DatePickerJalali } from "antd-jalali";
 import fa_IR from "antd/lib/locale/fa_IR";
 import moment from "jalali-moment";
 import { AuctionType } from '../../utils/converTypePersion';
+import PaginationComponent from '../../components/PaginationComponent';
 
 function SpecialAuctions(props) {
 
     const [Auctions, setAuctions] = useState("");
     const [countAuctions, setCountAuctions] = useState(0)
     const [loading, setLoading] = useState(false)
-    const [queryparams, setqueryParams] = useState({
+    const [params, setParams] = useState({
         page: 1,
         page_size: 9,
         search: '',
         category: [],
         date_after: '',
         date_before: '',
-        ordering: '',
-        auction_houses__home_auction_name: [],
+        ordering: '-creation_time',
+        home_auction_name: [],
         type: [],
+        visible_in_site: true,
+        status: []
     })
-    const queries = queryString.stringify(queryparams);
+    const queries = queryString.stringify(params);
 
+
+    console.log("countAuctions==>", countAuctions)
     let getProducts;
     if (props.data === "withoutParams") {
         getProducts = () => {
@@ -55,7 +60,7 @@ function SpecialAuctions(props) {
         getProducts = () => {
 
             setLoading(true)
-            axios.get(`${BASE_URL}/sale/auctions/`)
+            axios.get(`${BASE_URL}/sale/auctions/?${queries}`)
                 .then(resp => {
                     setLoading(false)
                     if (resp.data.code === 200) {
@@ -76,17 +81,17 @@ function SpecialAuctions(props) {
     useEffect(() => {
         getProducts()
 
-    }, [queryparams])
+    }, [params])
 
     const handeSelectPage = (e) => {
-        setqueryParams({
-            ...queryparams, page: e
+        setParams({
+            ...params, page: e
         })
     }
 
     const handleSetDate = (dateFrom, dateTo) => {
-        setqueryParams({
-            ...queryparams,
+        setParams({
+            ...params,
             start_date_before: dateTo ? moment.from(dateTo, 'fa', 'YYYY/MM/DD').locale('en').format('YYYY-MM-DD') : "",
             start_date_after: dateFrom ? moment.from(dateFrom, 'fa', 'YYYY/MM/DD').locale('en').format('YYYY-MM-DD') : "",
         })
@@ -220,20 +225,7 @@ function SpecialAuctions(props) {
                             </div>
                         )
                     }) : ""}
-
-                <Pagination
-                    style={{ direction: 'ltr', textAlign: 'center' }}
-                    showSizeChanger
-                    responsive
-                    onShowSizeChange={(current, pageSize) => {
-                        getProducts(pageSize)
-                    }}
-                    onChange={(e) => handeSelectPage(e)}
-                    defaultCurrent={1}
-                    total={countAuctions}
-                    pageSizeOptions={[9, 18, 36, 48]}
-                    defaultPageSize={9}
-                />
+                <PaginationComponent count={countAuctions} handeSelectPage={handeSelectPage} />
             </Spin>
         </>
     )

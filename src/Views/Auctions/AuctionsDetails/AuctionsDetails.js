@@ -189,8 +189,8 @@ function AuctionsDetails(props) {
                                                 <div className="artwork-img">
                                                     <img 
                                                     style={{
-                                                        backgroundImage: `url(${item?.media?.exact_url ?
-                                                            item?.media?.exact_url : ""})`, height: "9rem" ,width:"12rem"
+                                                        backgroundImage: `url(${item?.media[0]?.exact_url ?
+                                                            item?.media[0]?.exact_url : ""})`, height: "9rem" ,width:"12rem"
                                                     }}
                                                         className="img-fluid image-custom-back"
                                                     // src={item.media.exact_url} 

@@ -947,20 +947,20 @@ p a i {
     position: relative;
 }
 
-.input-group.with-step span {
+.input-group.with-step button {
     position: absolute;
     top: 6px;
 }
 
-.input-group.with-step span i {
+.input-group.with-step button i {
     font-size: 2rem;
 }
 
-.input-group.with-step span:first-child {
+.input-group.with-step button:first-child {
     left: 15px;
 }
 
-.input-group.with-step span:last-child {
+.input-group.with-step button:last-child {
     right: 15px;
 }
 
