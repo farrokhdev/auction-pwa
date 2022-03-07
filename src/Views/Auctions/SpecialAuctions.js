@@ -166,6 +166,8 @@ function SpecialAuctions(props) {
 
                 {
                     Auctions && Auctions?.length >= 1 ? Auctions.map((item) => {
+
+                        console.log(item)
                         return (
                             <div className="fw-block">
 
@@ -176,17 +178,17 @@ function SpecialAuctions(props) {
                                             <div className="col g-0">
 
                                                 
-                                                <img src={pic1thumb} width="493" height="493" alt="Smart Auction"
+                                                <img src={item?.media?.exact_url && item?.media?.exact_url} width="493" height="493" alt="Smart Auction"
                                                     className="img-fluid" />
                                             </div>
-                                            <div className="col g-0">
+                                            {/* <div className="col g-0">
                                                 <img src={pic2thumb} width="880" height="880" alt="Smart Auction"
                                                     className="img-fluid" />
                                             </div>
                                             <div className="col g-0">
                                                 <img src={pic3thumb} width="880" height="880" alt="Smart Auction"
                                                     className="img-fluid" />
-                                            </div>
+                                            </div> */}
 
                                         </div>
                                         <div className="tags-block">
