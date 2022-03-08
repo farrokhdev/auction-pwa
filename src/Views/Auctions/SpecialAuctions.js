@@ -18,8 +18,10 @@ import PaginationComponent from '../../components/PaginationComponent';
 function SpecialAuctions(props) {
 
     const [Auctions, setAuctions] = useState("");
+
     const [countAuctions, setCountAuctions] = useState(0)
     const [loading, setLoading] = useState(false)
+    const [date, setDate] = useState([])
     const [params, setParams] = useState({
         page: 1,
         page_size: 9,
@@ -33,6 +35,14 @@ function SpecialAuctions(props) {
         visible_in_site: true,
         status: []
     })
+
+
+
+
+
+
+
+
     const queries = queryString.stringify(params);
 
 
@@ -46,6 +56,7 @@ function SpecialAuctions(props) {
                 .then(resp => {
                     setLoading(false)
                     if (resp.data.code === 200) {
+
                         setAuctions(resp.data.data.result)
                         setCountAuctions(resp.data.data.count)
                     }
@@ -75,6 +86,8 @@ function SpecialAuctions(props) {
                 })
         }
     }
+
+    console.log(Auctions)
 
 
 
@@ -153,6 +166,8 @@ function SpecialAuctions(props) {
 
                 {
                     Auctions && Auctions?.length >= 1 ? Auctions.map((item) => {
+
+                        console.log(item)
                         return (
                             <div className="fw-block">
 
@@ -161,17 +176,19 @@ function SpecialAuctions(props) {
                                     <div className="img-block">
                                         <div className="row">
                                             <div className="col g-0">
-                                                <img src={pic1thumb} width="493" height="493" alt="Smart Auction"
+
+                                                
+                                                <img src={item?.media?.exact_url && item?.media?.exact_url} style={{width:"400px",height:"400px",objectFit:"cover",objectPosition:"center"}} alt="Smart Auction"
                                                     className="img-fluid" />
                                             </div>
-                                            <div className="col g-0">
+                                            {/* <div className="col g-0">
                                                 <img src={pic2thumb} width="880" height="880" alt="Smart Auction"
                                                     className="img-fluid" />
                                             </div>
                                             <div className="col g-0">
                                                 <img src={pic3thumb} width="880" height="880" alt="Smart Auction"
                                                     className="img-fluid" />
-                                            </div>
+                                            </div> */}
 
                                         </div>
                                         <div className="tags-block">

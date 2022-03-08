@@ -66,7 +66,7 @@ function ModalCreateNewTicket(props) {
                     name="control-ref" 
                     onFinish={onFinish}>
                     <div className="modal-body">
-                        <div className="">
+                        {/* <div className="">
                             <label className="default-lable">دسته‌بندی</label>
                             <Form.Item                   
                                 name="category"
@@ -86,7 +86,7 @@ function ModalCreateNewTicket(props) {
                 
                                     </Select>
                             </Form.Item>
-                        </div>
+                        </div> */}
 
                         <div className="">
                             <label className="default-lable">عنوان</label>

@@ -4,6 +4,7 @@ import axios from '../../utils/request';
 import { BASE_URL } from '../../utils';
 import { AuctionType } from '../../utils/converTypePersion';
 import moment from 'jalali-moment';
+import Timer from 'react-compound-timer/build';
 
 function ArtworkItem() {
 
@@ -58,6 +59,9 @@ function ArtworkItem() {
         }
     }
 
+
+    console.log(ArtworkList )
+
     return (
         <>
             <Spin spinning={loading}>
@@ -69,10 +73,7 @@ function ArtworkItem() {
                                 <div className="col-4 col-lg-2">
                                     <div className="img-block">
                                         <img
-                                            style={{
-                                                backgroundImage: `url(${item?.media?.exact_url ?
-                                                    item?.media?.exact_url : ""})`, height: "8rem"
-                                            }}
+                                            src={`${item?.media[0]?.exact_url ? item?.media[0]?.exact_url  : ""}`}
                                             className="img-fluid image-custom-back"/>
                                         <div className="tags-block">
                                             <div className="auction-category online">{AuctionType(item?.latest_auction?.type)}</div>
@@ -100,6 +101,31 @@ function ArtworkItem() {
                                     </div>
                                     <div className="flex-between align-items-baseline mrgt20 mrgb5">
                                         <div className="auction-calender">
+
+
+
+                                        {/* <span className="auction-date"> {item.status == "CLOSED" ?
+                                            <div className="ended">
+                                                <div className="text">حراج به پایان رسید</div>
+                                            </div>
+                                            :
+                                            <Timer
+                                                initialTime={timeExpire(item.end_time)}
+                                                direction="backward"
+                                            >
+                                                {() => (
+                                                    <div style={{
+                                                        direction: 'ltr',
+                                                        textAlign: "right"
+                                                    }}>
+                                                        <Timer.Days /> :
+                                                        <Timer.Hours /> :
+                                                        <Timer.Minutes /> :
+                                                        <Timer.Seconds />
+                                                    </div>
+                                                )}
+                                            </Timer>
+                                        }</span> */}
                                             <div className="auction-date">
                                                 <span className="start-date">
                                                     {item?.latest_auction?.start_time ? moment(item?.latest_auction?.start_time, 'YYYY/MM/DD').locale('fa').format('DD MMMM') : ""}
