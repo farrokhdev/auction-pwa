@@ -59,6 +59,9 @@ function ArtworkItem() {
         }
     }
 
+
+    console.log(ArtworkList )
+
     return (
         <>
             <Spin spinning={loading}>
@@ -70,10 +73,7 @@ function ArtworkItem() {
                                 <div className="col-4 col-lg-2">
                                     <div className="img-block">
                                         <img
-                                            style={{
-                                                backgroundImage: `url(${item?.media?.exact_url ?
-                                                    item?.media?.exact_url : ""})`, height: "8rem"
-                                            }}
+                                            src={`${item?.media[0]?.exact_url ? item?.media[0]?.exact_url  : ""}`}
                                             className="img-fluid image-custom-back"/>
                                         <div className="tags-block">
                                             <div className="auction-category online">{AuctionType(item?.latest_auction?.type)}</div>

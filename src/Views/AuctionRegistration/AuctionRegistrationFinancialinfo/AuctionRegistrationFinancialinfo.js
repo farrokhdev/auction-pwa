@@ -32,10 +32,10 @@ function AuctionRegistrationFinancialinfo() {
     const updateBankInfo = () => {
         setLoading(true)
         let payload = {
-            "bank_name": infoBank.bank_name,
-            "card_number": infoBank.card_number,
-            "account_number": infoBank.account_number,
-            "sheba_number": infoBank.sheba_number
+            "bank_name": infoBank?.bank_name,
+            "card_number": infoBank?.card_number,
+            "account_number": infoBank?.account_number,
+            "sheba_number": infoBank?.sheba_number
         }
 
         const pattern_Num = /^[\d]{0,26}$/;
@@ -69,13 +69,13 @@ function AuctionRegistrationFinancialinfo() {
             }
         } else {
             if (
-                payload.bank_name.length &&
-                payload.card_number &&
-                pattern_Num.test(payload.card_number) &&
-                payload.account_number.length &&
-                pattern_Num.test(payload.account_number) &&
-                payload.sheba_number.length == 26 &&
-                infoBank.sheba_number.slice(0, 2) === "IR"
+                payload?.bank_name?.length &&
+                payload?.card_number &&
+                pattern_Num?.test(payload?.card_number) &&
+                payload?.account_number?.length &&
+                pattern_Num?.test(payload?.account_number) &&
+                payload?.sheba_number?.length == 26 &&
+                infoBank?.sheba_number.slice(0, 2) === "IR"
             ) {
 
                 axios.post(`${BASE_URL}${ACCOUNT_BANK_INFO}`, payload).then(res => {

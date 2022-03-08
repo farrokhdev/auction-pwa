@@ -186,8 +186,8 @@ class AuthService {
     }
 
     // Search Discover app
-    searchDiscover=(queries)=> {
-        return axios.get(`${BASE_URL}${SEARCH_DISCOVER}?${queries}`)
+    searchDiscover= async(queries)=> {
+        return await axios.get(`${BASE_URL}${SEARCH_DISCOVER}?${queries}`)
             .then(res => {
                 
                 return res

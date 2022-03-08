@@ -178,7 +178,7 @@ function SpecialAuctions(props) {
                                             <div className="col g-0">
 
                                                 
-                                                <img src={item?.media?.exact_url && item?.media?.exact_url} width="493" height="493" alt="Smart Auction"
+                                                <img src={item?.media?.exact_url && item?.media?.exact_url} style={{width:"400px",height:"400px",objectFit:"cover",objectPosition:"center"}} alt="Smart Auction"
                                                     className="img-fluid" />
                                             </div>
                                             {/* <div className="col g-0">

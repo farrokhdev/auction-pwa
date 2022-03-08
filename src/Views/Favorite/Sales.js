@@ -111,8 +111,13 @@ function Sales() {
                                         </div>
                                     </div>
                                     <div className="flex-between align-items-baseline mrgt20 mrgb5">
+                                           <div className="flex-between">
+                                    <div className="flex-col">
+                                        <h5 className="auction-house-name">{item.house}</h5>
+                                    </div>
+                                </div>
                                         <div className="flex-col">
-                                            {item?.status !== "CLOSED" ?
+                                            {item?.status == "CLOSED" ?
                                                 <div className="ended">
                                                     <div className="text-dark">حراج به پایان رسید</div>
                                                 </div>
@@ -132,6 +137,8 @@ function Sales() {
                                                             <Timer.Seconds />
                                                         </div>
                                                     )}
+
+                                                    {console.log(Timer)}
                                                 </Timer>
                                             }
                                         </div>

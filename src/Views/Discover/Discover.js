@@ -53,7 +53,8 @@ function Discover(props) {
             })
     }
     const handleSearch = () => {
-        authService.searchDiscover(queries)
+        setLoading(true)
+         authService.searchDiscover(queries)
             .then((resp) => {
                 setResultSearchAndFilters(resp.data)
                 setLoading(false)
@@ -270,6 +271,9 @@ function Discover(props) {
     }
 
 
+    console.log(resultSearchAndFilters)
+
+
 
     const SearchResults = (data) => {
         console.log("DATA ::: >>> ", data.data.home_auctions);
@@ -343,11 +347,11 @@ function Discover(props) {
 
 
 
-                            <Link to="/discover/filters">
+                            {/* <Link to="/discover/filters">
                                 <button type="button" className="btn-advancesearch">
                                     <i className="far fa-sliders-h"></i>
                                 </button>
-                            </Link>
+                            </Link> */}
 
                         </div>
 
@@ -379,7 +383,7 @@ function Discover(props) {
                         </div>
 
                         <div className="main-content" id="artworks">
-                            {(resultSearchAndFilters?.auctions?.length && resultSearchAndFilters?.products?.length) ? <SearchResults data={resultSearchAndFilters} /> :
+                            {(resultSearchAndFilters?.auctions?.length || resultSearchAndFilters?.products?.length) ? <SearchResults data={resultSearchAndFilters} /> :
                                 <div className="d-flex justify-content-center " >
 
                                     <Empty
@@ -401,6 +405,8 @@ function Discover(props) {
 
 
                 </Spin>
+
+                
 
             </div>
             <Footer />
