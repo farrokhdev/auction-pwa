@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../utils/request';
+import UploadRequest from "../../utils/uploadRequest"
 import { BASE_URL } from '../../utils';
 import { CheckCircleTwoTone, LoadingOutlined } from '@ant-design/icons';
 import { JOIN_AUCTION } from '../../utils/constant';
@@ -29,7 +30,7 @@ function AuctionRegistrationContract(props) {
                     setCoreUpload(resp.data.data.result)
                     setUploading(true)
 
-                    axios.put(resp.data.data.result.upload_url, e.target.files[0])
+                    UploadRequest.put(resp.data.data.result.upload_url, e.target.files[0])
                         .then(resp1 => {
                             if (resp1.status === 200) {
                                 axios.post(`${BASE_URL}/core/media/photos/`, {
