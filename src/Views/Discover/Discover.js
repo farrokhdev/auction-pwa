@@ -31,7 +31,6 @@ function Discover(props) {
     const queries = queryString.stringify(props.discover);
 
 
-
     useEffect(() => {
         getNotification()
     }, [])
@@ -76,6 +75,8 @@ function Discover(props) {
         }
     }
 
+
+ 
 
     useEffect(() => {
         handleSearch()
@@ -231,52 +232,75 @@ function Discover(props) {
                 )
 
             case 'home_auctions':
+              
                 return (
-                    <div></div>
-                    // <div className="row">
-                    //     <div className="col-xl-5 col-3">
-                    //         <div className="h-block-img">
-                    //             <Link to={`/house-acutions/${item?.id}`}>
-                    //                 <img
-                    //                     src={item.media}
-                    //                     width="159" height="159"
-                    //                     alt="smart auction"
-                    //                     className="img-fluid"
-                    //                 />
-                    //             </Link>
-                    //         </div>
-                    //     </div>
-                    //     <div className="col-xl-7 col-9">
-                    //         <div className="h-block-header">
-                    //             <div className="h-block-title">
-                    //                 <h3 className="default">{item?.home_auction_name ? item?.home_auction_name : '---'}</h3>
-                    //                 <h6 className="default">{item?.home_auction_type ? item?.home_auction_type : '---'}</h6>
-                    //             </div>
-                    //             <button type="button" className="btn-follow">دنبال کردن
-                    //             </button>
-                    //         </div>
-                    //         <div className="h-block-info">
-                    //             <a href={item?.phone ? item?.phone : item?.mobile}
-                    //                className="info-tel all-info">{item?.phone ? item?.phone : item?.mobile}</a>
+                    <>
+                    <Link to={`/auctions/details/${item?.id}/`} className="artwork-block">
+                    <div style={{ minHeight: '120px' }} className="fw-block my-3">
+                        <div className="row">
+                            <div className="col-4 col-lg-2">
+                                <div className="img-block image-card-auction">
+                                    <img
+                                        style={{
+                                            backgroundImage: `url(${item?.media ?
+                                                item?.media[1]?.exact_url : ""})`, height: "8rem"
+                                        }}
+                                        className="img-fluid image-custom-back"
+                                    />
+                                    <div className="tags-block">
+                                        <div className={classnames("auction-category", {
+                                            "live": item?.type === 'LIVE',
+                                            "online": item?.type === 'ONLINE',
+                                            "timed": item?.type === 'PERIODIC',
+                                            "firstoffer": item?.type === 'HIDDEN',
+                                            "secondoffer": item?.type === 'SECOND_HIDDEN',
 
-                    //             <address className="all-info">
-                    //                 {item?.home_auction_location?.address ? item?.home_auction_location?.address : '---'}
-                    //             </address>
-                    //         </div>
-                    //     </div>
-                    // </div>
+                                        })} ><p className="mb-0 type-aucition">{convertToEn(item?.type)}</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-8 col-lg-10">
+                                <div className="flex-between">
+                                    <div className="flex-col">
+                                        <h5 className="artist-name">{item?.home_auction_name ? item?.home_auction_name : '---'}</h5>
+                                        
+                                    </div>
+                                    {/* <div className="flex-col">
+                            <button type="button" className="btn-favorite active"></button>
+                          </div> */}
+                                </div>
+                      
+                                <div className="col-xl-7 col-9">
+                          
+                                
+                                <button type="button" className="btn-follow follow_ct_btn">دنبال کردن
+                                </button>
+                    
+                            <div className="h-block-info contact_ct_btn">
+                                <a href={item?.phone ? item?.phone : item?.mobile}
+                                   className="info-tel all-info">{item?.phone ? item?.phone : item?.mobile}</a>
+
+                                <address className="all-info">
+                                    {item?.home_auction_location?.address ? item?.home_auction_location?.address : '---'}
+                                </address>
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                    </div>
+                </Link>
+  
+                    </>
                 )
         }
 
     }
 
 
-    console.log(resultSearchAndFilters)
-
-
+   
 
     const SearchResults = (data) => {
-        console.log("DATA ::: >>> ", data.data.home_auctions);
+        console.log("DATA ::: >>> ", data.data);
         // if (params.object_type === '' && params.search !== "") {
         return (
             <>
@@ -290,13 +314,13 @@ function Discover(props) {
                         SearchType('products', item)
                     )
                 }) : ""}
-                <div className="row row-cols-xl-2 row-cols-1">
+
                     {data.data.home_auctions ? data.data.home_auctions.map(item => {
                         return (
                             SearchType('home_auctions', item)
                         )
                     }) : ""}
-                </div>
+               
             </>
 
         )
@@ -347,11 +371,11 @@ function Discover(props) {
 
 
 
-                            {/* <Link to="/discover/filters">
+                            <Link to="/discover/filters">
                                 <button type="button" className="btn-advancesearch">
                                     <i className="far fa-sliders-h"></i>
                                 </button>
-                            </Link> */}
+                            </Link>
 
                         </div>
 
@@ -383,7 +407,7 @@ function Discover(props) {
                         </div>
 
                         <div className="main-content" id="artworks">
-                            {(resultSearchAndFilters?.auctions?.length || resultSearchAndFilters?.products?.length) ? <SearchResults data={resultSearchAndFilters} /> :
+                            {(resultSearchAndFilters?.auctions?.length && resultSearchAndFilters?.products?.length && resultSearchAndFilters?.home_auctions?.length) ? <SearchResults data={resultSearchAndFilters} /> :
                                 <div className="d-flex justify-content-center " >
 
                                     <Empty
