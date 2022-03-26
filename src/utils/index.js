@@ -19,10 +19,10 @@ const dev = {
   };
   
   const prod = {
-    BASE_URL: "https://api.beta.smartauctionhouse.com/api",
+    BASE_URL: "https://api.smartauctionhouse.com/api",
     // PARAMS:
     COOKIE_EXPIRES: 1,
-    WEB_SOCKET_BASE_URL: "ws://api.beta.smartauctionhouse.com/ws",
+    WEB_SOCKET_BASE_URL: "ws://api.smartauctionhouse.com/ws",
   };
   
   let config = dev;
