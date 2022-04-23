@@ -164,7 +164,6 @@ function SpecialAuctions(props) {
 
         {Auctions && Auctions?.length >= 1
           ? Auctions.map((item) => {
-       
               return (
                 <div className="fw-block">
                   <Link to={`/auctions/details/${item?.id}`}>
@@ -178,7 +177,10 @@ function SpecialAuctions(props) {
                       >
                         {item?.product_media?.map((media_item, k) => {
                           return (
-                            <div className="img-box">
+                            <div
+                              className="img-box"
+                              style={{ width: "130px", height: "130px" }}
+                            >
                               <img
                                 src={
                                   media_item?.exact_url

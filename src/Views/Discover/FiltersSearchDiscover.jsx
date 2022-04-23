@@ -1,28 +1,29 @@
 import React from "react";
 import Footer from "../../components/footer";
-import { Link  , useHistory} from "react-router-dom";
-import { connect } from 'react-redux';
-import { setFilterQueries , clearFilters} from '../../redux/reducers/discover/discover.actions';
+import { Link, useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import {
+  setFilterQueries,
+  clearFilters,
+} from "../../redux/reducers/discover/discover.actions";
 
 function FiltersSearchDiscover(props) {
-
-  const history = useHistory()
+  const history = useHistory();
 
   const handleRemoveFilters = () => {
     props.clearFilters();
-  }
+  };
 
- const handleSetFilters = () => {
-   window.location.href = "/discover"
- }
+  const handleSetFilters = () => {
+    window.location.href = "/discover";
+  };
 
- const handleSetOrdering = (option) => {
-   props.setFilterQueries({...props.discover , ordering : option})
-  // console.log("option -> ",option);
- }
+  const handleSetOrdering = (option) => {
+    props.setFilterQueries({ ...props.discover, ordering: option });
+    // console.log("option -> ",option);
+  };
 
- console.log("discover ->>" , props.discover);
-
+  console.log("discover ->>", props.discover);
 
   return (
     <React.Fragment>
@@ -35,7 +36,11 @@ function FiltersSearchDiscover(props) {
           </button> */}
           <div></div>
           <h3 className="main-title">فیلتر</h3>
-          <button onClick={handleRemoveFilters} type="button" className="btn-erase">
+          <button
+            onClick={handleRemoveFilters}
+            type="button"
+            className="btn-erase"
+          >
             پاک کردن همه
           </button>
         </div>
@@ -46,7 +51,7 @@ function FiltersSearchDiscover(props) {
             </label>
 
             <select
-              onChange={(e)=>handleSetOrdering(e.target.value)}
+              onChange={(e) => handleSetOrdering(e.target.value)}
               className="form-select default-input"
               aria-label="Default select example"
             >
@@ -55,7 +60,6 @@ function FiltersSearchDiscover(props) {
               {/* <option value="2">محبوب‌ترین</option>
               <option value="3">آخرین</option> */}
             </select>
-
           </div>
           <div className="sidebar-filter">
             <h5 className="default-label">
@@ -79,13 +83,13 @@ function FiltersSearchDiscover(props) {
                 </li>
               </Link>
 
-              <Link to="/discover/houseAuctions">
+              {/* <Link to="/discover/houseAuctions">
                 <li id="fl-house">
                   <a href="#">
                     <i className="fal fa-home"></i>خانه حراج<span>1 انتخاب</span>
                   </a>
                 </li>
-              </Link>
+              </Link> */}
 
               <Link to="/discover/types">
                 <li id="fl-type">
@@ -95,7 +99,11 @@ function FiltersSearchDiscover(props) {
                 </li>
               </Link>
             </ul>
-            <button onClick={handleSetFilters} type="button" className="btn-main ">
+            <button
+              onClick={handleSetFilters}
+              type="button"
+              className="btn-main "
+            >
               نمایش نتایج
             </button>
           </div>
@@ -107,21 +115,20 @@ function FiltersSearchDiscover(props) {
   );
 }
 
-
-
-
 const mapDispatchToProps = (dispatch) => {
   return {
     setFilterQueries: (data) => dispatch(setFilterQueries(data)),
     clearFilters: () => dispatch(clearFilters()),
-  }
-}
+  };
+};
 
 const mapStateToProps = (store) => {
   return {
-    discover: store.discoverReducer
-  }
-}
+    discover: store.discoverReducer,
+  };
+};
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(FiltersSearchDiscover)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FiltersSearchDiscover);
