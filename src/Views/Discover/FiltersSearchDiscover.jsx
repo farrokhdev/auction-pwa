@@ -94,7 +94,8 @@ function FiltersSearchDiscover(props) {
               <Link to="/discover/types">
                 <li id="fl-type">
                   <a href="#">
-                    <i className="fal fa-map-marker-alt"></i>نوع<span>همه</span>
+                    <i className="fal fa-map-marker-alt"></i>حراج
+                    <span>همه</span>
                   </a>
                 </li>
               </Link>

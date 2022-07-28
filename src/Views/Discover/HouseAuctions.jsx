@@ -1,45 +1,48 @@
-import React , {useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "../../components/footer";
-import {useHistory} from 'react-router-dom'
-import { connect } from 'react-redux';
-import { setFilterQueries, clearFilters } from '../../redux/reducers/discover/discover.actions'
+import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import {
+  setFilterQueries,
+  clearFilters,
+} from "../../redux/reducers/discover/discover.actions";
 import authService from "../../services/auth.service";
 
 function HouseAuctions(props) {
-    const history = useHistory()
+  const history = useHistory();
 
-const [houseAuctionList, setHouseAuctionList] = useState([])
+  const [houseAuctionList, setHouseAuctionList] = useState([]);
 
+  useEffect(() => {
+    getListHouseAuctions();
+  }, []);
 
-    useEffect(() => {
-      getListHouseAuctions();
-    }, [])
+  const getListHouseAuctions = () => {
+    authService
+      .getListHouseAuctions()
+      .then((resp) => {
+        setHouseAuctionList(resp.data.data.result);
+      })
+      .catch((err) => {
+        console.error(err.response);
+      });
+  };
 
+  const handleSetCategory = (value) => {
+    props.setFilterQueries({ ...props.discover, home_auction: value });
+  };
 
-    const getListHouseAuctions = () => {
-      authService.getListHouseAuctions()
-        .then((resp) => {
-          setHouseAuctionList(resp.data.data.result)
-        })
-        .catch((err) => {
-          console.error(err.response);
-        });
-    };
+  console.log("** categories ** ---->>>>> ", props.discover.home_auction);
 
-
-    const handleSetCategory = (value) => {    
-      props.setFilterQueries({...props.discover , home_auction : value});
-    }
-
-
-    console.log("** categories ** ---->>>>> " , props.discover.home_auction);
-    
-    
   return (
     <React.Fragment>
       <div className="container" id="filterside-fl-house">
         <div className="sidebar-header">
-          <button onClick={()=>history.goBack()} type="button" className="btn-back">
+          <button
+            onClick={() => history.goBack()}
+            type="button"
+            className="btn-back"
+          >
             <i className="fal fa-chevron-left"></i>
           </button>
           <div className="input-group search">
@@ -51,10 +54,7 @@ const [houseAuctionList, setHouseAuctionList] = useState([])
           </div>
         </div>
         <div className="main-list">
-
-          
-
-        {houseAuctionList?.map(item => (
+          {/* {houseAuctionList?.map(item => (
 
             <div key={item?.id} className="form-check">
               <input
@@ -79,11 +79,7 @@ const [houseAuctionList, setHouseAuctionList] = useState([])
       </div>
 
       ))}
-
-
-
-
-
+ */}
 
           {/* <div className="form-check">
             <input
@@ -108,7 +104,6 @@ const [houseAuctionList, setHouseAuctionList] = useState([])
             </label>
           </div>
  */}
-
         </div>
       </div>
 
@@ -121,14 +116,13 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setFilterQueries: (data) => dispatch(setFilterQueries(data)),
     clearFilters: () => dispatch(clearFilters()),
-  }
-}
+  };
+};
 
 const mapStateToProps = (store) => {
   return {
-    discover: store.discoverReducer
-  }
-}
+    discover: store.discoverReducer,
+  };
+};
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(HouseAuctions)
+export default connect(mapStateToProps, mapDispatchToProps)(HouseAuctions);
